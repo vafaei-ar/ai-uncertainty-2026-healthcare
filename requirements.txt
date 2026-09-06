@@ -1,6 +1,9 @@
-numpy
-pandas
-matplotlib
-scipy
-scikit-learn
-nbformat
+# Lectures 1 and 2, and the team project. Enough for the free Colab CPU tier.
+numpy>=1.24
+pandas>=2.0
+scipy>=1.10
+matplotlib>=3.7
+scikit-learn>=1.3
+
+# Notebook tooling
+nbformat>=5.9

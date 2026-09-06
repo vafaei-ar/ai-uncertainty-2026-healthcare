@@ -216,3 +216,6 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# tensorboard logs written by the sbi package
+sbi-logs/
