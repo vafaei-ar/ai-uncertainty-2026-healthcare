@@ -21,8 +21,10 @@ def build() -> Notebook:
 **Set `TEAM` in the next cell to your team number.**
 
 Your hospital has a risk model for 48-hour deterioration. You have the
-development records it was built on, and six months of records from the ward
-where it is about to be switched on.
+development records it was built on, and six months of **shadow-mode** records
+from the ward that wants to adopt it: the model scored every admission, nobody
+saw the scores, and care went on unchanged. You therefore have predictions, the
+outcomes that followed, and no patient affected by the model yet.
 
 Something is wrong with it. The columns are the same for every team; the reason
 each model should not be trusted is not.
@@ -71,8 +73,8 @@ DATA = "project/data" if os.path.isdir("project/data") else "ai-uncertainty-2026
 development = pd.read_csv(f"{DATA}/team_{TEAM}_train.csv")
 deployment = pd.read_csv(f"{DATA}/team_{TEAM}_deployment.csv")
 
-print(f"development records : {len(development)}")
-print(f"deployment records  : {len(deployment)}")
+print(f"development records     : {len(development)}")
+print(f"shadow-mode records     : {len(deployment)}")
 print(f"columns             : {list(development.columns)}")
 """
     )
@@ -125,7 +127,7 @@ def predict(df):
 
 display(performance_table([
     ("Internal validation", validation["outcome"], predict(validation)),
-    ("Deployment ward", deployment["outcome"], predict(deployment)),
+    ("Shadow mode at the new ward", deployment["outcome"], predict(deployment)),
 ]).round(4))
 """
     )
@@ -148,7 +150,7 @@ Write down, now, what you expect to find. Then go and check.
     nb.code(
         """
 fig, ax = plt.subplots()
-for name, data in [("Internal validation", validation), ("Deployment ward", deployment)]:
+for name, data in [("Internal validation", validation), ("Shadow mode", deployment)]:
     tab = calibration_table(data["outcome"], predict(data), n_bins=8)
     ax.plot(tab["mean_predicted"], tab["observed_rate"], marker="o", lw=2, label=name)
 
@@ -156,7 +158,7 @@ upper = max(tab["mean_predicted"].max(), tab["observed_rate"].max()) * 1.1
 ax.plot([0, upper], [0, upper], ls="--", c="0.4", label="Perfect calibration")
 ax.set_xlabel("Predicted risk")
 ax.set_ylabel("Observed event rate")
-ax.set_title(f"Team {TEAM}: calibration, development versus deployment")
+ax.set_title(f"Team {TEAM}: calibration, development versus shadow mode")
 ax.legend()
 plt.show()
 """
@@ -262,13 +264,13 @@ You now have the symptom. Find the mechanism.
 Things worth trying, depending on what you saw:
 
 - Add explicit missingness indicators and refit. Does anything improve?
-- Recalibrate on part of the deployment data (an intercept correction is one
+- Recalibrate on part of the shadow-mode data (an intercept correction is one
   line) and see how much of the gap it closes. If it closes all of it, the
-  problem was prevalence. If it does not, the problem is structural.
+  problem was a baseline-risk shift. If it does not, the problem is structural.
 - Stratify by every categorical column you have, and by whether each lab was
   recorded.
-- Compare AUROC on your internal validation split against AUROC on deployment.
-  If deployment is *better*, ask what that implies about your validation labels.
+- Compare AUROC on your internal validation split against AUROC in shadow mode.
+  If shadow mode is *better*, ask what that implies about your validation labels.
 - Put a bootstrap interval on any difference you plan to claim. Several of the
   gaps you will see are inside the noise.
 - Characterise the patients with the highest ensemble disagreement. What do they

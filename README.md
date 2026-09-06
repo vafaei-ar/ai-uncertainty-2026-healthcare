@@ -99,14 +99,14 @@ caught it:
 flowchart TD
     A["Model developed<br/>at Hospital A"] --> B{"What moved<br/>at the new site?"}
 
-    B -->|"the patients<br/>P of X"| C["Covariate shift<br/><i>noisier assays, new case mix</i>"]
-    B -->|"the risk itself<br/>P of Y given X"| D["Prevalence or label shift<br/><i>sicker intake, different coding</i>"]
+    B -->|"who walks in<br/>P of X"| C["<b>Covariate shift</b><br/><i>noisier assays, new case mix</i>"]
+    B -->|"the risk carried by<br/>the same chart<br/>P of Y given X"| D["<b>Conditional shift</b><br/><i>higher baseline risk,<br/>different coding practice</i>"]
 
-    C --> E["Visible on day one<br/>a shift report fires<br/><b>no outcomes needed</b>"]
-    D --> F["Invisible without outcomes<br/>every covariate check<br/>comes back clean"]
+    C --> E["A shift report fires<br/>on day one<br/><b>no outcomes needed</b>"]
+    D --> F["Every covariate check<br/>comes back clean"]
 
     E --> G["Fix upstream, or recalibrate"]
-    F --> H["Only prospective labels<br/>can reveal it"]
+    F --> H["Needs outcomes, or a<br/>validated surrogate for them"]
     H --> G
 
     classDef q fill:#DD5A22,stroke:#DD5A22,color:#FFFFFF
@@ -119,10 +119,27 @@ flowchart TD
     class A,C,D,G plain
 ```
 
+**Which shift is which.** These names get used loosely, and this is a school where
+people will know the difference:
+
+| Name | What moves | What is assumed stable |
+|---|---|---|
+| Covariate shift | $P(X)$ | $P(Y \mid X)$ |
+| Label (prior probability) shift | $P(Y)$ | $P(X \mid Y)$ |
+| Conditional (concept) shift | $P(Y \mid X)$ | - |
+
+The simulator's `prevalence_shift` and `site` arguments add a constant on the
+logit scale while leaving the covariate distribution alone. That is a
+**conditional shift** - specifically a baseline-risk shift that shows up as
+miscalibration - and *not* label shift, whose classical assumption of a stable
+$P(X \mid Y)$ is violated here.
+
 > [!IMPORTANT]
-> Most deployed monitoring is an input-drift dashboard. It catches the left-hand
-> branch and is **structurally blind** to the right-hand one. Prospective label
-> collection is not optional infrastructure - it *is* the monitoring system.
+> Most deployed monitoring is an input-drift dashboard, and input monitoring
+> alone cannot establish that $P(Y \mid X)$ has stayed put. **The absence of
+> observed input drift is not evidence that the model is still valid.**
+> Confirming that it is takes outcome data, or a surrogate you have validated
+> against outcomes.
 
 ---
 
@@ -180,9 +197,14 @@ complete-case analysis silently selects the sickest half of the ward.
 ## Team project
 
 Six teams, one task, identical columns - and six different reasons the model
-should not be switched on. Teams are the reviewers: they get development data and
-six months of deployment data, and have to say what is wrong, who it is wrong
-for, when the model should refuse to answer, and whether they would deploy it.
+should not be switched on. Teams are the reviewers: they get the development data
+and six months of **shadow-mode** records from the adopting ward, where the model
+scored every admission and nobody acted on the scores. They have predictions,
+the outcomes that followed, and no patient affected yet - silent prospective
+validation, the last checkpoint before a model touches care.
+
+Their job is to say what is wrong, who it is wrong for, when the model should
+refuse to answer, and whether they would let it go live.
 
 > [!TIP]
 > **The task is not to raise AUROC.** A team that improves AUROC by 0.02 and

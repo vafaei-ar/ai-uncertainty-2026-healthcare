@@ -52,13 +52,14 @@ CPU tier, in seconds.
 | 10-30 | Discrimination versus calibration | Three models, **identical AUROC to four decimals**, wildly different claims about the world. Exercise: recover the temperature that broke one of them |
 | 30-50 | Epistemic versus aleatoric | Bootstrap bands shrink with training size, outcome noise does not. Then the sharp version: the simulator holds an unrecorded clinical impression, so the ceiling for *any* model on these columns is AUROC 0.73 while the oracle reaches 0.78 |
 | 50-70 | A synthetic EHR you can break on purpose | Baseline model, bootstrap CI on AUROC (the interval spans 0.06 - wider than most published "improvements") |
-| 70-85 | The model meets a second hospital | Site B: ranking survives, calibration collapses, and **no covariate-shift check can see it**. Site C: instrument drift, which a covariate check catches immediately |
+| 70-85 | The model meets a second hospital | Site B is a conditional shift: ranking survives, calibration collapses, and an input-only check **cannot see it**. Site C is a covariate shift, which the same check catches on day one |
 | 85-90 | The information in a blank cell | Complete-case analysis silently selects the sickest half of the ward |
 
-**The line I want them to leave with.** Input-drift dashboards - which is what most
-deployed monitoring actually is - catch one of the two common failures and are
-structurally blind to the other. Prospective label collection is not optional
-infrastructure; it is the monitoring system.
+**The line I want them to leave with.** Input monitoring alone cannot establish
+that $P(Y \mid X)$ has held, so the absence of observed input drift is not
+evidence that a model is still valid. Confirming that takes outcome data or a
+validated surrogate - which is an argument for building label collection into the
+deployment plan rather than bolting it on after something goes wrong.
 
 ## Lecture 2 - Deciding under uncertainty
 
@@ -77,16 +78,19 @@ infrastructure; it is the monitoring system.
 
 ## Team project - same task, six hidden failure modes
 
-Every team receives development data and six months of deployment data from one
-hospital, with identical columns and an identical task. Each hospital hides a
+Every team receives development data and six months of shadow-mode data from one
+hospital - the model scored every admission silently, nobody acted on the scores -
+with identical columns and an identical task. That framing gives them predictions,
+outcomes and no patient exposure, and introduces silent prospective validation as
+a concept on the way through. Each hospital hides a
 different reason the model should not be trusted:
 
 | Team | Hidden failure mode | Signature that exposes it |
 | --- | --- | --- |
 | 1 | Informative missingness | Nothing looks wrong in aggregate. Complete-case analysis moves the event rate from 0.145 to 0.217 |
-| 2 | Site and prevalence shift | Observed 0.264 against predicted 0.150; ECE 0.114; **every covariate check comes back clean** |
+| 2 | Conditional (baseline-risk) shift | Observed 0.264 against predicted 0.150; ECE 0.114; **every covariate check comes back clean** |
 | 3 | Instrument drift | Feature-shift report lights up (lactate SMD 0.22) while means barely move; AUROC falls 0.73 to 0.68 |
-| 4 | Label noise in development | Deployment AUROC 0.71 *beats* internal validation 0.65. The labels are the broken instrument, not the model |
+| 4 | Label noise in development | Shadow-mode AUROC 0.71 *beats* internal validation 0.65. The labels are the broken instrument, not the model |
 | 5 | Subgroup with a different risk relationship | Aggregate looks mediocre; group 0 AUROC 0.76, group 1 AUROC 0.56 on 43% of the ward |
 | 6 | Out-of-distribution patients | AUROC *improves* to 0.78 while the model becomes unusable. Ensemble spread and abstention pay off most here |
 

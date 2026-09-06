@@ -70,8 +70,8 @@ def main() -> None:
 
         print(f"\n{'=' * 70}\nTEAM {team}\n{'=' * 70}")
         print(performance_table([("validation", val["outcome"], p_val),
-                                 ("deployment", deploy["outcome"], p_dep)]).round(3).to_string(index=False))
-        print("\nby subgroup (deployment):")
+                                 ("shadow mode", deploy["outcome"], p_dep)]).round(3).to_string(index=False))
+        print("\nby subgroup (shadow mode):")
         print(subgroup_report(deploy, p_dep, "group").round(3).to_string(index=False))
         print("\ntop feature shifts:")
         print(shift_report(train, deploy, CONTINUOUS).round(3).head(4).to_string(index=False))

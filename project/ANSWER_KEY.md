@@ -2,7 +2,8 @@
 
 **Do not distribute.** Reference numbers come from a median-imputed, standardised
 logistic regression on `FEATURES`, trained on a 70% split of `team_N_train.csv`
-and scored on the held-out 30% ("validation") and on `team_N_deployment.csv`.
+and scored on the held-out 30% ("validation") and on the shadow-mode file
+`team_N_deployment.csv`.
 Reproduce them with `python project/check_signatures.py`. Teams using a
 different model will get different digits but the same qualitative pattern.
 
@@ -23,7 +24,7 @@ cell means nobody was worried enough to send the sample.
 
 **Signature.**
 
-| | Validation | Deployment |
+| | Validation | Shadow mode |
 | --- | --- | --- |
 | AUROC | 0.717 | 0.720 |
 | ECE | 0.016 | 0.009 |
@@ -51,14 +52,17 @@ unobserved value. That failed attempt is worth surfacing in the debrief.
 
 ---
 
-## Team 2: Site and prevalence shift
+## Team 2: Site and baseline-risk shift (conditional shift)
 
-**Mechanism.** Trained at site A, deployed at site B with a +0.5 shift on the
-logit intercept.
+**Mechanism.** Trained at site A, run at site B with a +0.5 shift on the logit
+intercept. Name it precisely: $P(X)$ is untouched and $P(Y \mid X)$ moved, so
+this is a **conditional shift**, not label shift - label shift's assumption of a
+stable $P(X \mid Y)$ is violated here. Teams who call it "prevalence shift" are
+describing the symptom correctly; push them to say which distribution moved.
 
 **Signature.**
 
-| | Validation | Deployment |
+| | Validation | Shadow mode |
 | --- | --- | --- |
 | Event rate | 0.142 | **0.264** |
 | Mean predicted | 0.146 | **0.150** |
@@ -71,9 +75,9 @@ risk by roughly a factor of two. Discrimination survives; calibration collapses.
 - Feature-shift report finds **nothing** - all standardised mean differences are
   under 0.03. The covariates are identical; the baseline risk is not.
 
-**What a strong team says.** Covariate-shift monitoring would not have caught
-this. The shift is in P(Y|X), not P(X). The fix is recalibration at the new
-site - an intercept correction estimated on a few hundred labelled deployment
+**What a strong team says.** Covariate-shift monitoring could not have caught
+this on inputs alone - it never had access to the thing that moved. The fix is
+recalibration at the new site - an intercept correction estimated on a few hundred labelled deployment
 patients restores calibration without refitting. Until that recalibration is
 done, any fixed alerting threshold fires far too rarely at site B.
 
@@ -90,7 +94,7 @@ quarter of the ward deteriorates.
 
 **Signature.**
 
-| | Validation | Deployment |
+| | Validation | Shadow mode |
 | --- | --- | --- |
 | AUROC | 0.730 | **0.678** |
 | Mean predicted | 0.134 | **0.169** |
@@ -118,7 +122,7 @@ recorded as non-events, 2.2% the other way). Deployment labels are clean.
 
 **Signature.**
 
-| | Validation | Deployment |
+| | Validation | Shadow mode |
 | --- | --- | --- |
 | AUROC | **0.648** | **0.714** |
 | Mean predicted | 0.116 | 0.115 |
@@ -134,9 +138,9 @@ means the validation labels, not the model, are the broken component.
 **What a strong team says.** Validation metrics are a measurement of the model
 *against the labels*, and the labels are an instrument with their own error. The
 first move is a chart-review audit of a sample of the development labels, not a
-model change. Note also that a team can only see this inversion because they were
-given labelled deployment data; prospectively, the symptom would be clinicians
-reporting more events than the model's expected count.
+model change. Note that the team can only see this inversion because shadow mode
+supplied outcomes alongside predictions - which is exactly the argument for
+running a model silently before letting it act.
 
 **Trap.** Some teams will conclude the deployment set is "easier". Ask them what
 would make it easier - the covariate distributions are identical.
@@ -151,7 +155,7 @@ largely absent (`subgroup_interaction=-1.8`) rather than merely shifted.
 
 **Signature.**
 
-| | Validation | Deployment |
+| | Validation | Shadow mode |
 | --- | --- | --- |
 | AUROC | 0.723 | 0.663 |
 | ECE | 0.019 | 0.025 |
@@ -190,7 +194,7 @@ lactate.
 
 **Signature.**
 
-| | Validation | Deployment |
+| | Validation | Shadow mode |
 | --- | --- | --- |
 | AUROC | 0.725 | **0.776** |
 | Mean predicted | 0.142 | **0.264** |

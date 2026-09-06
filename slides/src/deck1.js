@@ -150,8 +150,8 @@ T.figureSlide(pres, {
   heading: "More data removes one of these, not the other",
   image: "figures/l1_epistemic.png",
   reading:
-    "Epistemic uncertainty falls steadily from 250 to 16,000 training patients. Aleatoric uncertainty barely moves - " +
-    "it is a property of the cohort, not of your sample size.",
+    "Bootstrap spread - our proxy for epistemic uncertainty - falls steadily from 250 to 16,000 training patients. The aleatoric " +
+    "term barely moves; it is a property of the cohort, not of your sample size.",
 });
 
 // 13 --------------------------------------------------------------
@@ -238,26 +238,27 @@ T.figureWithNotes(pres, {
   image: "figures/l1_shift_detection.png",
   blocks: [
     {
-      title: "Site C is visible on day one",
-      body: "Standardised mean differences on lactate, creatinine and WBC are large. A drift alarm fires immediately, with no outcome labels.",
+      title: "Site C is a covariate shift",
+      body: "Large standardised mean differences on lactate, creatinine and WBC. A drift alarm fires on day one, with no outcome labels needed.",
     },
     {
-      title: "Site B is invisible",
-      body: "Every standardised mean difference is under 0.03. The covariate distribution is unchanged. What moved is the conditional risk.",
+      title: "Site B is a conditional shift",
+      body: "Every standardised mean difference is under 0.03. The inputs are unchanged; the risk they carry moved. Not label shift - that assumes a stable P(X given Y), which fails here.",
     },
     {
-      title: "So the alarm is structural",
-      body: "Input monitoring catches shifts in P(X) and is blind to shifts in P(Y|X) by construction. No dashboard tuning fixes that.",
+      title: "So the gap is structural",
+      body: "Input monitoring watches the inputs. It cannot license a claim about the risk attached to them, however green the dashboard looks.",
     },
   ],
 });
 
 // 20 --------------------------------------------------------------
 T.statementSlide(pres, {
-  claim: "Prospective label collection is not optional\ninfrastructure. It is the monitoring system.",
+  claim: "The absence of observed input drift is not\nevidence that the model is still valid.",
   support:
-    "Most deployed monitoring is an input-drift dashboard. It catches one of the two common failures and is structurally blind to the other. " +
-    "If you can only fund one thing after go-live, fund the outcome data.",
+    "Input monitoring never had access to the thing that moved at site B, so it cannot establish that the conditional risk has held. " +
+    "Confirming that takes outcome data, or a surrogate you have validated against outcomes. Most deployed monitoring is an " +
+    "input-drift dashboard, which makes a green dashboard a much weaker statement than the people reading it believe.",
   dark: true,
 }).addNotes("If time is short, this is the slide to protect. It is the one finding in the lecture that changes what people build on Monday.");
 
@@ -291,7 +292,7 @@ T.listSlide(pres, {
     { title: "AUROC measures order, not meaning", body: "Deployment breaks meaning first" },
     { title: "Separate the two uncertainties", body: "They call for different responses" },
     { title: "Know your aleatoric floor", body: "Some of the gap was never in your columns" },
-    { title: "Input monitoring has a blind spot", body: "Plan label collection accordingly" },
+    { title: "A green input dashboard proves little", body: "It cannot license a claim about conditional risk" },
     { title: "Missingness is a recorded decision", body: "Model it. Never drop the rows." },
   ],
 });

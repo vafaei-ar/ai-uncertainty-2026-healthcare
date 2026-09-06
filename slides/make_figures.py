@@ -156,8 +156,8 @@ for n_train in [250, 1000, 4000, 16000]:
 frame = pd.DataFrame(records)
 
 fig, ax = plt.subplots()
-ax.plot(frame["n"], frame["epistemic"], marker="o", color=C[0], label="Epistemic (model uncertainty)")
-ax.plot(frame["n"], frame["aleatoric"], marker="s", color=C[1], label="Aleatoric (outcome noise)")
+ax.plot(frame["n"], frame["epistemic"], marker="o", color=C[0], label="Bootstrap spread (epistemic proxy)")
+ax.plot(frame["n"], frame["aleatoric"], marker="s", color=C[1], label="Aleatoric term (outcome noise)")
 ax.set_xscale("log")
 ax.set_yscale("log")
 ax.set_xlabel("Training patients")
@@ -216,7 +216,7 @@ sc_ = shift_report(train, site_c, continuous).set_index("feature")["std_mean_dif
 order = sc_.abs().sort_values().index
 fig, ax = plt.subplots(figsize=(8.6, 4.4))
 positions = np.arange(len(order))
-ax.barh(positions - 0.2, sb.reindex(order).abs(), height=0.38, color=C[0], label="Site B (prevalence shift)")
+ax.barh(positions - 0.2, sb.reindex(order).abs(), height=0.38, color=C[0], label="Site B (conditional shift)")
 ax.barh(positions + 0.2, sc_.reindex(order).abs(), height=0.38, color=C[1], label="Site C (instrument drift)")
 ax.axvline(0.1, ls=":", color=MUTED, lw=2)
 ax.set_yticks(positions)

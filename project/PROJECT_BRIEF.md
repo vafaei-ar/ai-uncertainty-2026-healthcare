@@ -9,12 +9,19 @@ task: given routine vitals and labs recorded in the first hours of an admission,
 estimate the probability that a patient will deteriorate and need critical care
 escalation within 48 hours.
 
+Each model has since been run in **shadow mode** for six months at the ward that
+wants to adopt it: it scored every admission, nobody saw the scores, and care
+went on exactly as it would have anyway. So you have predictions, you have the
+outcomes that followed, and no patient has yet been affected by the model. This
+is silent prospective validation, and it is the last checkpoint before a model
+is allowed to touch care.
+
 Every team is assigned one hospital. You receive two files:
 
 | File | What it is |
 | --- | --- |
 | `team_N_train.csv` | The development records the model was built on |
-| `team_N_deployment.csv` | Six months of records from the ward where the model is about to be switched on |
+| `team_N_deployment.csv` | Six months of silent prospective validation at the ward that wants to switch it on |
 
 The columns are identical for every team. So is the task. What differs is the
 reason each model should not be deployed as-is.
@@ -52,7 +59,7 @@ A **5-minute presentation**, three or four slides, answering:
 | --- | --- |
 | 0:00-0:20 | Read the data. Event rates, missingness per column, distributions. Do not fit anything yet. |
 | 0:20-0:45 | Split train into train/validation. Fit a baseline logistic regression. Record AUROC, Brier, ECE. |
-| 0:45-1:15 | Score the deployment set. Compare every number to validation. Something will not match. |
+| 0:45-1:15 | Score the shadow-mode set. Compare every number to validation. Something will not match. |
 | 1:15-1:50 | Chase it. Calibration curve, subgroup table, feature shift report, missingness pattern. |
 | 1:50-2:20 | Quantify uncertainty: bootstrap ensemble spread, then a selective-prediction curve. |
 | 2:20-2:45 | Decide the abstention rule and the deployment recommendation. |

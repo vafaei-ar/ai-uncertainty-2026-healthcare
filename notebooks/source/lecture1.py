@@ -335,12 +335,12 @@ for ax, n_train in zip(axes, sizes):
 
     order = np.argsort(mean_p)
     ax.fill_between(mean_p[order], (mean_p - 2 * sd_p)[order], (mean_p + 2 * sd_p)[order],
-                    alpha=0.3, label="Epistemic band (2 SD)")
+                    alpha=0.3, label="Bootstrap spread (2 SD)")
     ax.plot(mean_p[order], mean_p[order], lw=1.5, c="0.2", label="Mean prediction")
     ax.set_title(f"trained on n = {n_train}")
     ax.set_xlabel("Predicted risk")
     summary.append({"n_train": n_train,
-                    "mean epistemic SD": sd_p.mean(),
+                    "mean bootstrap SD": sd_p.mean(),
                     "mean aleatoric variance": aleatoric.mean()})
 
 axes[0].set_ylabel("Predicted risk")
@@ -354,9 +354,15 @@ display(pd.DataFrame(summary).round(4))
 
     nb.md(
         """
-Epistemic uncertainty falls by roughly a factor of five between 250 and 8000
-training patients. Aleatoric uncertainty barely moves - it is a property of the
-cohort, not of your sample size.
+The bootstrap spread - our stand-in for epistemic uncertainty - falls steadily
+between 250 and 8000 training patients. The aleatoric term barely moves; it is a
+property of the cohort, not of your sample size.
+
+Keep the distinction between the signal and the thing it measures. Bootstrap
+disagreement captures finite-sample instability in the fitted parameters. That is
+a large part of epistemic uncertainty for a model this simple, and it is not the
+whole of it - uncertainty about the model *form* never appears here at all,
+because every resample fits the same logistic regression.
 
 There is a second, sharper way to see the aleatoric floor. Our simulator contains
 a variable called `concern`: an unrecorded clinical impression that moves the
@@ -548,8 +554,14 @@ At site B, AUROC holds up and the model understates risk by roughly a factor of
 two across the whole range. If the alert threshold stays at 0.5, the model
 essentially stops firing on a ward where a quarter of patients deteriorate.
 
-Now the question that matters operationally: **could you have detected this
-before switching the model on**, without waiting six months for outcomes?
+Worth naming precisely, because these terms get used loosely. Site B is a
+**conditional shift**: $P(Y \\mid X)$ moved while $P(X)$ stayed put. It is not
+*label shift*, which assumes $P(X \\mid Y)$ is stable - that assumption fails
+here. Site C is a **covariate shift**: the recorded values moved, the underlying
+risk relationship did not.
+
+Now the question that matters operationally: **could you have detected either one
+before switching the model on**, without waiting for outcomes?
 """
     )
 
@@ -572,14 +584,21 @@ This is the central asymmetry of deployment monitoring.
 - **Site C is visible without labels.** The standardised mean differences on
   lactate, creatinine and WBC are large. A covariate-shift alarm would have fired
   on day one.
-- **Site B is invisible without labels.** Every standardised mean difference is
-  under 0.03. The covariate distribution $P(X)$ is unchanged; what moved is
-  $P(Y \\mid X)$. No amount of input monitoring will find it.
+- **Site B is invisible to the same check.** Every standardised mean difference
+  is under 0.03. The covariate distribution $P(X)$ is unchanged; what moved is
+  $P(Y \\mid X)$. Input monitoring alone cannot tell you that.
 
-So input-drift dashboards, which is what most deployed monitoring actually is,
-catch one of these two failures and are structurally blind to the other. The only
-thing that finds site B is outcome data - which means prospective label
-collection is not optional infrastructure, it is the monitoring system.
+Be precise about what that does and does not license. It is not that site B is
+undetectable - it is that **the absence of observed input drift is not evidence
+that the model is still valid**, because input monitoring never had access to the
+thing that changed. Establishing that $P(Y \\mid X)$ has held takes outcome
+data, or a surrogate you have validated against outcomes. There is real work on
+detecting shift without labels, but the assumptions those methods need are
+exactly the ones a site like B breaks.
+
+The practical consequence stands either way: most deployed monitoring is an
+input-drift dashboard, and a green dashboard is a much weaker statement than the
+people reading it believe.
 """
     )
 

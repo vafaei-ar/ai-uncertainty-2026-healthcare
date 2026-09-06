@@ -115,7 +115,7 @@ T.figureSlide(pres, {
   heading: "Disagreement finds patients the model was never trained for",
   image: "figures/l2_ensemble_ood.png",
   reading:
-    "The threshold is the 95th percentile of disagreement measured on the development data alone - so it can be set before the model is switched on.",
+    "The threshold is the 95th percentile of disagreement measured on the development data alone - so it can be set before the model goes live.",
 });
 
 // 10 --------------------------------------------------------------
@@ -315,7 +315,7 @@ T.sectionSlide(pres, {
 T.statementSlide(pres, {
   claim: "The task is not to raise AUROC.",
   support:
-    "Each team gets development data and six months of deployment data from one hospital. Identical columns, identical task. " +
+    "Each team gets development data and six months of shadow-mode records from one hospital - the model scored every admission, nobody acted on the scores. Identical columns, identical task. " +
     "Work out what is wrong, who it is wrong for, when the model should refuse to answer, and whether you would switch it on. " +
     "Five minutes, three or four slides.\n\n" +
     "Read project/PROJECT_BRIEF.md and start from notebooks/90_team_project_starter.ipynb.",

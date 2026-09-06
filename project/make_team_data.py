@@ -25,8 +25,9 @@ from medsim.simulator import FEATURES, SimConfig, simulate_ehr  # noqa: E402
 RELEASE_COLUMNS = FEATURES + ["site", "outcome"]
 
 # Each entry is (train cohort, deployment cohort). The deployment set is framed
-# to participants as "six months of records from the hospital that wants to
-# switch the model on".
+# to participants as six months of silent prospective validation - the model ran
+# in shadow mode at the adopting hospital, scoring every admission without
+# anyone acting on the scores.
 TEAMS = {
     1: {
         "slug": "team_1",
