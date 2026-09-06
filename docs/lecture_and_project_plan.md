@@ -85,14 +85,18 @@ outcomes and no patient exposure, and introduces silent prospective validation a
 a concept on the way through. Each hospital hides a
 different reason the model should not be trusted:
 
-| Team | Hidden failure mode | Signature that exposes it |
-| --- | --- | --- |
-| 1 | Informative missingness | Nothing looks wrong in aggregate. Complete-case analysis moves the event rate from 0.145 to 0.217 |
-| 2 | Conditional (baseline-risk) shift | Observed 0.264 against predicted 0.150; ECE 0.114; **every covariate check comes back clean** |
-| 3 | Instrument drift | Feature-shift report lights up (lactate SMD 0.22) while means barely move; AUROC falls 0.73 to 0.68 |
-| 4 | Label noise in development | Shadow-mode AUROC 0.71 *beats* internal validation 0.65. The labels are the broken instrument, not the model |
-| 5 | Subgroup with a different risk relationship | Aggregate looks mediocre; group 0 AUROC 0.76, group 1 AUROC 0.56 on 43% of the ward |
-| 6 | Out-of-distribution patients | AUROC *improves* to 0.78 while the model becomes unusable. Ensemble spread and abstention pay off most here |
+| Hidden failure mode | Signature that exposes it |
+| --- | --- |
+| Informative missingness | Nothing looks wrong in aggregate. Complete-case analysis moves the event rate from 0.145 to 0.217 |
+| Conditional (baseline-risk) shift | Observed 0.264 against predicted 0.150; ECE 0.114; **every covariate check comes back clean** |
+| Instrument drift | Feature-shift report lights up (lactate SMD 0.22) while means barely move; AUROC falls 0.73 to 0.68 |
+| Label noise in development | Shadow-mode AUROC 0.71 *beats* internal validation 0.65. The labels are the broken instrument, not the model |
+| Subgroup with a different risk relationship | Aggregate looks mediocre; group 0 AUROC 0.76, group 1 AUROC 0.56 on 43% of the ward |
+| Out-of-distribution patients | AUROC *improves* to 0.78 while the model becomes unusable. Ensemble spread and abstention pay off most here |
+
+*Which team gets which is deliberately not recorded in the public repository.
+The mapping, the reference numbers and the debrief order are in the instructor
+copy of this plan.*
 
 Deliverable is a **five-minute presentation**: what did you find, what exposed it,
 was it calibrated, who is least trustworthy, when should it abstain, what would

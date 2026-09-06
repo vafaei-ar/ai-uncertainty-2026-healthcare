@@ -219,3 +219,9 @@ __marimo__/
 
 # tensorboard logs written by the sbi package
 sbi-logs/
+
+# Instructor-only. Held back until after the workshop: these name which team has
+# which hidden failure mode, which is the whole point of the project block.
+project/ANSWER_KEY.md
+project/make_team_data.py
+docs/lecture_and_project_plan_full.md

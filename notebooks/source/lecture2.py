@@ -21,6 +21,16 @@ def build() -> Notebook:
 Lecture 1 ended with a model that ranks patients well at a new hospital and
 states their risk wrongly. This session is about what you do next.
 
+**Three things to leave with.** Sections 6 and 7 are bridges to the deep-dive
+notebooks rather than lecture objectives - skip them if time is short.
+
+1. **Repair the probability, not just the classifier.** Recalibration is cheap,
+   and it costs labelled patients from the new site.
+2. **Know when to refuse.** A model that can abstain is safer than one forced to
+   answer, and which uncertainty you rank by decides who gets deferred.
+3. **Decisions follow consequences, not accuracy.** The threshold comes from the
+   cost ratio, and the benchmark is what you would do without the model.
+
 **Where we are going**
 
 1. Repairing calibration at a new site, and how many labelled patients that costs
@@ -619,7 +629,7 @@ evaluate, that is itself the finding.
     nb.md(
         """
 ---
-## 6. Hierarchical models: borrowing strength
+## 6. Hierarchical models: borrowing strength *(bridge to notebook 03)*
 
 Four hospitals report deterioration rates. One of them saw four patients and one
 event.
@@ -697,7 +707,7 @@ variance is telling you.
     nb.md(
         """
 ---
-## 7. When the model is a simulator
+## 7. When the model is a simulator *(bridge to notebook 04)*
 
 Everything so far fits a function to recorded data. Sometimes you have something
 better: a mechanistic model of how the data came about, with parameters that mean
@@ -771,6 +781,11 @@ historical data, this is the tool that still works.
         """
 ---
 ## What to take away
+
+**The three, again.** Repair the probability, not only the classifier. Know when
+to refuse. Let consequences, not accuracy, set the operating point.
+
+In more detail:
 
 1. Recalibration is cheap, effective and needs labelled patients from the new
    site. Match the flexibility of the fix to the labels you can actually get.

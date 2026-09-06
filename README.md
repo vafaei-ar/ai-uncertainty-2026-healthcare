@@ -218,10 +218,10 @@ refuse to answer, and whether they would let it go live.
   honesty outweigh modelling
 - `project/data/` - pre-generated cohorts, one pair per team
 
-> [!WARNING]
-> **Participants: do not open `project/ANSWER_KEY.md`.** It names every hidden
-> failure mode and would turn a three-hour investigation into a five-minute
-> lookup.
+> [!NOTE]
+> The answer key and the dataset generator are deliberately not in this
+> repository until after the school - working out which ward has which problem is
+> the exercise. Instructors: they are in the instructor copy.
 
 ---
 
@@ -259,14 +259,13 @@ pip install -r requirements.txt              # lectures + team project
 pip install -r requirements-deep-dive.txt    # adds PyMC, torch, sbi
 
 python notebooks/source/lecture1.py          # rebuild a notebook pair
-python project/make_team_data.py             # regenerate team datasets
-python project/check_signatures.py           # verify every failure mode is still detectable
+python project/check_signatures.py           # see how each ward's model behaves
 python slides/make_figures.py                # re-render the slide figures
 python tools/run_notebook.py notebooks/01_lecture1_uncertainty_foundations_instructor.ipynb
 ```
 
-Seeds are fixed throughout, so regenerating reproduces the reference numbers in
-the instructor answer key.
+Seeds are fixed throughout, so anything you regenerate is reproducible. The
+dataset generator and the answer key are held back until after the workshop.
 
 </details>
 

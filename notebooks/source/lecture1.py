@@ -22,6 +22,17 @@ A deployed clinical model does not output a ranking. It outputs a number that a
 tired registrar at 3am will read as a probability, and act on. This session is
 about whether that number deserves to be read that way.
 
+**Three things to leave with.** Everything else in this notebook is evidence for
+one of them, and the sections marked *optional* can be skipped without breaking
+the argument.
+
+1. **A predicted number is a claim about the world, and calibration is what
+   checks it.** Discrimination is a different question and will not catch you.
+2. **Uncertainty has more than one source**, and the source decides whether the
+   fix is more data, a new measurement, or refusing to answer.
+3. **Deployment changes the data-generating process**, and only some of those
+   changes are visible in the inputs.
+
 **Where we are going**
 
 1. A point estimate is not an answer
@@ -76,7 +87,7 @@ pd.set_option("display.width", 160)
     nb.md(
         """
 ---
-## 1. A point estimate is not an answer
+## 1. A point estimate is not an answer *(compressible to 5 minutes)*
 
 A new sepsis alert has fired 10 times on your ward. 8 of those alerts led to an
 intervention the team judged appropriate. Is the alert useful?
@@ -418,7 +429,7 @@ network to the same seven columns.
     nb.md(
         """
 ---
-## 4. A synthetic EHR you can break on purpose
+## 4. A synthetic EHR you can break on purpose *(optional in a 70-minute slot)*
 
 `medsim.simulate_ehr` generates admissions with vitals, labs and comorbidities,
 and a 48-hour deterioration outcome. Every failure mode we care about is a named
@@ -738,6 +749,12 @@ different. Useful features and fragile features are frequently the same features
         """
 ---
 ## What to take away
+
+**The three, again.** A predicted number is a claim that calibration checks and
+AUROC cannot. Uncertainty has sources, and the source picks the remedy.
+Deployment moves the data-generating process, sometimes invisibly.
+
+In more detail:
 
 1. Report a distribution, or at minimum an interval. A point estimate on ten
    observations is not a finding.
