@@ -14,6 +14,10 @@ from pathlib import Path
 STUDENT = "student"
 INSTRUCTOR = "instructor"
 
+REPO = "vafaei-ar/ai-uncertainty-2026-healthcare"
+BRANCH = "main"
+COLAB_TOKEN = "{{COLAB_PATH}}"
+
 _DEFAULT_STUB = "# Your turn.\n"
 
 
@@ -53,7 +57,7 @@ class Notebook:
         return self.md(f"> **Teaching note.** {text.strip()}", only=INSTRUCTOR)
 
     # -- rendering --------------------------------------------------------
-    def _render(self, variant: str) -> dict:
+    def _render(self, variant: str, colab_path: str = "") -> dict:
         cells = []
         for cell in self.cells:
             if cell.get("only") not in (None, variant):
@@ -61,6 +65,7 @@ class Notebook:
             source = cell["source"]
             if variant == STUDENT and "stub" in cell:
                 source = cell["stub"]
+            source = source.replace(COLAB_TOKEN, colab_path)
             cells.append(_nb_cell(cell["kind"], source))
         return {
             "cells": cells,
@@ -79,20 +84,23 @@ class Notebook:
         directory.mkdir(parents=True, exist_ok=True)
         if variants is None:
             path = directory / f"{stem}.ipynb"
-            path.write_text(json.dumps(self._render(STUDENT), indent=1, ensure_ascii=False) + "\n", encoding="utf-8")
+            rendered = self._render(STUDENT, f"notebooks/{stem}.ipynb")
+            path.write_text(json.dumps(rendered, indent=1, ensure_ascii=False) + "\n", encoding="utf-8")
             return [path]
         written = []
         for variant in variants:
             path = directory / f"{stem}_{variant}.ipynb"
-            path.write_text(json.dumps(self._render(variant), indent=1, ensure_ascii=False) + "\n", encoding="utf-8")
+            rendered = self._render(variant, f"notebooks/{stem}_{variant}.ipynb")
+            path.write_text(json.dumps(rendered, indent=1, ensure_ascii=False) + "\n", encoding="utf-8")
             written.append(path)
         return written
 
     def _add_colab_setup(self) -> None:
         self.md(
-            "<a href=\"https://colab.research.google.com/github/vafaei-ar/"
-            "ai-uncertainty-2026-healthcare/blob/main/notebooks/\" target=\"_parent\">"
-            "Open in Colab</a>\n\n"
+            f'<a href="https://colab.research.google.com/github/{REPO}/blob/{BRANCH}/'
+            f'{COLAB_TOKEN}" target="_parent">'
+            '<img src="https://colab.research.google.com/assets/colab-badge.svg" '
+            'alt="Open this notebook in Google Colab"/></a>\n\n'
             "---\n\n"
             "**Setup.** Run this first. It fetches the teaching utilities and pins the\n"
             "handful of packages the notebook needs. On a fresh Colab runtime it takes\n"
@@ -102,11 +110,11 @@ class Notebook:
             """
 import importlib.util, subprocess, sys, os
 
-REPO = "https://github.com/vafaei-ar/ai-uncertainty-2026-healthcare.git"
+CLONE_URL = "https://github.com/vafaei-ar/ai-uncertainty-2026-healthcare.git"
 
 if importlib.util.find_spec("medsim") is None:
     if not os.path.isdir("ai-uncertainty-2026-healthcare"):
-        subprocess.run(["git", "clone", "--depth", "1", REPO], check=True)
+        subprocess.run(["git", "clone", "--depth", "1", CLONE_URL], check=True)
     sys.path.insert(0, os.path.abspath("ai-uncertainty-2026-healthcare"))
 
 import medsim

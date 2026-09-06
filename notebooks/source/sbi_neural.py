@@ -6,16 +6,17 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT))
 
-from tools.nbtools import PLOT_STYLE, Notebook  # noqa: E402
+from tools.nbtools import BRANCH, COLAB_TOKEN, PLOT_STYLE, REPO, Notebook  # noqa: E402
 
 
 def build() -> Notebook:
     nb = Notebook("Simulation-based inference", colab_setup=False)
 
     nb.md(
-        "<a href=\"https://colab.research.google.com/github/vafaei-ar/"
-        "ai-uncertainty-2026-healthcare/blob/main/notebooks/\" target=\"_parent\">"
-        "Open in Colab</a>\n\n"
+        f'<a href="https://colab.research.google.com/github/{REPO}/blob/{BRANCH}/'
+        f'{COLAB_TOKEN}" target="_parent">'
+        '<img src="https://colab.research.google.com/assets/colab-badge.svg" '
+        'alt="Open this notebook in Google Colab"/></a>'
         "---\n\n"
         "**Setup.** Run this first. It installs the `sbi` package if it is not already\n"
         "present, then fetches the teaching utilities. On a fresh Colab runtime the\n"
