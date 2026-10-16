@@ -112,7 +112,7 @@ T.sectionSlide(pres, {
 // 9 ---------------------------------------------------------------
 T.figureSlide(pres, {
   kicker: "A WARD WHERE 30% OF PATIENTS ARE UNLIKE ANYTHING IN DEVELOPMENT",
-  heading: "Disagreement finds patients the model was never trained for",
+  heading: "In this simulation, disagreement flags unfamiliar patients",
   image: "figures/l2_ensemble_ood.png",
   reading:
     "The threshold is the 95th percentile of disagreement measured on the development data alone - so it can be set before the model goes live.",
@@ -129,7 +129,7 @@ T.statsSlide(pres, {
     { value: "0", label: "outcome labels\nrequired from the new site" },
   ],
   footnote:
-    "That last number is why this is worth more than it costs. Every other diagnostic in this lecture waits on outcomes; this one does not.",
+    "This proxy needs no target outcome labels, but success in one simulated ward does not guarantee safe detection elsewhere.",
 });
 
 // 11 --------------------------------------------------------------
@@ -137,8 +137,8 @@ T.statementSlide(pres, {
   claim: "Bootstrap disagreement measures sensitivity to the training sample, not distance from the training distribution.",
   support:
     "A patient far outside the data can still receive confident, wrong, unanimous predictions if the model form extrapolates smoothly. " +
-    "Treat this as a screen, not a guarantee. Deep ensembles, MC dropout and conformal prediction differ in machinery and play the same logical role - " +
-    "conformal is worth naming, because its coverage guarantee assumes exchangeability, and exchangeability is exactly what site B broke.",
+    "Treat this as a screen, not a guarantee. Ensembles, conformal prediction and input-drift checks address different questions - " +
+    "conformal coverage guarantees generally depend on exchangeability; they do not certify target-site safety when that assumption fails.",
 });
 
 // 12 --------------------------------------------------------------
@@ -171,9 +171,9 @@ T.compareSlide(pres, {
   right: {
     title: "Epistemic: ensemble disagreement",
     body:
-      "Defers patients the model was never equipped to judge.\n\n" +
-      "Improves the error rate less, and protects you from confidently harming someone.\n\n" +
-      "Use it as a hard gate on patients outside the model's competence.",
+      "May flag patients for whom the fitted model is unstable.\n\n" +
+      "Does not detect every unfamiliar patient and cannot guarantee safe deployment.\n\n" +
+      "Evaluate this signal before using it as a referral rule.",
   },
   footnote: "Do not collapse them into one score. Report both, and use them for different things.",
 }).addNotes(
@@ -185,12 +185,12 @@ T.compareSlide(pres, {
 T.sectionSlide(pres, {
   number: 4,
   title: "The threshold is a clinical decision",
-  blurb: "predict >= 0.5 encodes the assumption that a missed deterioration and an unnecessary escalation cost the same. No clinician believes that.",
+  blurb: "A default threshold of 0.5 is rarely justified without specifying the consequences of mistakes and the care pathway.",
 });
 
 // 16 --------------------------------------------------------------
 T.tableSlide(pres, {
-  kicker: "IF A MISSED EVENT IS R TIMES AS COSTLY AS A FALSE ALARM, THE OPTIMAL THRESHOLD IS 1 / (1 + R)",
+  kicker: "IDEALISED TWO-ACTION COST MODEL: ASSUMING CALIBRATED RISKS, THRESHOLD = 1 / (1 + R)",
   heading: "Where the operating point actually sits",
   columns: ["Cost ratio R", "Threshold", "Alert rate, uncorrected", "Alert rate, recalibrated"],
   widths: [2.4, 2.4, 3.5, 3.5],
@@ -201,7 +201,7 @@ T.tableSlide(pres, {
     ["20 : 1", "0.048", "86%", "99%"],
   ],
   footnote:
-    "The useful range is nowhere near 0.5. Reporting accuracy at 0.5 describes a decision nobody would make - and the uncorrected model " +
+    "Here the useful range is far below 0.5. These thresholds come from simplified cost assumptions and must be adapted to the clinical workflow; the uncorrected model " +
     "under-alerts worst exactly where the clinical value lives.",
 });
 
@@ -308,17 +308,17 @@ T.listSlide(pres, {
 T.sectionSlide(pres, {
   number: 7,
   title: "Your project",
-  blurb: "Six teams. One task. Six different reasons the model should not be trusted.",
+  blurb: "One open question: can we trust a model at a new hospital with very few outcome labels?",
 });
 
 // 25 --------------------------------------------------------------
 T.statementSlide(pres, {
   claim: "The task is not to raise AUROC.",
   support:
-    "Each team gets development data and six months of shadow-mode records from one hospital - the model scored every admission, nobody acted on the scores. Identical columns, identical task. " +
-    "Work out what is wrong, who it is wrong for, when the model should refuse to answer, and whether you would switch it on. " +
-    "Five minutes, three or four slides.\n\n" +
-    "Read project/PROJECT_BRIEF.md and start from notebooks/90_team_project_starter.ipynb.",
+    "Teams receive 4,000 labeled source records, 1,600 unlabeled new-hospital records, and 75 randomly audited outcomes. " +
+    "Decide whether to stay in shadow mode, adapt, or defer predictions and what evidence you would collect next. " +
+    "No fixed answer, no formal grading. Five minutes, three slides.\n\n" +
+    "Read project/OPEN_RESEARCH_CHALLENGE.md and open notebooks/91_open_research_challenge_starter.ipynb.",
   dark: true,
 });
 
