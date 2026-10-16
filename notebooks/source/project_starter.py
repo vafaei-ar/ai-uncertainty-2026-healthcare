@@ -29,9 +29,10 @@ outcomes that followed, and no patient affected by the model yet.
 Something is wrong with it. The columns are the same for every team; the reason
 each model should not be trusted is not.
 
-Your job is to find it, say who it affects, decide when the model should refuse
-to answer, and recommend for or against deployment. Full instructions are in
-`project/PROJECT_BRIEF.md`; you will be marked against `project/RUBRIC.md`.
+Your job is to investigate, say who is affected, decide when the model should
+refuse to answer, and recommend for or against deployment. This is a guided,
+ungraded alternative to the open challenge. Instructions are in
+project/PROJECT_BRIEF.md and optional discussion prompts in project/RUBRIC.md.
 
 This notebook takes you as far as the first comparison that should make you
 suspicious. After that it is your investigation.
