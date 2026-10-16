@@ -29,11 +29,11 @@ T.statementSlide(pres, {
 // 3 ---------------------------------------------------------------
 T.listSlide(pres, {
   kicker: "WHERE WE ARE GOING",
-  heading: "Six ideas, one hour and a half",
+  heading: "Six ideas, one clinical question",
   twoColumn: true,
   items: [
     { title: "A point estimate is not an answer", body: "Posteriors, intervals, and what evidence actually buys you" },
-    { title: "Discrimination versus calibration", body: "Only one of them survives a change of hospital" },
+    { title: "Discrimination versus calibration", body: "Neither is guaranteed to transfer across hospitals" },
     { title: "Epistemic versus aleatoric", body: "The distinction decides what you do next" },
     { title: "A synthetic EHR you can break", body: "Every failure mode is a named argument" },
     { title: "The model meets a second hospital", body: "And which monitoring check notices" },
@@ -218,13 +218,13 @@ T.statsSlide(pres, {
 T.sectionSlide(pres, {
   number: 5,
   title: "The model meets a second hospital",
-  blurb: "Site B has a sicker intake. Site C runs older analysers. Nothing about the model changes.",
+  blurb: "Site B has higher risk for similar recorded inputs. Site C has noisier measurements. The fitted model is unchanged.",
 });
 
 // 18 --------------------------------------------------------------
 T.figureSlide(pres, {
   kicker: "SAME MODEL, THREE HOSPITALS",
-  heading: "Ranking transfers. The numbers do not.",
+  heading: "Here ranking holds, but risk estimates do not.",
   image: "figures/l1_shift_calibration.png",
   reading:
     "At site B, AUROC holds up and the model understates risk by roughly a factor of two across the whole range. " +
@@ -234,12 +234,12 @@ T.figureSlide(pres, {
 // 19 --------------------------------------------------------------
 T.figureWithNotes(pres, {
   kicker: "COULD YOU HAVE SEEN IT COMING, WITHOUT WAITING FOR OUTCOMES?",
-  heading: "Covariate monitoring sees one of these two failures",
+  heading: "Input monitoring sees only part of the problem",
   image: "figures/l1_shift_detection.png",
   blocks: [
     {
-      title: "Site C is a covariate shift",
-      body: "Large standardised mean differences on lactate, creatinine and WBC. A drift alarm fires on day one, with no outcome labels needed.",
+      title: "Site C has measurement drift",
+      body: "Some measured labs change because instruments are noisier. Input checks can detect a change, but this is not necessarily pure covariate shift.",
     },
     {
       title: "Site B is a conditional shift",
@@ -303,7 +303,7 @@ T.statementSlide(pres, {
   support:
     "Repairing calibration at a new site and what it costs in labelled patients. Using ensemble disagreement to decide when a model " +
     "should refuse to answer. Choosing an operating threshold from clinical costs rather than from 0.5. Borrowing strength across " +
-    "hospitals with hierarchical models. Then the project: six teams, one task, six different reasons not to deploy.",
+    "hospitals with hierarchical models. Then an open project: should we trust a model at a new hospital with only a small outcome audit?",
   dark: true,
 });
 
