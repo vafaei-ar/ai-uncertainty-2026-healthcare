@@ -1,154 +1,86 @@
-# Healthcare AI module - lecture and project plan
+# Healthcare AI module: lecture and project plan
 
-**AI & Uncertainty School and Workshop 2026, Mauritius, 16-20 November**
-Alireza Vafaei Sadr, Penn State College of Medicine. Delivered remotely.
+**AI & Uncertainty School and Workshop 2026** | Mauritius, 16–20 November
+**Presenter:** Alireza Vafaei Sadr, Penn State College of Medicine
+**Mode:** remote lecturer; group-work arrangements still to be confirmed
 
-Draft for the organisers. Everything described here is built and tested; timings
-come from running the material rather than from estimating it.
+The central question is: **Can a clinical prediction system tell us when it should not be trusted?**
 
----
+Participants should know basic Python, probability and predictive modeling. No clinical background or credentialed patient data are required. All datasets are synthetic EHR-like examples, not validated MIMIC-IV replicas.
 
-## What the module is for
+## Programme proposal
 
-Participants arrive able to fit models. The gap this module addresses is the one
-between a model that scores well and a model that can be switched on in a
-hospital. The organising question is:
-
-> **Can you build a clinical prediction system that knows when it should not be
-> trusted?**
-
-The healthcare setting is not decoration. Distribution shift is a transfer
-between hospitals; informative missingness is a clinician deciding not to order a
-lab; the cost asymmetry that sets a decision threshold is an ICU bed. Every
-abstract idea in the school's syllabus has a concrete referent here, which is
-what makes the medical module a useful complement to the astronomy and cosmology
-material rather than a parallel track.
-
-## Shape of the contribution
-
-| Component | Length | Format |
+| Component | Prepared format | Can be shortened? |
 | --- | --- | --- |
-| Lecture 1 - Honest probabilities in clinical prediction | 90 min | Live notebook, remote |
-| Lecture 2 - Deciding under uncertainty | 90 min | Live notebook, remote |
-| Team project - hidden failure modes | 3 h + 45 min presentations | Teams work locally, I join remotely |
-| Optional deep-dive notebooks | self-paced | Hierarchical PyMC, neural SBI |
+| Lecture 1: Honest probabilities in clinical prediction | 90 minutes | 60-minute core |
+| Lecture 2: Deciding under uncertainty | 90 minutes | 60-minute core |
+| Open team research challenge: hospital transfer with limited labels | 2-hour core plus optional hour/presentations | 2 hours |
+| Optional notebooks on hierarchical Bayes and simulation-based inference | Self-paced | Not in core lectures |
 
-## Prerequisites
+**The organisers have not yet confirmed these durations or the remote project setup.**
 
-Python, numpy/pandas, a fitted logistic regression. No clinical background is
-assumed - the medical context is explained where it matters. No credentialed data
-access is needed: everything runs on a synthetic EHR simulator, on the free Colab
-CPU tier, in seconds.
+## Lecture 1: honest probabilities in clinical prediction
 
----
+The main ideas are that discrimination and calibration answer different questions; aleatoric, finite-sample and unmeasured-variable uncertainty require different responses; and hospital transfer may break predictions in ways input-only monitoring cannot verify.
 
-## Lecture 1 - Honest probabilities in clinical prediction
-
-*Notebook: `01_lecture1_uncertainty_foundations`. Full run time under 10 seconds.*
-
-| Time | Section | The point |
-| --- | --- | --- |
-| 0-10 | A point estimate is not an answer | Beta-Binomial updating on a clinical alert; watch the interval narrow as $1/\sqrt{n}$ |
-| 10-30 | Discrimination versus calibration | Three models, **identical AUROC to four decimals**, wildly different claims about the world. Exercise: recover the temperature that broke one of them |
-| 30-50 | Epistemic versus aleatoric | Bootstrap bands shrink with training size, outcome noise does not. Then the sharp version: the simulator holds an unrecorded clinical impression, so the ceiling for *any* model on these columns is AUROC 0.73 while the oracle reaches 0.78 |
-| 50-70 | A synthetic EHR you can break on purpose | Baseline model, bootstrap CI on AUROC (the interval spans 0.06 - wider than most published "improvements") |
-| 70-85 | The model meets a second hospital | Site B is a conditional shift: ranking survives, calibration collapses, and an input-only check **cannot see it**. Site C is a covariate shift, which the same check catches on day one |
-| 85-90 | The information in a blank cell | Complete-case analysis silently selects the sickest half of the ward |
-
-**The line I want them to leave with.** Input monitoring alone cannot establish
-that $P(Y \mid X)$ has held, so the absence of observed input drift is not
-evidence that a model is still valid. Confirming that takes outcome data or a
-validated surrogate - which is an argument for building label collection into the
-deployment plan rather than bolting it on after something goes wrong.
-
-## Lecture 2 - Deciding under uncertainty
-
-*Notebook: `02_lecture2_trustworthy_deployment`. Full run time under 10 seconds.*
-
-| Time | Section | The point |
-| --- | --- | --- |
-| 0-20 | Recalibration and what it costs | Intercept, Platt, isotonic. A learning curve over the number of labelled patients: one parameter is near its ceiling at ~100 charts, isotonic needs an order of magnitude more before it beats doing nothing |
-| 20-35 | Ensembles as an epistemic signal | A disagreement threshold set on development data alone flags 25% of a new ward, of which **87% are genuinely out-of-distribution** - with no outcome labels required |
-| 35-55 | Selective prediction | Risk-coverage curves. Epistemic and aleatoric rankings defer *different patients*; the exercise builds a two-stage rule under a fixed 20% review budget |
-| 55-70 | The threshold is a clinical decision | $t^{*} = 1/(1+R)$ and net benefit. At a 10:1 cost ratio the operating point is 0.09, not 0.5 - and the model barely beats "escalate everyone", which is the comparison a clinical director actually makes |
-| 70-80 | The aggregate number lies | One ward, two subgroups: AUROC 0.76 and 0.56. The whole-ward figure describes neither |
-| 80-90 | Hierarchy and simulators | Partial pooling with estimated shrinkage; ABC as the bridge to the SBI notebook; project briefing |
-
----
-
-## Team project - same task, six hidden failure modes
-
-Every team receives development data and six months of shadow-mode data from one
-hospital - the model scored every admission silently, nobody acted on the scores -
-with identical columns and an identical task. That framing gives them predictions,
-outcomes and no patient exposure, and introduces silent prospective validation as
-a concept on the way through. Each hospital hides a
-different reason the model should not be trusted:
-
-| Hidden failure mode | Signature that exposes it |
+| Approximate core minute | Topic and teaching demonstration |
 | --- | --- |
-| Informative missingness | Nothing looks wrong in aggregate. Complete-case analysis moves the event rate from 0.145 to 0.217 |
-| Conditional (baseline-risk) shift | Observed 0.264 against predicted 0.150; ECE 0.114; **every covariate check comes back clean** |
-| Instrument drift | Feature-shift report lights up (lactate SMD 0.22) while means barely move; AUROC falls 0.73 to 0.68 |
-| Label noise in development | Shadow-mode AUROC 0.71 *beats* internal validation 0.65. The labels are the broken instrument, not the model |
-| Subgroup with a different risk relationship | Aggregate looks mediocre; group 0 AUROC 0.76, group 1 AUROC 0.56 on 43% of the ward |
-| Out-of-distribution patients | AUROC *improves* to 0.78 while the model becomes unusable. Ensemble spread and abstention pay off most here |
+| 0-5 | Opening: what does a 30% deterioration probability mean? |
+| 5-20 | Three models with nearly identical AUROC but very different calibration |
+| 20-35 | Bootstrap variability, data limits, and a hidden clinical factor |
+| 35-50 | Hospital transfer, measurement drift, and conditional-risk change |
+| 50-60 | Missingness is clinical information; three key takeaways |
 
-*Which team gets which is deliberately not recorded in the public repository.
-The mapping, the reference numbers and the debrief order are in the instructor
-copy of this plan.*
+For a 90-minute slot, add a short Beta-Binomial updating example, the simulator walkthrough, and notebook exercise/discussion. Slide 19's measurement-noise example must **not** be described as pure covariate shift: noise in recorded inputs can change the conditional outcome relationship for those observed inputs.
 
-Deliverable is a **five-minute presentation**: what did you find, what exposed it,
-was it calibrated, who is least trustworthy, when should it abstain, what would
-reduce the uncertainty, would you deploy. Marked against a rubric that weights
-diagnosis and honesty above modelling - `project/RUBRIC.md`.
+## Lecture 2: deciding under uncertainty
 
-**The debrief is the payoff.** Teams present in a deliberate order, and the module
-closes by putting team 2 and team 6 on screen together: same task, same columns,
-one model with a *worse* AUROC that is safe to deploy and one with a better AUROC
-that is not.
+The main ideas are that recalibration costs target-site labels; abstention or referral requires careful evaluation and capacity; and decisions depend on consequences, not discrimination alone.
 
-Datasets, brief, rubric and a full instructor answer key with reference numbers
-for every team are in `project/`. `python project/check_signatures.py` reproduces
-every number in the key.
+| Approximate core minute | Topic and teaching demonstration |
+| --- | --- |
+| 0-5 | Start from the miscalibrated transferred model |
+| 5-19 | Intercept, logistic/Platt and isotonic recalibration; label requirements |
+| 19-36 | Bootstrap uncertainty proxy and when predictions should be deferred |
+| 36-48 | Clinical thresholds and net benefit in an explicit decision model |
+| 48-55 | Subgroup reliability |
+| 55-60 | Three takeaways and project question |
 
----
+For a 90-minute slot, spend more time on worked examples and discussion; hierarchical Bayesian modeling and simulation-based inference are optional conceptual bridges and separately runnable notebooks.
 
-## What I need from the organisers
+**Important scientific qualifications:** bootstrap disagreement measures sensitivity to model training and is not a guaranteed out-of-distribution detector; a threshold computed from a cost ratio assumes calibrated risks and a simple two-action decision, not a full clinical workflow.
 
-1. **Placement.** Both lectures work best after the school's Bayesian foundations
-   session and before or alongside the SBI material. The two lectures should be
-   on the same day or consecutive days; Lecture 2 opens where Lecture 1 closed.
-2. **Project block.** Three hours of working time plus 45 minutes of
-   presentations. Teams of three or four, six teams if numbers allow - fewer is
-   fine, the failure modes are independent and any subset works.
-3. **Room support.** Since I am remote, one person in the room during the project
-   block to circulate between teams. I will be available on a call throughout and
-   will join for the debrief.
-4. **Kit.** Participants need a browser and a Google account for Colab, or a local
-   Python 3.10+ environment. Nothing else. No clinical data, no credentialing, no
-   GPU.
-5. **A question about the audience.** How much clinical exposure should I assume?
-   The material currently assumes none and explains the medical context as it
-   goes. If a substantial share of participants are already working with health
-   data, I would trade some of that explanation for more depth on hierarchical
-   models and on prospective monitoring design.
+## Open team project: hospital B with only 75 outcome labels
 
-## Materials
+Use project/OPEN_RESEARCH_CHALLENGE.md and notebooks/91_open_research_challenge_starter.ipynb.
 
-Repository: `github.com/vafaei-ar/ai-uncertainty-2026-healthcare`
+Students receive labeled records from Hospital A, unlabeled records from Hospital B, and a random audit of 75 outcomes at B. They can explore monitoring, recalibration, uncertainty, subgroup reliability and selective prediction. The open question is whether the current evidence supports any form of deployment and what should be measured next. A decision to remain in shadow mode is valid.
 
-Every notebook ships in student and instructor variants, generated from one
-source so they cannot drift apart. Instructor copies carry worked solutions and
-teaching notes. All notebooks execute end to end on CPU; the two lecture
-notebooks take under ten seconds each, the PyMC and SBI deep-dives about a minute.
+This is **not** a competition to identify one predefined failure mechanism. Teams explain their assumptions and may make different recommendations. No formal grading.
 
-## Open questions I would value your view on
+The older six-team exercise (project/PROJECT_BRIEF.md) remains available as a structured alternative if the organisers want an easier or shorter task.
 
-- Is 90 minutes per lecture right, or would the school prefer 60 with more
-  project time? Lecture 1 has an obvious cut point at 70 minutes.
-- Should the team project run against MIMIC-IV for groups who want it? The
-  simulator is designed so the same workflow transfers, but that adds a
-  credentialing step that would need to start well before November.
-- Would a short pre-workshop notebook be useful, so participants arrive with a
-  working environment and the Bayesian basics fresh?
+## Logistics and preparation
+
+- A browser and free Google Colab CPU are enough for the core materials. Optional PyMC/SBI notebooks have additional dependencies.
+- The project requires one in-room facilitator if the presenter joins by video.
+- Pre-run the notebooks in a fresh Colab account, record a static backup of plots, and test projector/audio/video before the session.
+- Do not use actual clinical or restricted data. Nothing in this simulated task supports patient-care recommendations.
+- Confirm lecture lengths, sequence, participant background, the number of teams and the feasibility of remote project supervision with the organisers.
+
+## Teaching materials
+
+- Two PowerPoint decks with generated figures and speaker notes under slides/
+- Two core student/instructor notebooks under notebooks/
+- Optional hierarchical modeling and SBI notebooks
+- Synthetic data generator under medsim/
+- Open project generator under project/generate_open_challenge.py
+- Optional six-hospital guided diagnostic exercise
+- Detailed delivery guide under docs/LECTURE_DELIVERY_GUIDE.md
+
+## Final checks before the school
+
+- Ensure all notebook code cells run on a clean environment; regenerate plots and decks from source.
+- Verify all numerical claims shown in slides against the exact simulator run or explicitly label them as illustrative.
+- Review clinical language for unintended claims of validity or safety.
+- Rehearse the 60-minute stories first; extend to 90 minutes only if the actual schedule permits.
