@@ -1,6 +1,8 @@
-# Team project: build a model that knows when it should not be trusted
+# Guided alternative: find why a clinical model fails after transfer
 
 **AI & Uncertainty School and Workshop 2026 - healthcare module**
+
+This is the **optional structured alternative** to the default open-ended project in OPEN_RESEARCH_CHALLENGE.md. There is no formal grading.
 
 ## The situation
 
@@ -23,12 +25,13 @@ Every team is assigned one hospital. You receive two files:
 | `team_N_train.csv` | The development records the model was built on |
 | `team_N_deployment.csv` | Six months of silent prospective validation at the ward that wants to switch it on |
 
-The columns are identical for every team. So is the task. What differs is the
-reason each model should not be deployed as-is.
+The columns and task are identical for every team, but the synthetic data are
+configured to illustrate different problems. These are examples for discussion,
+not evidence about a real hospital.
 
 ## Your job
 
-You are the reviewer. The clinical director wants a yes or no, and a reason.
+You are the reviewer of this simulated case. The simulated clinical director asks for a recommendation and a reason.
 
 **The goal is not a higher AUROC.** A team that raises AUROC by 0.02 and cannot
 say who the model fails for has not done the work. A team that leaves AUROC
@@ -87,7 +90,7 @@ comparison. Everything after that is yours.
 
 ## Rules
 
-- Do not open the answer key. Your instructor has it.
+- This is an ungraded exercise. Discuss assumptions, uncertainty and alternative explanations rather than trying to guess an answer key.
 - You may use any model you like, but a well-understood logistic regression that
   you can interrogate will serve you better in five minutes of presentation than
   a gradient-boosted model you cannot explain.
