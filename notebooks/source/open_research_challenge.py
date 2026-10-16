@@ -29,7 +29,7 @@ or do not deploy. Explain what you *cannot* establish from the available labels.
 All records are synthetic EHR-like examples, not real MIMIC-IV patients,
 and the example is **not for clinical use**.
 
-Read project/OPEN_RESEARCH_CHALLENGE_DRAFT.md for the scenario and discussion prompts.
+Read project/OPEN_RESEARCH_CHALLENGE.md for the scenario and discussion prompts.
 """)
     nb.code("""
 from pathlib import Path
