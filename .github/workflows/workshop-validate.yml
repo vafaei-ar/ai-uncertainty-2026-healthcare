@@ -4,6 +4,10 @@ on:
   push:
     branches:
       - workshop-prep-2026-oct
+      - main
+  pull_request:
+    branches:
+      - main
   workflow_dispatch:
 
 permissions:
@@ -46,6 +50,8 @@ jobs:
         run: |
           python tools/run_notebook.py notebooks/01_lecture1_uncertainty_foundations_instructor.ipynb
           python tools/run_notebook.py notebooks/02_lecture2_trustworthy_deployment_instructor.ipynb
+          python tools/run_notebook.py notebooks/01_lecture1_uncertainty_foundations_student.ipynb
+          python tools/run_notebook.py notebooks/02_lecture2_trustworthy_deployment_student.ipynb
           python tools/run_notebook.py notebooks/90_team_project_starter.ipynb
           python tools/run_notebook.py notebooks/91_open_research_challenge_starter.ipynb
 
@@ -67,7 +73,7 @@ jobs:
           git diff --check
 
       - name: Commit verified generated workshop materials
-        if: github.event_name == 'push'
+        if: github.event_name == 'push' && github.ref_name == 'workshop-prep-2026-oct'
         run: |
           git add notebooks/01_lecture1_uncertainty_foundations_student.ipynb
           git add notebooks/01_lecture1_uncertainty_foundations_instructor.ipynb

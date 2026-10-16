@@ -94,7 +94,7 @@ T.figureWithNotes(pres, {
     },
     {
       title: "So plan the label budget",
-      body: "A one-parameter fix on 100 charts beats a non-parametric fix on the same 100 charts, every time.",
+      body: "A one-parameter fix on 100 charts performs better than the more flexible alternative in this simulation.",
     },
   ],
 }).addNotes(

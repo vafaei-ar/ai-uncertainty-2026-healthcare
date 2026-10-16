@@ -227,7 +227,7 @@ noise.
 
 **The general rule.** Match the flexibility of the repair to the amount of
 outcome data you can actually get from the new site. A one-parameter fix on 100
-charts beats a non-parametric fix on the same 100 charts, every time.
+charts performs better than the non-parametric alternative in this simulation.
 """
     )
 

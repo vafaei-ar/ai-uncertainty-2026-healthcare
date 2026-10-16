@@ -537,7 +537,7 @@ site_c = simulate_ehr(SimConfig(n=5000, site="A", measurement_noise=2.8, seed=22
 
 display(performance_table([
     ("Site A (internal validation)", validation["outcome"], predict(validation)),
-    ("Site B (sicker intake)", site_b["outcome"], predict(site_b)),
+    ("Site B (higher baseline risk)", site_b["outcome"], predict(site_b)),
     ("Site C (noisier instruments)", site_c["outcome"], predict(site_c)),
 ]).round(4))
 """
@@ -629,7 +629,7 @@ Standard practice treats missing values as damage to be repaired: impute the
 median, or drop the row. Both moves assume the value went missing for reasons
 unrelated to the outcome.
 
-In an EHR that assumption is almost always false. A lab is missing because nobody
+For EHR data that assumption is often unrealistic. A lab is missing because nobody
 ordered it, and nobody ordered it because nobody was worried.
 """
     )

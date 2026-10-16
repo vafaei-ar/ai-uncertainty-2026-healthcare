@@ -199,7 +199,7 @@ site_c = simulate_ehr(SimConfig(n=5000, site="A", measurement_noise=2.8, seed=22
 
 fig, ax = plt.subplots()
 for colour, (name, data) in zip(C, [("Site A (development)", validation),
-                                    ("Site B (sicker intake)", site_b),
+                                    ("Site B (higher baseline risk)", site_b),
                                     ("Site C (noisier instruments)", site_c)]):
     tab = calibration_table(data["outcome"], predict(data), n_bins=8)
     ax.plot(tab["mean_predicted"], tab["observed_rate"], marker="o", color=colour, label=name)
@@ -222,7 +222,7 @@ ax.axvline(0.1, ls=":", color=MUTED, lw=2)
 ax.set_yticks(positions)
 ax.set_yticklabels(order, fontsize=12)
 ax.set_xlabel("|standardised mean difference| vs development")
-ax.set_title("Covariate monitoring sees one of these two failures")
+ax.set_title("Input monitoring detects only some changes")
 ax.grid(axis="y", visible=False)
 ax.legend(fontsize=11, loc="lower right")
 save(fig, "l1_shift_detection")
@@ -353,7 +353,7 @@ ax.set_xlim(-0.03, 1.12)
 ax.set_ylim(0, float(max(sd_ood.max(), sd_val.max())) * 1.32)
 ax.set_xlabel("Mean predicted risk")
 ax.set_ylabel("Ensemble disagreement")
-ax.set_title("Disagreement finds patients the model was never trained for")
+ax.set_title("In this simulation, disagreement flags unfamiliar patients")
 ax.legend(fontsize=12, markerscale=2.4, loc="upper left")
 save(fig, "l2_ensemble_ood")
 
@@ -363,7 +363,7 @@ print(f"    flagged {flagged.mean():.1%}, precision {is_ood[flagged].mean():.1%}
 
 # Risk-coverage
 y_ood = ood["outcome"]
-rankings = {"Ensemble disagreement (epistemic)": sd_ood,
+rankings = {"Ensemble disagreement (proxy)": sd_ood,
             "Distance from 0.5 (aleatoric)": -np.abs(mean_ood - 0.5),
             "Random deferral": rng.random(len(mean_ood))}
 fig, ax = plt.subplots()
