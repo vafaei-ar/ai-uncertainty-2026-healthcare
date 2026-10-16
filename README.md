@@ -12,9 +12,10 @@
 > **The question the whole module is built around:**
 > *Can you build a clinical prediction system that knows when it should not be trusted?*
 
-Two 90-minute lectures, two deep-dive notebooks, and a three-hour team project.
-Everything runs on the free Google Colab CPU tier against a synthetic EHR
-simulator: no credentialed data, no GPU, no local install.
+Two lectures prepared for either **60 or 90 minutes**, optional Bayesian/SBI deep dives,
+and an **open two- to three-hour team challenge**. The older six-team guided exercise
+is kept as a backup. Core exercises use synthetic EHR-like data on free Colab CPU:
+no credentialed data, GPU, or local installation. Workshop timing is not yet confirmed.
 
 ---
 
@@ -28,7 +29,8 @@ Click a badge. Nothing to install, nothing to download.
 | 2 | **Deciding under uncertainty** | Recalibration · ensemble uncertainty · selective prediction · decision thresholds and net benefit · subgroup reliability · partial pooling | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/vafaei-ar/ai-uncertainty-2026-healthcare/blob/main/notebooks/02_lecture2_trustworthy_deployment_student.ipynb) |
 | 3 | **Hierarchical models in PyMC** | Varying intercepts and slopes across hospitals · shrinkage · posterior predictive checks | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/vafaei-ar/ai-uncertainty-2026-healthcare/blob/main/notebooks/03_hierarchical_pymc_student.ipynb) |
 | 4 | **Simulation-based inference** | ABC vs neural posterior estimation with `sbi` · amortised inference · a coverage check | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/vafaei-ar/ai-uncertainty-2026-healthcare/blob/main/notebooks/04_simulation_based_inference_student.ipynb) |
-| P | **Team project starter** | Loads your team's data and runs the first comparison that should make you suspicious | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/vafaei-ar/ai-uncertainty-2026-healthcare/blob/main/notebooks/90_team_project_starter.ipynb) |
+| P | **Open hospital-transfer challenge (default)** | Limited target-site labels; teams decide how to evaluate, recalibrate, defer or stay in shadow mode | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/vafaei-ar/ai-uncertainty-2026-healthcare/blob/main/notebooks/91_open_research_challenge_starter.ipynb) |
+| G | **Guided team project (backup)** | Structured exercise with different hidden failure modes | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/vafaei-ar/ai-uncertainty-2026-healthcare/blob/main/notebooks/90_team_project_starter.ipynb) |
 
 The lecture notebooks run in about ten seconds each; the two deep-dives take
 about a minute. Instructor copies live beside each student file - same links
@@ -55,13 +57,11 @@ cannot drift apart.
 
 ## The idea in one picture
 
-Three models. Identical AUROC to four decimal places. Three completely different
-claims about what will happen to a patient.
+Three models, nearly identical rankings, but very different risk probabilities.
 
 ![Three models with identical AUROC and very different calibration](slides/figures/l1_calibration.png)
 
-AUROC measures *order*. Calibration measures *meaning*. Deployment breaks meaning
-first, and AUROC is blind to it by construction.
+AUROC measures ranking; calibration asks whether stated probabilities agree with observed outcomes. Hospital transfer **can** break calibration even when AUROC barely changes.
 
 ---
 
@@ -71,7 +71,7 @@ first, and AUROC is blind to it by construction.
 flowchart LR
     L1["<b>Lecture 1</b><br/>Honest probabilities<br/><i>90 min</i>"]
     L2["<b>Lecture 2</b><br/>Deciding under uncertainty<br/><i>90 min</i>"]
-    PR["<b>Team project</b><br/>Six wards, six hidden faults<br/><i>3 h + presentations</i>"]
+    PR["<b>Open team challenge</b><br/>Hospital transfer, limited labels<br/><i>2–3 h</i>"]
     D3["Deep dive<br/>Hierarchical PyMC"]
     D4["Deep dive<br/>Neural SBI"]
 
@@ -91,18 +91,16 @@ flowchart LR
 
 ## The argument
 
-A model that scores well is not a model you can switch on. What actually goes
-wrong when a risk model moves to a second hospital, and which check would have
-caught it:
+A model that scores well is not automatically ready for patient care. This simplified example contrasts shifts visible in observed inputs with changes in conditional risk that may not be:
 
 ```mermaid
 flowchart TD
     A["Model developed<br/>at Hospital A"] --> B{"What moved<br/>at the new site?"}
 
-    B -->|"who walks in<br/>P of X"| C["<b>Covariate shift</b><br/><i>noisier assays, new case mix</i>"]
+    B -->|"who walks in<br/>P of X"| C["<b>Covariate shift</b><br/><i>different case mix</i>"]
     B -->|"the risk carried by<br/>the same chart<br/>P of Y given X"| D["<b>Conditional shift</b><br/><i>higher baseline risk,<br/>different coding practice</i>"]
 
-    C --> E["A shift report fires<br/>on day one<br/><b>no outcomes needed</b>"]
+    C --> E["An input shift may be detected<br/><b>no outcomes needed</b>"]
     D --> F["Every covariate check<br/>comes back clean"]
 
     E --> G["Fix upstream, or recalibrate"]
@@ -196,32 +194,29 @@ complete-case analysis silently selects the sickest half of the ward.
 
 ## Team project
 
-Six teams, one task, identical columns - and six different reasons the model
-should not be switched on. Teams are the reviewers: they get the development data
-and six months of **shadow-mode** records from the adopting ward, where the model
-scored every admission and nobody acted on the scores. They have predictions,
-the outcomes that followed, and no patient affected yet - silent prospective
-validation, the last checkpoint before a model touches care.
+**Default: an open research problem.** Hospital A developed a 48-hour deterioration
+risk model; Hospital B wants to use it but most of its outcome labels are not
+available. Teams get 4,000 labeled source records, 1,600 unlabeled target records,
+and a random audit of **75** target outcomes. There is a provisional 20%
+additional review budget. They must decide what evidence supports trusting,
+adapting, deferring, or withholding predictions, and what additional outcomes
+should be collected.
 
-Their job is to say what is wrong, who it is wrong for, when the model should
-refuse to answer, and whether they would let it go live.
+There is **no single answer**, no formal grading, and no expectation that input
+monitoring or bootstrap uncertainty alone can certify safe transfer. The
+best team presentation states what it knows, what it cannot know, and what
+it recommends for shadow-mode evaluation. This is a teaching simulation,
+**not a clinical validation or a real patient-care decision**.
 
-> [!TIP]
-> **The task is not to raise AUROC.** A team that improves AUROC by 0.02 and
-> cannot say who the model fails for has not done the work. A team that leaves
-> AUROC untouched and correctly identifies the patients it must not be used on
-> has.
+- [Open challenge brief](project/OPEN_RESEARCH_CHALLENGE.md)
+- [Colab starter](notebooks/91_open_research_challenge_starter.ipynb)
+- [Reproducible data generator](project/generate_open_challenge.py), with CSVs under project/open_data/
 
-- [`project/PROJECT_BRIEF.md`](project/PROJECT_BRIEF.md) - the brief, and a
-  suggested route through the three hours
-- [`project/RUBRIC.md`](project/RUBRIC.md) - how it is marked; diagnosis and
-  honesty outweigh modelling
-- `project/data/` - pre-generated cohorts, one pair per team
-
-> [!NOTE]
-> The answer key and the dataset generator are deliberately not in this
-> repository until after the school - working out which ward has which problem is
-> the exercise. Instructors: they are in the instructor copy.
+**Guided backup:** the existing six-hospital diagnostic exercise remains available
+if the programme prefers a more structured project. See
+[guided project brief](project/PROJECT_BRIEF.md) and
+[guided starter notebook](notebooks/90_team_project_starter.ipynb).
+Its optional checklist is not a formal grading rubric.
 
 ---
 
@@ -236,7 +231,7 @@ refuse to answer, and whether they would let it go live.
 medsim/           simulator and evaluation metrics
 notebooks/        built notebooks (student + instructor)
 notebooks/source/ notebook sources - edit these, not the .ipynb files
-project/          team datasets, brief, rubric, instructor answer key
+project/          open challenge generator/data/brief; guided data and debrief checklist
 slides/           lecture decks, their figures, and the generators
 docs/             lecture and project plan for the organisers
 tools/            notebook builder and headless runner
@@ -259,13 +254,13 @@ pip install -r requirements.txt              # lectures + team project
 pip install -r requirements-deep-dive.txt    # adds PyMC, torch, sbi
 
 python notebooks/source/lecture1.py          # rebuild a notebook pair
-python project/check_signatures.py           # see how each ward's model behaves
+python project/generate_open_challenge.py   # generate open-challenge datasets
+python notebooks/source/open_research_challenge.py # build its Colab starter
 python slides/make_figures.py                # re-render the slide figures
 python tools/run_notebook.py notebooks/01_lecture1_uncertainty_foundations_instructor.ipynb
 ```
 
-Seeds are fixed throughout, so anything you regenerate is reproducible. The
-dataset generator and the answer key are held back until after the workshop.
+Seeds are fixed throughout, so anything you regenerate is reproducible. The guided exercise's answer key is kept separate; the open exercise has no fixed answer.
 
 </details>
 
