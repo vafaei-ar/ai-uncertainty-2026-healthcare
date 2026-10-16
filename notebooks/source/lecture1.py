@@ -36,8 +36,7 @@ the argument.
 **Where we are going**
 
 1. A point estimate is not an answer
-2. Discrimination and calibration are different things, and only one of them
-   survives a change of hospital
+2. Discrimination and calibration are different things, and either one can change after hospital transfer
 3. Epistemic and aleatoric uncertainty, and why the distinction changes what you
    do next
 4. A synthetic EHR you can break on purpose
@@ -524,10 +523,10 @@ are reported without one.
 
 The model above is now offered to two other hospitals in the group.
 
-- **Site B** has a sicker intake: the same patients carry higher baseline risk.
+- **Site B** has higher baseline risk for patients with similar recorded inputs.
 - **Site C** runs older analysers: the same physiology, recorded more noisily.
 
-Nothing about the model changes. Watch which metric notices.
+Nothing about the fitted model changes. Watch what different checks can and cannot notice.
 """
     )
 
@@ -538,7 +537,7 @@ site_c = simulate_ehr(SimConfig(n=5000, site="A", measurement_noise=2.8, seed=22
 
 display(performance_table([
     ("Site A (internal validation)", validation["outcome"], predict(validation)),
-    ("Site B (sicker intake)", site_b["outcome"], predict(site_b)),
+    ("Site B (higher baseline risk)", site_b["outcome"], predict(site_b)),
     ("Site C (noisier instruments)", site_c["outcome"], predict(site_c)),
 ]).round(4))
 """
@@ -568,8 +567,10 @@ essentially stops firing on a ward where a quarter of patients deteriorate.
 Worth naming precisely, because these terms get used loosely. Site B is a
 **conditional shift**: $P(Y \\mid X)$ moved while $P(X)$ stayed put. It is not
 *label shift*, which assumes $P(X \\mid Y)$ is stable - that assumption fails
-here. Site C is a **covariate shift**: the recorded values moved, the underlying
-risk relationship did not.
+here. Site C has **measurement drift**: the recorded values moved although
+underlying physiology was simulated similarly. Because the model uses those
+recorded measurements, the conditional outcome risk given observed inputs may
+change too. This is not necessarily pure covariate shift.
 
 Now the question that matters operationally: **could you have detected either one
 before switching the model on**, without waiting for outcomes?
@@ -628,7 +629,7 @@ Standard practice treats missing values as damage to be repaired: impute the
 median, or drop the row. Both moves assume the value went missing for reasons
 unrelated to the outcome.
 
-In an EHR that assumption is almost always false. A lab is missing because nobody
+For EHR data that assumption is often unrealistic. A lab is missing because nobody
 ordered it, and nobody ordered it because nobody was worried.
 """
     )

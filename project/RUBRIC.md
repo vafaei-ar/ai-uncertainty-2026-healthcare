@@ -1,30 +1,20 @@
-# Assessment rubric: healthcare team project
+# Optional discussion checklist: guided six-hospital exercise
 
-Twenty points total. The weighting is deliberate: diagnosis and honesty are
-worth more than modelling.
+**This is not a graded exercise.** Use these prompts only to help participants
+discuss their findings after the guided exercise.
 
-| Criterion | Points | What earns full marks |
-| --- | --- | --- |
-| **Diagnosis** | 5 | The failure mode is named correctly and specifically. "Distribution shift" is partial credit; "the deployment hospital has roughly double the event rate while the model's mean prediction is unchanged" is full credit. |
-| **Evidence** | 4 | The claim is supported by a metric or figure that actually discriminates. A calibration curve that separates validation from deployment counts; a ROC curve alone usually does not. |
-| **Calibration analysis** | 3 | Calibration reported on both sets and within at least one stratification, with the direction of the error stated. |
-| **Uncertainty quantification** | 3 | Some honest measure of epistemic uncertainty (ensemble spread, posterior width, or interval), used to rank patients rather than just reported. |
-| **Abstention rule** | 3 | A concrete, implementable rule with its coverage and the resulting error rate on retained patients. |
-| **Deployment judgement** | 2 | A defensible recommendation with stated conditions and stated residual risk. |
+| Dimension | Useful questions |
+| --- | --- |
+| Diagnosis | Which specific data or model problem did you identify? What else could explain the result? |
+| Evidence | Which plot or metric best supports your interpretation? What is its uncertainty? |
+| Calibration | Does predicted risk match outcomes in development and shadow mode? For whom does it fail? |
+| Uncertainty | Does model disagreement tell you anything useful? What uncertainty does it miss? |
+| Deferral | What practical rule would defer uncertain predictions? What is its workload and observed error? |
+| Recommendation | Would you continue shadow mode, adapt, pause, or only pilot under supervision? What would change your mind? |
 
-## Bonus (up to 2 points)
+Encourage honest limitations and clear assumptions. Do not reward higher AUROC
+without showing that the result is reliable and relevant to decisions.
 
-- Identifying a **second**, smaller problem in the dataset that was not the
-  headline failure mode.
-- Correctly quantifying uncertainty in their own performance estimates
-  (bootstrap CI on AUROC or Brier).
-- Proposing a monitoring metric that would have caught the problem
-  prospectively, without waiting for outcome labels.
-
-## Marks are lost for
-
-- Reporting only AUROC.
-- Fixing the number without explaining the mechanism.
-- Recommending deployment with no conditions.
-- Claiming a subgroup difference from a stratum of 40 patients without an
-  interval.
+The **default open project** is in OPEN_RESEARCH_CHALLENGE.md. In that project
+participants may reach different legitimate conclusions; there is no hidden
+fault to identify and no answer key to grade against.
