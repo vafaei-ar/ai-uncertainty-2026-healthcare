@@ -29,7 +29,7 @@ Generated reproducibly by project/generate_open_challenge.py and stored in proje
 | development.csv | 4,000 labeled synthetic hospital-A admissions |
 | new_hospital_unlabeled.csv | 1,600 hospital-B admissions; **no target outcomes** |
 | audit_labels.csv | Outcome labels for a random audit of **75** of those 1,600 records |
-| instructor_outcomes_for_debrief.csv | Target outcomes for **post-project debrief only**; do not use during exploration |
+| Instructor-only debrief | Outcomes are regenerated separately after the project. They are not included in the student-facing files. |
 
 The records have routine vital signs, lab values, comorbidities and a binary deterioration outcome. The observed records were generated with a transparent simulator that can vary outcome risk, missingness, measurement error and subgroup relationships. They are **not** a validated reproduction of MIMIC-IV. The point is methodological reasoning, not biomedical realism.
 
