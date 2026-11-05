@@ -4,6 +4,8 @@
 **Mode:** in-person student teams with a remote research mentor; an in-room facilitator is needed.
 **Status:** proposed project, not a clinical validation study or guaranteed publication.
 
+For a genuine three-day student contribution, each group chooses one open extension in [OPEN_RESEARCH_EXTENSIONS.md](OPEN_RESEARCH_EXTENSIONS.md) after completing the core reproducible comparison. The extension code is deliberately not supplied.
+
 ## The question
 
 Hospital A has trained a model that predicts deterioration within 48 hours.
