@@ -24,3 +24,5 @@ rather than eyeballing it.
 - `one_lecture.js` is the current 23-slide, approximately 60-minute workshop lecture with speaker notes and a custom three-day workflow diagram.
 - `deck1.js` and `deck2.js` remain as self-paced references, not as two scheduled lecture slots.
 - The linked project and presenter guide live under `project/THREE_DAY_RESEARCH_PROJECT.md` and `docs/ONE_LECTURE_PRESENTER_GUIDE.md`.
+
+The GitHub Actions workflow **regenerates and validates** PPTX and notebooks on pushes and pull requests. To deliberately commit newly generated binary outputs after editing source code, run its workflow_dispatch action on the review branch. Ordinary CI does not push regenerated ZIP-based PowerPoint binaries, whose timestamps may differ on each run.
