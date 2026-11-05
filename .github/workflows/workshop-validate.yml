@@ -84,8 +84,11 @@ jobs:
           python tools/check_slides.py
           git diff --check
 
+      # Only a manual dispatch syncs binaries: PowerPoint ZIP timestamps vary
+      # across builds, so pushing rebuilt binaries on every commit causes bot
+      # commits and prevents ordinary pull request checks from running.
       - name: Commit verified generated workshop materials
-        if: github.event_name == 'push' && github.ref_name == 'chatgpt/mauritius-one-lecture-three-day-research-2026'
+        if: github.event_name == 'workflow_dispatch' && github.ref_name == 'chatgpt/mauritius-one-lecture-three-day-research-2026'
         run: |
           git add notebooks/01_lecture1_uncertainty_foundations_student.ipynb
           git add notebooks/01_lecture1_uncertainty_foundations_instructor.ipynb
