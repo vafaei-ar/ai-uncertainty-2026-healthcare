@@ -135,3 +135,13 @@ scenarios, and ideally external data validation. No publication is promised.
 - That a calibration method is universally superior.
 - That an observed improvement on one simulated seed is generalizable.
 - That observing an unchanged AUROC proves deployment readiness.
+
+## Research governance if the work continues
+
+The current workshop uses only public code and synthetic data, consistent
+with Penn State's reviewed educational scope. If the teams expand into
+research contributing to an NIH-supported Penn State project, consult
+Research Security/Export Compliance and research administration before
+starting that collaboration to assess foreign-component and disclosure
+requirements. Discuss contribution tracking, authorship, data permissions,
+and repository ownership before moving to real patient datasets.
