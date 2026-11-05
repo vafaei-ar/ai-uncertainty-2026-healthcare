@@ -5,6 +5,7 @@ on:
     branches:
       - workshop-prep-2026-oct
       - main
+      - chatgpt/mauritius-one-lecture-three-day-research-2026
   pull_request:
     branches:
       - main
@@ -36,12 +37,17 @@ jobs:
       - name: Generate challenge data and every notebook from its source
         run: |
           python project/generate_open_challenge.py
+          python -m project.mimic_like_adapter --demo
           python notebooks/source/lecture1.py
           python notebooks/source/lecture2.py
           python notebooks/source/hierarchical.py
           python notebooks/source/sbi_neural.py
           python notebooks/source/project_starter.py
           python notebooks/source/open_research_challenge.py
+          python notebooks/source/three_day_research.py
+
+      - name: Run and save independent-test simulation study
+        run: python -m project.research_experiments --repeats 3 --source-size 2000 --test-size 1200
 
       - name: Validate datasets and notebooks
         run: python tools/validate_workshop.py
@@ -54,6 +60,7 @@ jobs:
           python tools/run_notebook.py notebooks/02_lecture2_trustworthy_deployment_student.ipynb
           python tools/run_notebook.py notebooks/90_team_project_starter.ipynb
           python tools/run_notebook.py notebooks/91_open_research_challenge_starter.ipynb
+          python tools/run_notebook.py notebooks/92_three_day_research_starter.ipynb
 
       - uses: actions/setup-node@v4
         with:
@@ -66,6 +73,7 @@ jobs:
           cd slides
           node src/deck1.js
           node src/deck2.js
+          node src/one_lecture.js
 
       - name: Validate slide geometry and whitespace
         run: |
@@ -73,7 +81,7 @@ jobs:
           git diff --check
 
       - name: Commit verified generated workshop materials
-        if: github.event_name == 'push' && github.ref_name == 'workshop-prep-2026-oct'
+        if: github.event_name == 'push' && github.ref_name == 'chatgpt/mauritius-one-lecture-three-day-research-2026'
         run: |
           git add notebooks/01_lecture1_uncertainty_foundations_student.ipynb
           git add notebooks/01_lecture1_uncertainty_foundations_instructor.ipynb
@@ -85,11 +93,12 @@ jobs:
           git add notebooks/04_simulation_based_inference_instructor.ipynb
           git add notebooks/90_team_project_starter.ipynb
           git add notebooks/91_open_research_challenge_starter.ipynb
-          git add project/open_data
-          git add slides/figures slides/lecture1_honest_probabilities.pptx slides/lecture2_deciding_under_uncertainty.pptx
+          git add notebooks/92_three_day_research_starter.ipynb
+          git add project/open_data project/results project/mimic_like_demo
+          git add slides/figures slides/lecture1_honest_probabilities.pptx slides/lecture2_deciding_under_uncertainty.pptx slides/lecture_when_can_we_trust_clinical_ai.pptx
           if ! git diff --cached --quiet; then
             git config user.name 'github-actions[bot]'
             git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
             git commit -m 'Regenerate and verify workshop decks, notebooks and project data'
-            git push origin HEAD:workshop-prep-2026-oct
+            git push origin HEAD:chatgpt/mauritius-one-lecture-three-day-research-2026
           fi
