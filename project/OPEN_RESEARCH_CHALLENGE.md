@@ -1,3 +1,9 @@
+# NOTE: optional short exercise, not the current three-day project
+
+**For the workshop research project, use [THREE_DAY_RESEARCH_PROJECT.md](THREE_DAY_RESEARCH_PROJECT.md), [RESEARCH_PROTOCOL.md](RESEARCH_PROTOCOL.md), and the new notebook `92_three_day_research_starter.ipynb`.** The material below is the older two-hour alternative. The full target outcomes are no longer distributed publicly. An instructor can regenerate them from the fixed simulator seed for debrief.
+
+---
+
 # Open research challenge: when should a clinical risk model be trusted at a new hospital?
 
 AI & Uncertainty School and Workshop 2026 | Healthcare module
@@ -61,7 +67,7 @@ Open the student notebook: notebooks/91_open_research_challenge_starter.ipynb.
 
 ## Instructor debrief
 
-Once teams finish, use instructor_outcomes_for_debrief.csv to discuss what can change when unseen outcomes are made available. Do not score teams based on whether they guessed the synthetic generating parameters. A good negative conclusion ("not enough evidence to go live") is legitimate.
+Once teams finish, ask the instructor to regenerate outcomes for a debrief to discuss what can change when unseen outcomes are made available. Do not score teams based on whether they guessed the synthetic generating parameters. A good negative conclusion ("not enough evidence to go live") is legitimate.
 
 The existing six-team project in PROJECT_BRIEF.md remains available as a **guided backup**. It is useful if the group prefers a more structured exercise, but it is not the default open research challenge.
 
