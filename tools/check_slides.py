@@ -6,6 +6,7 @@ ROOT = Path(__file__).resolve().parents[1] / "slides"
 decks = [
     ROOT / "lecture1_honest_probabilities.pptx",
     ROOT / "lecture2_deciding_under_uncertainty.pptx",
+    ROOT / "lecture_when_can_we_trust_clinical_ai.pptx",
 ]
 for path in decks:
     pres = Presentation(path)
