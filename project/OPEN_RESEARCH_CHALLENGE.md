@@ -1,3 +1,9 @@
+# NOTE: optional short exercise, not the current three-day project
+
+**For the workshop research project, use [THREE_DAY_RESEARCH_PROJECT.md](THREE_DAY_RESEARCH_PROJECT.md), [RESEARCH_PROTOCOL.md](RESEARCH_PROTOCOL.md), and the new notebook `92_three_day_research_starter.ipynb`.** The material below is the older two-hour alternative. The full target outcomes are no longer distributed publicly. An instructor can regenerate them from the fixed simulator seed for debrief.
+
+---
+
 # Open research challenge: when should a clinical risk model be trusted at a new hospital?
 
 AI & Uncertainty School and Workshop 2026 | Healthcare module
@@ -23,7 +29,7 @@ Generated reproducibly by project/generate_open_challenge.py and stored in proje
 | development.csv | 4,000 labeled synthetic hospital-A admissions |
 | new_hospital_unlabeled.csv | 1,600 hospital-B admissions; **no target outcomes** |
 | audit_labels.csv | Outcome labels for a random audit of **75** of those 1,600 records |
-| instructor_outcomes_for_debrief.csv | Target outcomes for **post-project debrief only**; do not use during exploration |
+| Instructor-only debrief | Outcomes are regenerated separately after the project. They are not included in the student-facing files. |
 
 The records have routine vital signs, lab values, comorbidities and a binary deterioration outcome. The observed records were generated with a transparent simulator that can vary outcome risk, missingness, measurement error and subgroup relationships. They are **not** a validated reproduction of MIMIC-IV. The point is methodological reasoning, not biomedical realism.
 
@@ -61,7 +67,7 @@ Open the student notebook: notebooks/91_open_research_challenge_starter.ipynb.
 
 ## Instructor debrief
 
-Once teams finish, use instructor_outcomes_for_debrief.csv to discuss what can change when unseen outcomes are made available. Do not score teams based on whether they guessed the synthetic generating parameters. A good negative conclusion ("not enough evidence to go live") is legitimate.
+Once teams finish, ask the instructor to regenerate outcomes for a debrief to discuss what can change when unseen outcomes are made available. Do not score teams based on whether they guessed the synthetic generating parameters. A good negative conclusion ("not enough evidence to go live") is legitimate.
 
 The existing six-team project in PROJECT_BRIEF.md remains available as a **guided backup**. It is useful if the group prefers a more structured exercise, but it is not the default open research challenge.
 

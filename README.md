@@ -1,4 +1,4 @@
-# Trustworthy medical AI under real-world uncertainty
+# Trustworthy clinical AI under hospital transfer uncertainty
 
 **Healthcare AI module for the [AI & Uncertainty School and Workshop 2026](https://ai-uncertainty-workshop.github.io/2026/) - Mauritius, 16-20 November 2026**
 
@@ -12,14 +12,43 @@
 > **The question the whole module is built around:**
 > *Can you build a clinical prediction system that knows when it should not be trusted?*
 
-Two lectures prepared for either **60 or 90 minutes**, optional Bayesian/SBI deep dives,
-and an **open two- to three-hour team challenge**. The older six-team guided exercise
-is kept as a backup. Core exercises use synthetic EHR-like data on free Colab CPU:
-no credentialed data, GPU, or local installation. Workshop timing is not yet confirmed.
+## Current workshop plan: one lecture, three research days
+
+Bruce has requested **one integrated lecture**, with the remaining time
+focused on a three-day student research project. The original two lectures
+and six-team exercise are preserved below as optional reference material.
+
+- **One lecture:** [When Can We Trust Clinical AI at a New Hospital?](slides/lecture_when_can_we_trust_clinical_ai.pptx)
+- **Teaching guide:** [23-slide integrated presenter guide](docs/ONE_LECTURE_PRESENTER_GUIDE.md)
+- **Three-day project:** [Student plan](project/THREE_DAY_RESEARCH_PROJECT.md)
+- **Methods protocol:** [Independent-test recalibration comparison](project/RESEARCH_PROTOCOL.md)
+- **Student-owned research:** [Four possible new experiments](project/OPEN_RESEARCH_EXTENSIONS.md)
+- **Student notebook:** [Open in Colab](https://colab.research.google.com/github/vafaei-ar/ai-uncertainty-2026-healthcare/blob/main/notebooks/92_three_day_research_starter.ipynb)
+- **Experiment code:** [Run repeated synthetic hospital-transfer comparisons](project/research_experiments.py)
+- **MIMIC bridge:** [What the MIMIC-inspired tables do and do not represent](docs/MIMIC_TRANSLATION.md)
+
+**Research question:** With 25, 75, or 150 labeled new-hospital
+outcomes, when does a calibration update improve probability reliability
+over an unchanged source model?
+
+Students compare unchanged predictions, intercept-only correction, and
+Platt correction on **independent synthetic test outcomes**, across
+several hospital shift mechanisms. Brier score change is the primary
+comparison. Day 1 establishes the baseline, Day 2 compares methods,
+and Day 3 repeats experiments and presents preliminary results.
+
+The teaching data are synthetic. A limited adapter demonstrates
+MIMIC-inspired relational *structure*, not genuine MIMIC-IV patient
+records, item codes, time windows, or a validated cohort. The project
+does not establish clinical safety or guarantee a publication.
+
+The expected workshop output is reproducible preliminary research,
+not a manuscript. A research paper would require novelty assessment,
+broader experiments, and preferably independent external validation.
 
 ---
 
-## Start here
+## Optional reference notebooks from the earlier two-lecture plan
 
 Click a badge. Nothing to install, nothing to download.
 
@@ -65,7 +94,7 @@ AUROC measures ranking; calibration asks whether stated probabilities agree with
 
 ---
 
-## How the module fits together
+## Archived two-lecture reference path (not the current schedule)
 
 ```mermaid
 flowchart LR

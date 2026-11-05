@@ -1,3 +1,13 @@
+# Current presentation plan: one integrated lecture
+
+Use `slides/lecture_when_can_we_trust_clinical_ai.pptx` and [ONE_LECTURE_PRESENTER_GUIDE.md](ONE_LECTURE_PRESENTER_GUIDE.md). The integrated lecture targets about 60 minutes including student questions, and prepares for the three-day project in [../project/THREE_DAY_RESEARCH_PROJECT.md](../project/THREE_DAY_RESEARCH_PROJECT.md). Keep the original two decks for optional self-paced reference only. Confirm the exact time and in-room facilitator with Bruce.
+
+**Core messages:** AUROC is not calibration; target outcomes are required to assess target calibration; fit recalibration on audits but evaluate on independent outcomes; model disagreement is only a proxy; no simulated result validates patient-care deployment.
+
+---
+
+## Archived two-lecture rehearsal guide
+
 # Healthcare module: lecture delivery and rehearsal guide
 
 **Existing assets:** Lecture 1 (24 slides), Lecture 2 (25 slides), matching Colab notebooks, optional PyMC/SBI deep dives, six-team synthetic-data project.

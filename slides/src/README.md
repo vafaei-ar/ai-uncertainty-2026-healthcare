@@ -1,6 +1,6 @@
-# Slide deck sources
+# Slide deck sources: integrated lecture and optional references
 
-The two lecture decks are generated, not hand-built, so the figures and the
+The lecture decks are generated, not hand-built, so the figures and the
 numbers quoted on the slides stay tied to the code that produced them.
 
 ```bash
@@ -8,7 +8,8 @@ python slides/make_figures.py     # render figures/ from medsim (run from the re
 cd slides/src
 npm install pptxgenjs             # only if it is not already available
 node deck1.js
-node deck2.js
+node deck2.js       # optional reference
+node one_lecture.js # CURRENT integrated lecture
 ```
 
 - `theme.js` - the shared visual system: palette, type, and the seven slide
@@ -19,3 +20,9 @@ node deck2.js
 The four-colour series palette is validated for colour-vision deficiency and for
 contrast against both light and dark surfaces. If you change it, re-check it
 rather than eyeballing it.
+
+- `one_lecture.js` is the current 23-slide, approximately 60-minute workshop lecture with speaker notes and a custom three-day workflow diagram.
+- `deck1.js` and `deck2.js` remain as self-paced references, not as two scheduled lecture slots.
+- The linked project and presenter guide live under `project/THREE_DAY_RESEARCH_PROJECT.md` and `docs/ONE_LECTURE_PRESENTER_GUIDE.md`.
+
+The GitHub Actions workflow **regenerates and validates** PPTX and notebooks on pushes and pull requests. To deliberately commit newly generated binary outputs after editing source code, run its workflow_dispatch action on the review branch. Ordinary CI does not push regenerated ZIP-based PowerPoint binaries, whose timestamps may differ on each run.

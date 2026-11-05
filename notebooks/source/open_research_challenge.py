@@ -139,8 +139,9 @@ change in the conditional risk, even when the input-drift report looks normal.
 3. **What next?** What assumptions remain untested? Which extra target-hospital
    outcomes or measurements would change your decision?
 
-**Do not use** instructor_outcomes_for_debrief.csv before the group discussion.
-It exists for a transparent, ungraded debrief, not for tuning your solution.
+**Full target outcomes are not distributed in the student materials.**
+An instructor can regenerate the synthetic scenario after the discussion
+for an optional debrief. Never use hidden evaluation outcomes to tune an approach.
 """)
     return nb
 
