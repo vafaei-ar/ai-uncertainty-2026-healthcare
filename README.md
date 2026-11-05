@@ -22,6 +22,7 @@ and six-team exercise are preserved below as optional reference material.
 - **Teaching guide:** [23-slide integrated presenter guide](docs/ONE_LECTURE_PRESENTER_GUIDE.md)
 - **Three-day project:** [Student plan](project/THREE_DAY_RESEARCH_PROJECT.md)
 - **Methods protocol:** [Independent-test recalibration comparison](project/RESEARCH_PROTOCOL.md)
+- **Student-owned research:** [Four possible new experiments](project/OPEN_RESEARCH_EXTENSIONS.md)
 - **Student notebook:** [Open in Colab](https://colab.research.google.com/github/vafaei-ar/ai-uncertainty-2026-healthcare/blob/main/notebooks/92_three_day_research_starter.ipynb)
 - **Experiment code:** [Run repeated synthetic hospital-transfer comparisons](project/research_experiments.py)
 - **MIMIC bridge:** [What the MIMIC-inspired tables do and do not represent](docs/MIMIC_TRANSLATION.md)
