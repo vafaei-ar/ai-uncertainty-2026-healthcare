@@ -100,5 +100,19 @@ jobs:
             git config user.name 'github-actions[bot]'
             git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
             git commit -m 'Regenerate and verify workshop decks, notebooks and project data'
-            git push origin HEAD:chatgpt/mauritius-one-lecture-three-day-research-2026
+            # Other repository updates may have landed during this long build.
+            # Rebase generated-only changes rather than rejecting a clean build.
+            TARGET=chatgpt/mauritius-one-lecture-three-day-research-2026
+            for attempt in 1 2 3; do
+              git fetch origin "$TARGET"
+              git rebase "origin/$TARGET"
+              if git push origin HEAD:"$TARGET"; then
+                break
+              fi
+              if [ "$attempt" -eq 3 ]; then
+                echo "Could not push generated artifacts after three fast-forward attempts."
+                exit 1
+              fi
+              sleep 2
+            done
           fi
