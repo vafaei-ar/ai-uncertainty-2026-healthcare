@@ -43,12 +43,11 @@ def main():
         out / "new_hospital_unlabeled.csv", index=False, float_format="%.7g"
     )
     audit.to_csv(out / "audit_labels.csv", index=False)
-    new_hospital[["record_id", "outcome"]].to_csv(
-        out / "instructor_outcomes_for_debrief.csv", index=False
-    )
+    # Do not publish the full target outcome key in the student-facing repository.
+    # Instructors can regenerate the scenario with the documented seed for a debrief.
 
-    # Never include patient data. A public debrief file is acceptable for this
-    # exploratory, ungraded exercise, but students should not use it until debrief.
+    # Never include real patient data. Keep the withheld target labels out of
+    # student-facing CSV files so adaptation cannot inadvertently leak outcomes.
     assert set(audit["record_id"]).issubset(set(new_hospital["record_id"]))
     assert new_hospital["record_id"].is_unique
     print(f"Created {len(development)} development records, "
