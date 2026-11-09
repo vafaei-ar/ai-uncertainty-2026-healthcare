@@ -74,6 +74,11 @@ assert research_result["replicate"].nunique() >= 2
 assert (research_result["n_test"] >= 100).all()
 assert research_result["brier"].between(0, 1).all()
 assert len(research_summary) == 5 * 3 * 2
+assert "failed_platt_fits" in research_summary.columns
+assert "fallback_to_unchanged" in research_result.columns
+assert not research_result.loc[research_result["method"] != "platt", "fallback_to_unchanged"].any()
+assert (research_result.loc[research_result["method"] == "platt", "fallback_to_unchanged"] ==
+        ~research_result.loc[research_result["method"] == "platt", "method_estimable"]).all()
 assert (ROOT / "project/mimic_like_demo/patients.csv").exists()
 assert (ROOT / "project/mimic_like_demo/admissions.csv").exists()
 assert (ROOT / "project/results/brier_comparison.png").exists()
