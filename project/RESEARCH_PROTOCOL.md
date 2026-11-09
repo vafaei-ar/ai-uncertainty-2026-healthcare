@@ -44,7 +44,9 @@ Recorded measurement changes can affect P(Y|X_observed).
 - **Platt:** fit a logistic slope and intercept to target-audit model
   logits with L2 regularization. If a target audit has only one class,
   report that Platt is not estimable and use unchanged probabilities only
-  as a marked fallback.
+  as a marked fallback. The reported Platt comparison is therefore a
+  pre-defined policy with fallback, not an estimate restricted to
+  successfully fitted Platt models.
 
 Only target-audit labels can inform recalibration. Keep preprocessing and
 source model training the same across methods.
@@ -92,7 +94,9 @@ This writes:
 - project/results/paired_summary.csv: descriptive paired contrasts
 - project/results/brier_comparison.png: one focused plot at the middle budget
 
-A faster rehearsal may use --repeats 2 and --test-size 1000.
+The repository includes a three-replicate demonstration result from
+its workshop CI. It is an execution example, not publication-quality
+precision. A faster rehearsal may use --repeats 2 and --test-size 1000.
 Do not substitute the quick rehearsal for final research estimates.
 
 ## Expected workshop conclusions
@@ -101,6 +105,13 @@ The students should identify **where and why** simple recalibration helps,
 hurts, or remains uncertain given the audit size. They should be able to
 propose the next study. They should not be evaluated by whether they happen
 to recover the simulator's hidden settings.
+
+## Further reading
+
+See [References and further reading](../docs/REFERENCES_AND_READING.md)
+for clinical prediction model calibration, updating and the dangers
+of using small external validation samples. These ideas are established
+methods, not new methods invented for this workshop.
 
 ## Publication path beyond the workshop
 
