@@ -37,7 +37,7 @@ Recorded measurement changes can affect P(Y|X_observed).
 
 ## Fixed methods
 
-- **Unchanged:** develop a logistic risk model on Hospital A; use its
+- **Unchanged:** develop a logistic risk model on Hospital A and use its
   probabilities at the target without alteration.
 - **Intercept:** fit one shift on target-audit log odds, with weak
   regularization and a fixed original slope.
@@ -54,8 +54,8 @@ source model training the same across methods.
 **Primary:** Brier score on independent target data, with paired difference
 to unchanged.
 
-**Secondary:** AUROC; expected calibration error; calibration-in-the-large
-gap; maximum absolute group-level mean calibration gap for groups with at
+**Secondary:** AUROC, expected calibration error, calibration-in-the-large
+gap, and maximum absolute group-level mean calibration gap for groups with at
 least 30 evaluation observations.
 
 AUROC cannot assess whether probability values are reliable. ECE is
