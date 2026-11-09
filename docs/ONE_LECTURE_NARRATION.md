@@ -69,7 +69,14 @@ Sometimes the appropriate answer is to continue shadow mode. In that state, the 
 Here is the original project setup. Hospital A has four thousand synthetic admissions with known outcomes. Hospital B has sixteen hundred admissions, but students initially know only seventy-five outcomes. The question is what they can learn from those seventy-five labels, and what remains unknown.
 
 <!-- slide: 21 -->
-We will turn that question into an experiment. Under several synthetic hospital changes, students compare an unchanged model with two calibration corrections. They vary how many target outcomes are available. Their main score is the Brier score, which measures the squared difference between a predicted probability and the observed binary outcome. Crucially, they evaluate on different target patients from those used to fit corrections.
+These three datasets have different jobs. Hospital A supplies the records
+used to train the original model. A small audit at Hospital B supplies
+twenty-five, seventy-five, or one hundred fifty outcome labels to adjust
+its probabilities. Then we use a different set of simulated Hospital B
+patients to judge whether that adjustment helped. We must not use the
+same outcomes to fit and evaluate the correction. Our main measure is
+the change in Brier score, which summarizes the squared difference
+between predicted risks and actual outcomes.
 
 <!-- slide: 22 -->
 The first day is about understanding the data and reproducing a baseline. The second day compares adaptation methods and outcome label budgets. The third day repeats the experiments, examines failures, and produces one clear figure and a short report. The goal is to learn to make a defensible scientific comparison, not to run the most sophisticated algorithm.
