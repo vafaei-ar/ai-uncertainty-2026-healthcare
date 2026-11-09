@@ -251,7 +251,9 @@ Reviewing cases can also be considered, but it requires a real workflow."
 
 Hospital A has 4,000 labeled synthetic admissions. Hospital B has
 1,600 synthetic admissions with input variables but only 75 randomly
-audited outcomes. The outcomes of the other target cases are not
+audited outcomes. This is the orientation dataset. Our repeated research
+experiment generates additional synthetic calibration and independent
+test cohorts, which lets us compare several label budgets. The outcomes of the other target cases are not
 distributed in student-facing files.
 
 **Ask:** "What can we learn immediately? What requires labels?"
