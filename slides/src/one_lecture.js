@@ -15,8 +15,20 @@ let geometry = null;
 try {
   geometry = require("/home/oai/skills/slides/pptxgenjs_helpers");
 } catch (_e) { /* not installed on GitHub Actions */ }
+// Exact bibliographic pointers in speaker notes. Keep science readable on slides.
+const REFERENCES = {
+  4: ["Binuya et al. BMC Med Res Methodol. 2022. doi:10.1186/s12874-022-01801-8"],
+  5: ["Van Calster et al. BMC Med. 2019. doi:10.1186/s12916-019-1466-7"],
+  7: ["Binuya et al. BMC Med Res Methodol. 2022. doi:10.1186/s12874-022-01801-8"],
+  14: ["Binuya et al. BMC Med Res Methodol. 2022. doi:10.1186/s12874-022-01801-8"],
+  15: ["Riley et al. BMJ. 2024. doi:10.1136/bmj-2023-074821", "Van Calster et al. BMC Med. 2019. doi:10.1186/s12916-019-1466-7"],
+  21: ["Riley et al. BMJ. 2024. doi:10.1136/bmj-2023-074821"],
+};
+let slideNumber = 0;
 function add(slide, notes) {
-  slide.addNotes(notes);
+  slideNumber += 1;
+  const refs = REFERENCES[slideNumber];
+  slide.addNotes(notes + (refs ? "\\n\\n[Sources]\\n" + refs.join("\\n") : ""));
   return slide;
 }
 function addBox(s, x, y, w, h, title, body, color) {
