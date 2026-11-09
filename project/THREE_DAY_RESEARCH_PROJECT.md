@@ -20,8 +20,10 @@ limited target labels**. This question is narrower and more testable than
 ## Why this is research, rather than only a classroom exercise
 
 The existing open challenge uses one source cohort, one new-hospital cohort,
-and 75 audit outcomes. A single result cannot show whether a method works
-reliably. The research extension makes **paired comparisons across repeated
+and 75 audit outcomes. That is an orientation example. The research script
+then generates **new** target calibration and evaluation cohorts, so students
+can study budgets of 25, 75 and 150 without inventing or reusing outcomes.
+A single result cannot show whether a method works reliably. The research extension makes **paired comparisons across repeated
 synthetic experiments** with independent evaluation outcomes.
 
 **Methods:** unchanged source model, intercept-only recalibration, logistic
