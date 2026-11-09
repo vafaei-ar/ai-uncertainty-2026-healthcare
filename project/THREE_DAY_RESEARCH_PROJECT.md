@@ -96,9 +96,11 @@ For the original 75-label challenge, students should use only:
 - new_hospital_unlabeled.csv: target features, **no outcomes**
 - audit_labels.csv: random 75 target outcome labels
 
-The public repository no longer distributes all Hospital B outcomes in a
-student-accessible CSV. The simulator can regenerate the synthetic scenario
-for an instructor-led debrief.
+The current student-facing file list excludes the full Hospital B outcome
+key. Because this is a public repository with earlier commits, those
+synthetic outcomes may still be recoverable from Git history. Therefore,
+treat this as an **open, reproducible simulation**, not a secure blinded
+challenge. The research experiments generate a separate target test cohort.
 
 For the research experiment, the code simulates a separate target evaluation
 cohort and NEVER fits or selects a method using its outcomes. Evaluation
