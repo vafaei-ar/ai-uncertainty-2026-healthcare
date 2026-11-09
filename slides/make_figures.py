@@ -372,7 +372,7 @@ print(f"    flagged {flagged.mean():.1%}, precision {is_ood[flagged].mean():.1%}
 # Risk-coverage
 y_ood = ood["outcome"]
 rankings = {"Ensemble disagreement (proxy)": sd_ood,
-            "Risk near 0.5 (prediction proxy)": -np.abs(mean_ood - 0.5),
+            "Risk near 0.30 decision threshold": -np.abs(mean_ood - 0.30),
             "Random deferral": rng.random(len(mean_ood))}
 fig, ax = plt.subplots()
 for colour, (name, unc) in zip(C, rankings.items()):
