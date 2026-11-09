@@ -1,4 +1,4 @@
-# Pre-analysis protocol for the student simulation
+# Educational analysis specification for the student simulation
 
 ## Aim and estimand
 
