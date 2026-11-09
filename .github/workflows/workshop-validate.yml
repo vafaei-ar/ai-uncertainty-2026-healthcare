@@ -95,10 +95,10 @@ jobs:
       - name: Render all 23 lecture pages for visual inspection
         run: python tools/render_integrated_lecture_review.py
 
-      # Update deliverable PPTX and contact sheets on human-originated branch
-      # changes. Skip bot commits to prevent generated ZIP timestamp loops.
+      # Synchronize generated PPTX/contact-sheet files only on explicit manual
+      # workflow_dispatch. Ordinary PR builds regenerate and validate only.
       - name: Commit verified generated workshop materials
-        if: github.event_name == 'push' && github.ref_name == 'chatgpt/mauritius-one-lecture-three-day-research-2026' && github.actor != 'github-actions[bot]'
+        if: github.event_name == 'workflow_dispatch' && github.ref_name == 'chatgpt/mauritius-one-lecture-three-day-research-2026'
         run: |
           git add notebooks/01_lecture1_uncertainty_foundations_student.ipynb
           git add notebooks/01_lecture1_uncertainty_foundations_instructor.ipynb
