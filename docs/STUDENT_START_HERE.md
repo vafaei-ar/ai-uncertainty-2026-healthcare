@@ -69,8 +69,11 @@ result can look better than it really is.
 | Intercept update | Move the predicted risk levels up or down |
 | Logistic (Platt) update | Also change the spread of predictions |
 
-Try 25, 75, and 150 randomly selected target outcomes, under one or
-more simulated changes between hospitals.
+The first orientation example provides **75** target audit outcomes.
+For the research comparisons, the simulator creates new, independent
+synthetic cohorts and lets us sample **25, 75, or 150** target outcomes.
+You are not expected to find another 75 real outcomes in the provided
+orientation file. These are two connected teaching activities.
 
 The **Brier score** is the average squared difference between the
 predicted probability and the outcome (0 or 1). Lower is better.
