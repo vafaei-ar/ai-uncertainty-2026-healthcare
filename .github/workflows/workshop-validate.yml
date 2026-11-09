@@ -79,9 +79,10 @@ jobs:
           node src/deck2.js
           node src/one_lecture.js
 
-      - name: Validate slide geometry and whitespace
+      - name: Validate slide geometry, notes and scientific provenance
         run: |
           python tools/check_slides.py
+          python tools/audit_integrated_lecture.py
           git diff --check
 
       # Only a manual dispatch syncs binaries: PowerPoint ZIP timestamps vary
