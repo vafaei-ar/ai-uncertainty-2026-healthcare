@@ -240,17 +240,26 @@ add(T.statsSlide(pptx, {
 }), "3 min. Explain what labeled means: we know if the outcome occurred. Hospital B's 1600 records show features; only 75 outcomes are known. Students will test methods with new simulations and independent held-out outcomes.");
 
 // 21
-add(T.listSlide(pptx, {
-  kicker:"ONE TESTABLE RESEARCH QUESTION",
-  heading:"Does adaptation help at 25, 75, or 150 target labels?",
-  twoColumn:true,
-  items:[
-    {title:"Hospital changes",body:"No shift, baseline risk, measurement noise, subgroup relationship, missingness."},
-    {title:"Candidate methods",body:"No update, intercept-only recalibration, two-parameter Platt scaling."},
-    {title:"Primary score",body:"Paired change in Brier score. Lower is better."},
-    {title:"Secondary checks",body:"AUROC, calibration error, subgroup mean risk gaps."},
-  ],
-}), "3 min. This is research about conditions and label budgets, not a contest for best AUROC. Specify the Brier score is an average squared difference between predicted risk and observed binary outcome.");
+{
+  const s = T.contentSlide(pptx,
+    "Keep training, adjustment and evaluation separate", "THE STUDY DESIGN");
+  addBox(s, 0.65, 1.95, 3.6, 2.90,
+    "Hospital A: train", "Use 4,000 synthetic labeled records to fit the original model.",
+    "E7F0FA");
+  addBox(s, 4.87, 1.95, 3.6, 2.90,
+    "Hospital B: adjust", "Use only 25, 75 or 150 target audit outcomes to fit the calibration update.",
+    "F7EEE3");
+  addBox(s, 9.08, 1.95, 3.6, 2.90,
+    "Independent B: test", "Use different simulated admissions to compare Brier scores and model performance.",
+    "E6F3EB");
+  connect(s, 4.25, 3.42, 4.77, 3.42);
+  connect(s, 8.47, 3.42, 8.98, 3.42);
+  s.addText("Never use the same target outcomes to fit an update and claim independent performance.", {
+    x: 0.85, y: 5.55, w: 11.65, h: 0.85, margin: 0, fontFace: "Calibri",
+    fontSize: 21, color: "13293D", bold: true, align: "center"
+  });
+  add(s, "3 min. These are three different data roles. Source labels train the model. Small target audits adjust its probabilities. Separately generated target outcomes estimate performance. In a simulation, the evaluator can generate fully labeled test admissions, but in real hospital research we would need a valid independent outcome dataset. Reuse of the same audit labels for fitting and apparent evaluation makes the result optimistic. The primary comparison is paired Brier score difference on these independent test admissions.");
+}
 
 // 22
 {
