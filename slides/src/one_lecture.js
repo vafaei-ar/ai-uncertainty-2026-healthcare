@@ -28,7 +28,7 @@ let slideNumber = 0;
 function add(slide, notes) {
   slideNumber += 1;
   const refs = REFERENCES[slideNumber];
-  slide.addNotes(notes + (refs ? "\\n\\n[Sources]\\n" + refs.join("\\n") : ""));
+  slide.addNotes(notes + (refs ? "\n\n[Sources]\n" + refs.join("\n") : ""));
   return slide;
 }
 function addBox(s, x, y, w, h, title, body, color) {
