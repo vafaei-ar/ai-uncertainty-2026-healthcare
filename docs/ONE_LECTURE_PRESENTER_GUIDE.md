@@ -79,7 +79,7 @@ rank is the same if we multiply or monotonically transform the scores,
 but the stated probabilities can become wrong.
 
 **Ask:** "If the model always doubles the odds of deterioration, can AUROC
-remain unchanged?" Yes for a strictly monotone transformation; calibration
+remain unchanged?" Yes, for a strictly monotone transformation. Calibration
 can change.
 
 ### 5. Same ranking, different calibration
