@@ -85,6 +85,16 @@ jobs:
           python tools/audit_integrated_lecture.py
           git diff --check
 
+      - name: Install local presentation renderer when missing
+        run: |
+          if ! command -v libreoffice >/dev/null 2>&1 || ! command -v pdftoppm >/dev/null 2>&1; then
+            sudo apt-get update -qq
+            sudo apt-get install -y -qq libreoffice-impress poppler-utils
+          fi
+
+      - name: Render all 23 lecture pages for visual inspection
+        run: python tools/render_integrated_lecture_review.py
+
       # Only a manual dispatch syncs binaries: PowerPoint ZIP timestamps vary
       # across builds, so pushing rebuilt binaries on every commit causes bot
       # commits and prevents ordinary pull request checks from running.
@@ -102,7 +112,7 @@ jobs:
           git add notebooks/90_team_project_starter.ipynb
           git add notebooks/91_open_research_challenge_starter.ipynb
           git add notebooks/92_three_day_research_starter.ipynb
-          git add project/open_data project/results project/mimic_like_demo
+          git add project/open_data project/results project/mimic_like_demo docs/qa
           git add slides/figures slides/lecture1_honest_probabilities.pptx slides/lecture2_deciding_under_uncertainty.pptx slides/lecture_when_can_we_trust_clinical_ai.pptx
           if ! git diff --cached --quiet; then
             git config user.name 'github-actions[bot]'
