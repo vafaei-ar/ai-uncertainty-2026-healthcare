@@ -92,7 +92,7 @@ add(T.listSlide(pptx, {
 // 4
 add(T.compareSlide(pptx, {
   kicker:"TWO IDEAS",
-  heading:"Ranking patients is not the same as estimating their risk",
+  heading:"Ranking is not the same as risk",
   left:{title:"Discrimination / AUROC", body:"Can the model rank someone who deteriorates above someone who does not?\n\nUseful for prioritizing patients.\n\nDoes not say whether a 30% risk is correct."},
   right:{title:"Calibration", body:"Among people assigned 30% risk, do about 30% deteriorate?\n\nNecessary to interpret a probability.\n\nRequires observed outcomes for evaluation."},
   footnote:"Explain the clinical question first. Name the metric second.",
@@ -101,7 +101,7 @@ add(T.compareSlide(pptx, {
 // 5
 add(T.figureSlide(pptx, {
   kicker:"SIMULATED TEACHING EXAMPLE",
-  heading:"The ranking can stay the same while probabilities become misleading",
+  heading:"Good ranking, misleading probabilities",
   image:"figures/l1_calibration.png",
   reading:"Three versions of the same ranking have different calibration. Look at the probabilities, not only AUROC.",
 }), "3 min. Walk the audience through the axes and one line at a time. This figure is produced by the synthetic simulator. Ask which probabilities would be safe to communicate as risks. Note that real deployment may also change AUROC.");
@@ -124,7 +124,7 @@ add(T.figureSlide(pptx, {
 // 8
 add(T.figureSlide(pptx, {
   kicker:"WHAT CAN WE SEE WITHOUT TARGET OUTCOMES?",
-  heading:"Monitoring recorded inputs cannot check everything",
+  heading:"Input checks miss some hospital changes",
   image:"figures/l1_shift_detection.png",
   reading:"Some measurement changes appear in input checks. A change in risk conditional on inputs may remain hidden.",
 }), "3 min. Explain we can compare patient age, heart rate, and lab distributions before collecting target labels. But without outcomes those comparisons cannot establish whether 30 percent still means 30 percent. Measurement noise can also alter conditional risk for recorded measurements.");
@@ -139,7 +139,7 @@ add(T.statementSlide(pptx, {
 // 10
 add(T.compareSlide(pptx, {
   kicker:"WHY DO WE DOUBT A PREDICTION?",
-  heading:"Two kinds of uncertainty call for different responses",
+  heading:"Two sources of uncertainty",
   left:{title:"Epistemic: what we do not know", body:"Few relevant examples, uncertain model estimates, unfamiliar situations.\n\nMore appropriate data may help.\n\nBootstrap disagreement is only one proxy."},
   right:{title:"Aleatoric: what remains unpredictable", body:"Similar recorded cases can have different outcomes.\n\nMore rows with the same variables may not remove this variation.\n\nNew useful measurements may help."},
   footnote:"The same patient can have both kinds of uncertainty.",
@@ -148,7 +148,7 @@ add(T.compareSlide(pptx, {
 // 11
 add(T.figureSlide(pptx, {
   kicker:"SYNTHETIC LEARNING CURVES",
-  heading:"More data can reduce model uncertainty, not all uncertainty",
+  heading:"More data reduce some uncertainty",
   image:"figures/l1_epistemic.png",
   reading:"Bootstrap spread captures sensitivity to refitting, not a formal posterior or guaranteed out-of-distribution detector.",
 }), "2 min. Explain what resampling does without equations. Show how model predictions vary across fitted samples. The plot is illustrative and does not prove universal behavior.");
@@ -185,7 +185,7 @@ add(T.tableSlide(pptx, {
 // 15
 add(T.figureSlide(pptx, {
   kicker:"SEPARATE CALIBRATION DEMONSTRATION",
-  heading:"The more flexible repair is not always better with few labels",
+  heading:"Flexible fixes need more labels",
   image:"figures/l2_calibration_cost.png",
   reading:"This simulator example motivates comparing label budgets. It does not establish a universal sample-size requirement.",
 }), "3 min. Describe what changes when the new hospital supplies 25, 75, or 150 outcomes. Warn that a method tuned and tested on the same 75 observations looks artificially good.");
@@ -242,7 +242,7 @@ add(T.statsSlide(pptx, {
 // 21
 {
   const s = T.contentSlide(pptx,
-    "Keep training, adjustment and evaluation separate", "THE STUDY DESIGN");
+    "Three datasets have three distinct roles", "THE STUDY DESIGN");
   addBox(s, 0.65, 1.95, 3.6, 2.90,
     "Hospital A: train", "Use 4,000 synthetic labeled records to fit the original model.",
     "E7F0FA");
