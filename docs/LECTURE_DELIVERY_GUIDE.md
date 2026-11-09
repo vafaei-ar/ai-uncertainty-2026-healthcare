@@ -1,77 +1,60 @@
-# Current presentation plan: one integrated lecture
+# One-lecture delivery guide
 
-Use `slides/lecture_when_can_we_trust_clinical_ai.pptx` and [ONE_LECTURE_PRESENTER_GUIDE.md](ONE_LECTURE_PRESENTER_GUIDE.md). The integrated lecture targets about 60 minutes including student questions, and prepares for the three-day project in [../project/THREE_DAY_RESEARCH_PROJECT.md](../project/THREE_DAY_RESEARCH_PROJECT.md). Keep the original two decks for optional self-paced reference only. Confirm the exact time and in-room facilitator with Bruce.
+**Lecture:** When Can We Trust Clinical AI at a New Hospital?  
+**Format:** remote, approximately 60 minutes with student questions  
+**Slides:** [Integrated deck](../slides/lecture_when_can_we_trust_clinical_ai.pptx)  
+**Detailed notes:** [Presenter guide](ONE_LECTURE_PRESENTER_GUIDE.md)
 
-**Core messages:** AUROC is not calibration; target outcomes are required to assess target calibration; fit recalibration on audits but evaluate on independent outcomes; model disagreement is only a proxy; no simulated result validates patient-care deployment.
+## Teaching sequence
 
----
-
-## Archived two-lecture rehearsal guide
-
-# Healthcare module: lecture delivery and rehearsal guide
-
-**Existing assets:** Lecture 1 (24 slides), Lecture 2 (25 slides), matching Colab notebooks, optional PyMC/SBI deep dives, six-team synthetic-data project.
-**Still awaiting organiser confirmation:** two lecture slots, their length, whether a group project slot exists, and how remote project support would work.
-
-## Protect three ideas per lecture
-
-**Lecture 1: Honest probabilities in clinical prediction**
-1. A predicted risk is a claim about the world: discrimination and calibration are distinct.
-2. Different uncertainty sources require different responses; extra rows are not always the answer.
-3. Hospital transfer can change the inputs, the risk conditional on the inputs, or both. Input monitoring alone cannot verify calibration.
-
-**Lecture 2: Deciding under uncertainty**
-1. Probability recalibration requires appropriately collected target-site outcome labels.
-2. Deferral can help only when its rule and downstream clinical review are evaluated; ensemble spread is a **proxy**, not a reliability guarantee.
-3. Action thresholds depend on consequences, constraints and the care pathway; always compare against a no-model policy.
-
-## Flexible speaking plan
-
-The following slide numbers refer to the *current* `slides/src/deck1.js` and `deck2.js` generators.
-
-| Slot | Lecture 1 core (60 minutes) | Optional material for 90 minutes |
+| Minutes | Slides | What students should learn |
 | --- | --- | --- |
-| 0-5 | Slides 1-3, opening question | Longer group question |
-| 5-20 | Slides 7-9, ranking vs calibration | Slides 4-6, brief posterior updating |
-| 20-35 | Slides 10-13, sources of uncertainty | Live notebook demonstration and discussion |
-| 35-50 | Slides 17-20, second hospital and monitoring | Slides 14-16, simulator and performance intervals |
-| 50-60 | Slides 21-24, missingness and takeaways | Revisit discussion, questions |
+| 0–13 | 1–5 | Meaning of a 30% risk, AUROC versus calibration |
+| 13–21 | 6–9 | External transfer and limits of input monitoring |
+| 21–28 | 10–12 | Uncertainty and informative missingness |
+| 28–35 | 13–15 | Two calibration updates and scarce outcome labels |
+| 35–43 | 16–18 | Optional discussion of review and subgroup reliability |
+| 43–51 | 19–21 | Decisions, independent training/update/test data |
+| 51–60 | 22–23 | Three-day research question and student questions |
 
-| Slot | Lecture 2 core (60 minutes) | Optional material for 90 minutes |
-| --- | --- | --- |
-| 0-5 | Slides 1-3, reconnect to Lecture 1 | Group recap |
-| 5-19 | Slides 4-7, recalibration and labels | Colab demo: intercept vs flexible fixes |
-| 19-36 | Slides 8-14, ensembles and selective prediction | Compare alternative deferral rules |
-| 36-48 | Slides 15-17, consequences and thresholds | Decision-curve example and sensitivity |
-| 48-55 | Slides 18-19, subgroup reliability | Subgroup discussion |
-| 55-60 | Slides 23-25, synthesis and project | Slides 20-22, optional PyMC/SBI bridge |
+If lecture time is reduced, prioritize slides **1–9, 14–15 and 19–23**.
+Treat uncertainty proxies and referral policies as optional context.
+Do not rush the separation between update and independent test labels.
 
-The 60-minute versions omit entire optional sections rather than speaking through all 24-25 slides too quickly. In the 90-minute versions, use notebook exercises and discussion, not extra dense slides.
+## Delivery preparation
 
-## Corrections/qualifications to make before presenting
+1. Practice explaining AUROC, calibration and Brier score without
+   formulas before showing a graph.
+2. Explain that the synthetic outcome is **deterioration within 48 hours**.
+   None of the probabilities or datasets have clinical validation.
+3. Show the relationship between training at Hospital A, updating at
+   Hospital B, and testing on separate simulated admissions.
+4. Confirm that the notebook opens in a fresh Colab runtime and
+   reproduces a baseline comparison.
+5. Agree on daily time blocks and a local facilitator with Bruce.
+6. Ask students to report label budgets, event counts, seeds, paired
+   Brier changes and limitations.
 
-- **Measurement noise:** The simulator adds noise to *observed* readings after outcomes are generated. Such changes can affect `P(Y|X_observed)`; avoid labeling the entire Site C example as **pure covariate shift**. A feature-distribution alarm may fire here, but the general claim does not follow from feature SMD checks alone.
-- **Transport:** A good AUROC can coexist with poor calibration, **but ranking does not invariably survive hospital transfer**.
-- **Ensemble disagreement:** Bootstrap spread captures sensitivity to a particular resampling/model procedure. It is neither a full posterior nor a guaranteed OOD detector.
-- **Clinical threshold:** `1/(1+R)` is a threshold for an idealised two-action cost model with calibrated probabilities, not an unconditional ICU rule. Workflow, resource constraints and effects of intervention also matter.
-- **Deferral:** Passing a patient to review consumes capacity; safety benefit must be evaluated rather than presumed.
-- **Medical representativeness:** Call the current simulator 'synthetic EHR-like', not 'validated against MIMIC-IV'.
+## Scientific cautions
 
-## Remote teaching and technical checklist
+- AUROC measures ranking, not correctness of risk probabilities.
+- Input distribution similarity does not establish unchanged outcome
+  relationships.
+- Measurement drift may also alter conditional risk.
+- Ensemble disagreement is a proxy, not a guarantee of correctness.
+- Fitting on the 75 target-audit outcomes and evaluating on those same
+  labels gives an optimistically biased estimate.
+- A 25-label audit may contain very few events or none at all.
+- Three trial repetitions show the workflow, not the precision
+  required for a publication.
+- Review of an uncertain case does not automatically prevent harm.
+- The MIMIC-inspired adapter demonstrates toy table joins only.
 
-1. Check one fresh Google Colab session for each student notebook and time setup. The notebooks clone the repository; the current README claims the lecture runs are short, but **Colab execution has not been independently rechecked in this review**.
-2. Keep rendered slide figures and completed output examples as backup if Colab, Wi-Fi or the projector fails.
-3. Rehearse 60-minute talk tracks first, then add the optional 30 minutes.
-4. Have an in-room contact who can share the screen and circulate among teams, if a project is approved.
-5. Preflight mic, screen sharing, live notebook, time zone and any institute/compliance clearance before the workshop.
-6. Prefer no student logins beyond what Colab needs; no patient-level clinical data.
+## Backup
 
-## Work order
+Keep existing generated figures and the main baseline result available
+when internet access fails. Do not make up new results to replace
+unavailable computation.
 
-**First:** rehearse Lecture 1's core story and check every example against the notebook output.
-
-**Second:** rehearse Lecture 2, with emphasis on the limits of uncertainty proxies and threshold assumptions.
-
-**Third:** dry-run the open challenge in `project/OPEN_RESEARCH_CHALLENGE.md`, keeping the existing six-team exercise as a guided fallback. The open challenge generator and Colab starter are now included; confirm they execute before use.
-
-**Then:** confirm the programme's actual slots and in-room facilitation. The public workshop site currently notes that remote attendance may be possible for lectures but not group work; whether remote *instruction* of in-room teams is acceptable needs organiser confirmation.
+Older detailed rehearsal plans are in
+[the archive](archive/LECTURE_DELIVERY_GUIDE.md).
