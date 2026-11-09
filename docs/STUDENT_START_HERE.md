@@ -44,7 +44,9 @@ to install restricted clinical datasets.
 | outcome | 1 if simulated deterioration occurs within 48 hours, otherwise 0 |
 
 Some laboratory values are missing. Do not assume that every missing
-result means a normal test.
+result means a normal test. In the provided 75-record target audit,
+11 synthetic admissions have the deterioration outcome. This is too
+little information for precise subgroup calibration estimates.
 
 ## Three basic ideas
 
