@@ -70,9 +70,11 @@ def _intercept_recalibration(p_audit, y_audit, p_test):
 
 
 def _platt_recalibration(p_audit, y_audit, p_test):
-    """Fit logistic slope and intercept. A one-class audit is not estimable."""
+    """Fit logistic slope and intercept. One-class audits use a stated fallback."""
     labels = np.asarray(y_audit, dtype=int)
     if np.unique(labels).size < 2:
+        # Defined pragmatic policy: use the unchanged model when a two-class
+        # Platt fit is impossible. Always count these fallback cases.
         return np.asarray(p_test, dtype=float), False
     fit = LogisticRegression(C=1.0, max_iter=2000, random_state=0)
     fit.fit(_bounded_logit(p_audit).reshape(-1, 1), labels)
@@ -155,6 +157,7 @@ def run_grid(
                         "labels": budget,
                         "method": method,
                         "method_estimable": bool(fitted),
+                        "fallback_to_unchanged": bool(method == "platt" and not fitted),
                         "audit_events": int(y_audit.sum()),
                         "n_test": int(len(y_test)),
                         **_metrics(y_test, predicted, group_test),
@@ -169,10 +172,18 @@ def summarize_results(frame: pd.DataFrame) -> pd.DataFrame:
     """Paired Brier differences: negative favors adaptation.
 
     The 10th/90th percentiles describe variation across simulated replicates.
-    They are not confidence intervals and should not be called such.
+    They are not confidence intervals. Platt uses an unchanged-model fallback
+    if the audit contains only one observed outcome class.
     """
     wide = frame.pivot(
         index=["scenario", "labels", "replicate"], columns="method", values="brier"
+    )
+    # Platt below is a pre-defined *policy* with fallback on one-class audits,
+    # not the performance of a successfully fitted Platt model alone.
+    failures = (
+        frame.loc[frame["method"] == "platt"]
+        .groupby(["scenario", "labels"])["fallback_to_unchanged"]
+        .sum()
     )
     reports = []
     for method in ("intercept", "platt"):
@@ -184,6 +195,7 @@ def summarize_results(frame: pd.DataFrame) -> pd.DataFrame:
                 "labels": int(labels),
                 "method": method,
                 "replicates": int(len(d)),
+                "failed_platt_fits": int(failures.loc[(scenario, labels)]) if method == "platt" else 0,
                 "mean_delta_brier": float(d.mean()),
                 "p10_delta_brier": float(np.quantile(d, 0.1)),
                 "p90_delta_brier": float(np.quantile(d, 0.9)),
@@ -205,7 +217,7 @@ def plot_comparison(summary: pd.DataFrame, path: Path):
         subset = summary[(summary["method"] == method) & (summary["labels"] == budget)]
         ordered = subset.set_index("scenario").reindex(scenario_names)
         ax.plot(x, ordered["mean_delta_brier"], linestyle=linestyle, marker=marker, linewidth=2,
-                label=method.capitalize())
+                label="Platt (fallback if one-class audit)" if method == "platt" else "Intercept")
     ax.axhline(0, color="black", linewidth=1, linestyle=":")
     ax.set_xticks(x, ["No shift", "Risk shift", "Measurement", "Subgroup", "Missingness"], rotation=10)
     ax.set_ylabel("Mean Brier change vs. unchanged model (lower is better)")
