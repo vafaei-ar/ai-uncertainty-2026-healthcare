@@ -327,7 +327,7 @@ ax.set_ylabel("Brier on held-out deployment data")
 ax.set_title("Match the flexibility of the fix to the labels you can get")
 ax.legend(fontsize=11)
 fig.text(0.5, 0.01, "One-class audits use unchanged probabilities as a fallback.",
-         ha="center", fontsize=9.5, color=BODY)
+         ha="center", fontsize=9.5, color=MUTED)
 fig.tight_layout(rect=(0, 0.045, 1, 1))
 save(fig, "l2_calibration_cost")
 
