@@ -256,19 +256,30 @@ distributed in student-facing files.
 
 **Ask:** "What can we learn immediately? What requires labels?"
 
-### 21. A testable question, not an AI contest
-**Aim:** State the experiment before showing code.
+### 21. Three datasets have different jobs
+**Aim:** Make outcome leakage understandable before students run any code.
 
-**Question:** With a limited outcome audit, does intercept-only or Platt
-recalibration improve target probability accuracy relative to no update?
+**Visual:** Three linked cards, each with a distinct role. Hospital A
+trains the original model using labeled admissions. A small Hospital B
+audit recalibrates it. A different synthetic Hospital B test cohort
+evaluates both the unchanged and recalibrated probabilities.
 
-The model is challenged under no shift, baseline-risk shift, measurement
-noise, subgroup interaction, and missingness. Label budgets are 25, 75,
-and 150. The main metric is the Brier score, the average squared difference
-between predicted probability and binary outcome.
+**Say:** "The original model can learn from Hospital A. The adjustment
+can learn from a small number of Hospital B labels. But we must judge
+whether the adjustment helped using new patients whose outcomes were
+not used to fit either model."
 
-**Critical point:** Each method is evaluated on an **independently
-generated target test cohort**, never the same outcomes used for fitting.
+**Explain:** In the simulation we can generate an independent target
+test cohort with known outcomes. At a real hospital, those new outcomes
+must be collected separately. The test set must not guide which method
+we choose and then be treated as unbiased final evidence.
+
+**Scientific check:** The primary measure is a paired difference in
+Brier score on the same independent target test admissions. Negative
+values favor adaptation. It is an average squared probability error.
+
+**Ask:** "Can we recalibrate on the 75 audit outcomes and report
+performance on the same 75?" No. That would reuse the fit data.
 
 ### 22. Three days and three milestones
 **Aim:** Make the workshop achievable.
