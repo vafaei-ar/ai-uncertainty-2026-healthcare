@@ -1,7 +1,7 @@
 # Three-day research project: When Can We Trust Clinical AI at a New Hospital?
 
 **AI & Uncertainty School and Workshop | Mauritius | November 16–20, 2026**
-**Mode:** in-person student teams with a remote research mentor; an in-room facilitator is needed.
+**Mode:** in-person student teams with a remote research mentor. An in-room facilitator is needed.
 **Status:** proposed project, not a clinical validation study or guaranteed publication.
 
 For a genuine three-day student contribution, each group chooses one open extension in [OPEN_RESEARCH_EXTENSIONS.md](OPEN_RESEARCH_EXTENSIONS.md) after completing the core reproducible comparison. The extension code is deliberately not supplied.
