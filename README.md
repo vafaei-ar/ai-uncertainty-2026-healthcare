@@ -12,9 +12,8 @@ educational. They are not validated for patient care.
 ## Start here
 
 **For students**
-- [Open the research notebook now (pre-merge preview)](https://colab.research.google.com/github/vafaei-ar/ai-uncertainty-2026-healthcare/blob/chatgpt/mauritius-one-lecture-three-day-research-2026/notebooks/92_three_day_research_starter.ipynb)
 - [Student guide and data dictionary](docs/STUDENT_START_HERE.md)
-- [Open the notebook after PR #2 is merged](https://colab.research.google.com/github/vafaei-ar/ai-uncertainty-2026-healthcare/blob/main/notebooks/92_three_day_research_starter.ipynb)
+- [Open the three-day research notebook in Google Colab](https://colab.research.google.com/github/vafaei-ar/ai-uncertainty-2026-healthcare/blob/main/notebooks/92_three_day_research_starter.ipynb)
 - [Three-day project question and milestones](project/THREE_DAY_RESEARCH_PROJECT.md)
 - [Research protocol and comparison definitions](project/RESEARCH_PROTOCOL.md)
 - [Optional team research questions](project/OPEN_RESEARCH_EXTENSIONS.md)
