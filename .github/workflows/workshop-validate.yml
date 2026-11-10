@@ -69,6 +69,7 @@ jobs:
       - name: Rehearse student launch from an empty workspace
         env:
           PYTHONPATH: ""
+          WORKSHOP_REPO_REF: ${{ github.head_ref || github.ref_name }}
         run: |
           STUDENT_DIR="$(mktemp -d)"
           cp notebooks/92_three_day_research_starter.ipynb "$STUDENT_DIR/student.ipynb"
