@@ -108,6 +108,7 @@ particular label.
 6. If collaboration later contributes to NIH-supported research,
    follow Penn State Research Security and Export Compliance guidance.
 
-**Recommendation:** Keep the changes in PR #2 for faculty review.
-Merge only after the organizer confirms group-work support and the
-student start experience has been rehearsed.
+**Release guidance:** After automated checks pass, merge the reviewed
+materials into `main` so students have stable links. Confirm the local
+facilitator and timetable separately before the school. Rehearse the live
+Colab URL in a browser before class.
