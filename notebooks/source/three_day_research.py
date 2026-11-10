@@ -8,7 +8,49 @@ from tools.nbtools import Notebook, PLOT_STYLE
 
 
 def build():
-    nb = Notebook("Three-day research: trustworthy hospital transfer")
+    nb = Notebook("Three-day research: trustworthy hospital transfer", colab_setup=False)
+    nb.md("""
+**Open the notebook:** [workshop Colab link after merge](https://colab.research.google.com/github/vafaei-ar/ai-uncertainty-2026-healthcare/blob/main/notebooks/92_three_day_research_starter.ipynb).
+
+**Before PR #2 is merged:** [preview this notebook from the workshop branch](https://colab.research.google.com/github/vafaei-ar/ai-uncertainty-2026-healthcare/blob/chatgpt/mauritius-one-lecture-three-day-research-2026/notebooks/92_three_day_research_starter.ipynb).
+
+**First cell:** Make the public simulation code available. A fresh online session needs GitHub access. The setup uses the workshop preview branch only if the new research module is not yet on main.
+""")
+    nb.code("""
+from pathlib import Path
+import subprocess
+import sys
+
+REPO_URL = "https://github.com/vafaei-ar/ai-uncertainty-2026-healthcare.git"
+PREVIEW_BRANCH = "chatgpt/mauritius-one-lecture-three-day-research-2026"
+NEEDED = Path("project/research_experiments.py")
+root = Path.cwd()
+
+if not (root / NEEDED).is_file():
+    root = Path("ai-uncertainty-2026-healthcare")
+    if not root.exists():
+        subprocess.run(["git", "clone", "--depth", "1", REPO_URL, str(root)], check=True)
+    if not (root / NEEDED).is_file():
+        subprocess.run(
+            ["git", "-C", str(root), "fetch", "--depth", "1", "origin", PREVIEW_BRANCH],
+            check=True,
+        )
+        subprocess.run(
+            ["git", "-C", str(root), "checkout", "--detach", "FETCH_HEAD"],
+            check=True,
+        )
+    if not (root / NEEDED).is_file():
+        raise RuntimeError("Workshop research module was not found in either repository ref.")
+    subprocess.run(
+        [sys.executable, "-m", "pip", "install", "-q", "-r", str(root / "requirements.txt")],
+        check=True,
+    )
+
+sys.path.insert(0, str(root.resolve()))
+import medsim
+from project.research_experiments import run_grid
+print("Workshop simulation ready. medsim", medsim.__version__)
+""")
     nb.md("""
 # When Can We Trust Clinical AI at a New Hospital?
 
