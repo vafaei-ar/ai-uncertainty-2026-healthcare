@@ -7,16 +7,14 @@ concurrency:
 on:
   push:
     branches:
-      - workshop-prep-2026-oct
       - main
-      - chatgpt/mauritius-one-lecture-three-day-research-2026
   pull_request:
     branches:
       - main
   workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
 
 jobs:
   workshop:
@@ -27,7 +25,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          persist-credentials: true
+          persist-credentials: false
 
       - uses: actions/setup-python@v5
         with:
@@ -104,42 +102,3 @@ jobs:
 
       - name: Render all 23 lecture pages for visual inspection
         run: python tools/render_integrated_lecture_review.py
-
-      # Synchronize generated PPTX/contact-sheet files only on explicit manual
-      # workflow_dispatch. Ordinary PR builds regenerate and validate only.
-      - name: Commit verified generated workshop materials
-        if: github.event_name == 'workflow_dispatch' && github.ref_name == 'chatgpt/mauritius-one-lecture-three-day-research-2026'
-        run: |
-          git add notebooks/01_lecture1_uncertainty_foundations_student.ipynb
-          git add notebooks/01_lecture1_uncertainty_foundations_instructor.ipynb
-          git add notebooks/02_lecture2_trustworthy_deployment_student.ipynb
-          git add notebooks/02_lecture2_trustworthy_deployment_instructor.ipynb
-          git add notebooks/03_hierarchical_pymc_student.ipynb
-          git add notebooks/03_hierarchical_pymc_instructor.ipynb
-          git add notebooks/04_simulation_based_inference_student.ipynb
-          git add notebooks/04_simulation_based_inference_instructor.ipynb
-          git add notebooks/90_team_project_starter.ipynb
-          git add notebooks/91_open_research_challenge_starter.ipynb
-          git add notebooks/92_three_day_research_starter.ipynb
-          git add project/open_data project/results project/mimic_like_demo docs/qa
-          git add slides/figures slides/lecture1_honest_probabilities.pptx slides/lecture2_deciding_under_uncertainty.pptx slides/lecture_when_can_we_trust_clinical_ai.pptx
-          if ! git diff --cached --quiet; then
-            git config user.name 'github-actions[bot]'
-            git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-            git commit -m 'Regenerate and verify workshop decks, notebooks and project data'
-            # Other repository updates may have landed during this long build.
-            # Rebase generated-only changes rather than rejecting a clean build.
-            TARGET=chatgpt/mauritius-one-lecture-three-day-research-2026
-            for attempt in 1 2 3; do
-              git fetch origin "$TARGET"
-              git rebase "origin/$TARGET"
-              if git push origin HEAD:"$TARGET"; then
-                break
-              fi
-              if [ "$attempt" -eq 3 ]; then
-                echo "Could not push generated artifacts after three fast-forward attempts."
-                exit 1
-              fi
-              sleep 2
-            done
-          fi
