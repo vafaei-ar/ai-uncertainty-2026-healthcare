@@ -20,7 +20,8 @@ validated prediction for clinical care.
 - A laptop and browser that can open Google Colab.
 - Basic familiarity with Python variables, tables, and plots helps.
   You do not need machine-learning experience or a GPU.
-- The [research notebook](https://colab.research.google.com/github/vafaei-ar/ai-uncertainty-2026-healthcare/blob/main/notebooks/92_three_day_research_starter.ipynb).
+- [Open the research notebook in Colab before the PR is merged](https://colab.research.google.com/github/vafaei-ar/ai-uncertainty-2026-healthcare/blob/chatgpt/mauritius-one-lecture-three-day-research-2026/notebooks/92_three_day_research_starter.ipynb).
+- [Permanent Colab link, available after merge](https://colab.research.google.com/github/vafaei-ar/ai-uncertainty-2026-healthcare/blob/main/notebooks/92_three_day_research_starter.ipynb).
 - The [study question and methods](../project/RESEARCH_PROTOCOL.md).
 
 **First setup check:** Open the notebook, select *Runtime → Run all*, and
