@@ -10,37 +10,33 @@ from tools.nbtools import Notebook, PLOT_STYLE
 def build():
     nb = Notebook("Three-day research: trustworthy hospital transfer", colab_setup=False)
     nb.md("""
-**Open the notebook:** [workshop Colab link after merge](https://colab.research.google.com/github/vafaei-ar/ai-uncertainty-2026-healthcare/blob/main/notebooks/92_three_day_research_starter.ipynb).
+**Open in Google Colab:** [Three-day research notebook](https://colab.research.google.com/github/vafaei-ar/ai-uncertainty-2026-healthcare/blob/main/notebooks/92_three_day_research_starter.ipynb).
 
-**Before PR #2 is merged:** [preview this notebook from the workshop branch](https://colab.research.google.com/github/vafaei-ar/ai-uncertainty-2026-healthcare/blob/chatgpt/mauritius-one-lecture-three-day-research-2026/notebooks/92_three_day_research_starter.ipynb).
-
-**First cell:** Make the public simulation code available. A fresh online session needs GitHub access. The setup uses the workshop preview branch only if the new research module is not yet on main.
+**Setup:** Run the first code cell to load the public workshop simulator and dependencies. The notebook runs on a standard CPU without access to real patient data.
 """)
     nb.code("""
 from pathlib import Path
+import os
 import subprocess
 import sys
 
 REPO_URL = "https://github.com/vafaei-ar/ai-uncertainty-2026-healthcare.git"
-PREVIEW_BRANCH = "chatgpt/mauritius-one-lecture-three-day-research-2026"
+REPO_REF = os.environ.get("WORKSHOP_REPO_REF", "main")
 NEEDED = Path("project/research_experiments.py")
 root = Path.cwd()
 
 if not (root / NEEDED).is_file():
     root = Path("ai-uncertainty-2026-healthcare")
     if not root.exists():
-        subprocess.run(["git", "clone", "--depth", "1", REPO_URL, str(root)], check=True)
-    if not (root / NEEDED).is_file():
         subprocess.run(
-            ["git", "-C", str(root), "fetch", "--depth", "1", "origin", PREVIEW_BRANCH],
-            check=True,
-        )
-        subprocess.run(
-            ["git", "-C", str(root), "checkout", "--detach", "FETCH_HEAD"],
+            ["git", "clone", "--depth", "1", "--branch", REPO_REF, REPO_URL, str(root)],
             check=True,
         )
     if not (root / NEEDED).is_file():
-        raise RuntimeError("Workshop research module was not found in either repository ref.")
+        raise RuntimeError(
+            "The cloned workshop repository lacks the research module. "
+            "Remove the old cloned folder, restart the runtime, and try again."
+        )
     subprocess.run(
         [sys.executable, "-m", "pip", "install", "-q", "-r", str(root / "requirements.txt")],
         check=True,
