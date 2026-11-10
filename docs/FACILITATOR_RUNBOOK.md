@@ -11,7 +11,7 @@ numbers, and in-room contact need confirmation from the organizers.
 
 1. Have one local technical facilitator with projector, Wi-Fi, and
    video-call access. Identify a second helper if groups are large.
-2. Open the student notebook in **a fresh Colab session**. Confirm
+2. Before PR #2 is merged, use the [preview Colab notebook](https://colab.research.google.com/github/vafaei-ar/ai-uncertainty-2026-healthcare/blob/chatgpt/mauritius-one-lecture-three-day-research-2026/notebooks/92_three_day_research_starter.ipynb). After merge, use the `main` link in the student guide. Open it in **a fresh Colab session**. Confirm
    the first cells fetch the repo and print 4,000 source records,
    1,600 unlabeled target records, and 75 audit labels.
 3. Run the quick research comparison on a regular CPU, confirm
