@@ -1,3 +1,9 @@
+# Current three-day research project discussion checks
+
+Use [THREE_DAY_RESEARCH_PROJECT.md](THREE_DAY_RESEARCH_PROJECT.md). This is not graded. Check that each team (1) evaluates on independent test outcomes, (2) includes the unchanged baseline, (3) reports a paired Brier comparison, (4) preserves seed and label budget, (5) presents one readable figure, and (6) identifies limitations and next research steps. The original six-hospital guided checklist remains below.
+
+---
+
 # Optional discussion checklist: guided six-hospital exercise
 
 **This is not a graded exercise.** Use these prompts only to help participants

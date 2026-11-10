@@ -306,7 +306,12 @@ for n_calib in [25, 50, 100, 200, 400, 800, 1600]:
         boot = np.random.default_rng(1000 * repeat + n_calib)
         sub = calib_set.iloc[boot.choice(len(calib_set), n_calib, replace=False)]
         ps, ys = predict(sub), sub["outcome"].to_numpy()
+        # In very small audits there may be no observed events. Do not
+        # silently remove these hard cases from the size comparison.
         if len(np.unique(ys)) < 2:
+            for name in ("Intercept", "Platt", "Isotonic"):
+                rows.append({"n": n_calib, "method": name,
+                             "brier": brier_score_loss(y_test, p_test)})
             continue
         for name, factory in [("Intercept", intercept_correction), ("Platt", platt), ("Isotonic", isotonic)]:
             rows.append({"n": n_calib, "method": name,
@@ -321,6 +326,9 @@ ax.set_xlabel("Labelled patients from the new site")
 ax.set_ylabel("Brier on held-out deployment data")
 ax.set_title("Match the flexibility of the fix to the labels you can get")
 ax.legend(fontsize=11)
+fig.text(0.5, 0.01, "One-class audits use unchanged probabilities as a fallback.",
+         ha="center", fontsize=9.5, color=MUTED)
+fig.tight_layout(rect=(0, 0.045, 1, 1))
 save(fig, "l2_calibration_cost")
 
 # Ensemble disagreement and OOD
@@ -364,7 +372,7 @@ print(f"    flagged {flagged.mean():.1%}, precision {is_ood[flagged].mean():.1%}
 # Risk-coverage
 y_ood = ood["outcome"]
 rankings = {"Ensemble disagreement (proxy)": sd_ood,
-            "Distance from 0.5 (aleatoric)": -np.abs(mean_ood - 0.5),
+            "Risk near 0.30 decision threshold": -np.abs(mean_ood - 0.30),
             "Random deferral": rng.random(len(mean_ood))}
 fig, ax = plt.subplots()
 for colour, (name, unc) in zip(C, rankings.items()):

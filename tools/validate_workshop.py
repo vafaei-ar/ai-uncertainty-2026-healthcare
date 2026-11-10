@@ -21,17 +21,15 @@ DATA = ROOT / "project" / "open_data"
 dev = pd.read_csv(DATA / "development.csv")
 target = pd.read_csv(DATA / "new_hospital_unlabeled.csv")
 audit = pd.read_csv(DATA / "audit_labels.csv")
-reveal = pd.read_csv(DATA / "instructor_outcomes_for_debrief.csv")
 assert len(dev) == 4000, len(dev)
 assert len(target) == 1600, len(target)
 assert len(audit) == 75, len(audit)
-assert len(reveal) == len(target)
 assert "outcome" in dev and "outcome" not in target
 assert dev["record_id"].is_unique and target["record_id"].is_unique
 assert audit["record_id"].is_unique
 assert set(audit["record_id"]).issubset(set(target["record_id"]))
-assert set(reveal["record_id"]) == set(target["record_id"])
 assert not audit["outcome"].isna().any()
+assert not (DATA / "instructor_outcomes_for_debrief.csv").exists(), "Do not publish full target labels"
 
 source_train, source_val = train_val_split(dev, val_fraction=0.25, seed=5)
 model = make_pipeline(
@@ -52,6 +50,7 @@ nbpaths = [
     "02_lecture2_trustworthy_deployment_instructor.ipynb",
     "90_team_project_starter.ipynb",
     "91_open_research_challenge_starter.ipynb",
+    "92_three_day_research_starter.ipynb",
 ]
 for name in nbpaths:
     nbpath = ROOT / "notebooks" / name
@@ -61,6 +60,28 @@ for name in nbpaths:
 
 notebook = (ROOT / "notebooks" / "91_open_research_challenge_starter.ipynb").read_text()
 assert "audit_labels.csv" in notebook and "new_hospital_unlabeled.csv" in notebook
+
+# Check new research outputs and independent-method contrasts.
+research_result = pd.read_csv(ROOT / "project" / "results" / "method_results.csv")
+research_summary = pd.read_csv(ROOT / "project" / "results" / "paired_summary.csv")
+assert set(research_result["method"]) == {"unchanged", "intercept", "platt"}
+assert set(research_result["scenario"]) == {
+    "negative_control", "baseline_risk", "measurement_noise",
+    "subgroup_interaction", "informative_missingness",
+}
+assert set(research_result["labels"]) == {25, 75, 150}
+assert research_result["replicate"].nunique() >= 2
+assert (research_result["n_test"] >= 100).all()
+assert research_result["brier"].between(0, 1).all()
+assert len(research_summary) == 5 * 3 * 2
+assert "failed_platt_fits" in research_summary.columns
+assert "fallback_to_unchanged" in research_result.columns
+assert not research_result.loc[research_result["method"] != "platt", "fallback_to_unchanged"].any()
+assert (research_result.loc[research_result["method"] == "platt", "fallback_to_unchanged"] ==
+        ~research_result.loc[research_result["method"] == "platt", "method_estimable"]).all()
+assert (ROOT / "project/mimic_like_demo/patients.csv").exists()
+assert (ROOT / "project/mimic_like_demo/admissions.csv").exists()
+assert (ROOT / "project/results/brier_comparison.png").exists()
 
 print(f"Validation OK. Source AUROC {score:.3f}; "
       f"target n={len(target)} with audit n={len(audit)}; "

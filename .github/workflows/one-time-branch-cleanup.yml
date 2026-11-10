@@ -1,0 +1,50 @@
+name: One-time post-merge branch cleanup
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write
+
+jobs:
+  cleanup:
+    if: github.repository == 'vafaei-ar/ai-uncertainty-2026-healthcare'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+
+      - name: Verify both pull requests are merged
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          for number in 1 2; do
+            merged=$(curl -fsSL -H "Authorization: Bearer $GH_TOKEN" \
+              -H "Accept: application/vnd.github+json" \
+              "https://api.github.com/repos/$GITHUB_REPOSITORY/pulls/$number" | jq -r '.merged')
+            if [ "$merged" != "true" ]; then
+              echo "PR $number is not merged. Refusing branch cleanup."
+              exit 1
+            fi
+          done
+
+      - name: Delete the two superseded workshop branches
+        run: |
+          set -euo pipefail
+          for branch in "chatgpt/mauritius-one-lecture-three-day-research-2026" "workshop-prep-2026-oct"; do
+            if git ls-remote --exit-code --heads origin "refs/heads/$branch" > /dev/null; then
+              echo "Deleting merged branch: $branch"
+              git push origin --delete "$branch"
+            fi
+          done
+          remaining=$(git ls-remote --heads origin | awk '{print $2}' | grep -v '^refs/heads/main$' || true)
+          if [ -n "$remaining" ]; then
+            echo "Unexpected remaining branches:"
+            printf '%s\n' "$remaining"
+            exit 1
+          fi
+          echo "Only main remains."
