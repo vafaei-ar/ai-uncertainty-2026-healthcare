@@ -66,6 +66,15 @@ jobs:
           python tools/run_notebook.py notebooks/91_open_research_challenge_starter.ipynb
           python tools/run_notebook.py notebooks/92_three_day_research_starter.ipynb
 
+      - name: Rehearse student launch from an empty workspace
+        env:
+          PYTHONPATH: ""
+        run: |
+          STUDENT_DIR="$(mktemp -d)"
+          cp notebooks/92_three_day_research_starter.ipynb "$STUDENT_DIR/student.ipynb"
+          cd "$STUDENT_DIR"
+          python "$GITHUB_WORKSPACE/tools/run_notebook.py" "$STUDENT_DIR/student.ipynb"
+
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
