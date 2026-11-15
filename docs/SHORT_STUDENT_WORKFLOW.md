@@ -1,6 +1,8 @@
 # Short three-day student pathway
 
-**AI & Uncertainty School, Mauritius | Synthetic data only | No GPU needed**
+**AI & Uncertainty School, Mauritius | Research days: Wednesday 18 through Friday 20 November 2026 | Synthetic data only | No GPU needed**
+
+Monday is the short project introduction. The main lecture is Tuesday. The three practical research days are Wednesday, Thursday and Friday. No live Colab demonstration is required during Monday's presentation.
 
 ## Your research question
 
@@ -32,11 +34,17 @@ Each simulated replicate generates new cohorts. Never reuse the orientation labe
 
 | Day | Approximate work time | Task | Save |
 | --- | --- | --- | --- |
-| **1: Understand** | 45 to 60 minutes | Run the notebook, inspect the record counts and the unchanged baseline, and write one prediction. | Your notebook and baseline result |
-| **2: Compare** | 45 to 75 minutes | Run the full Day 2 calculation. Use the notebook's **Minimum comparison** cell to display the four required intercept versus unchanged comparisons. | The four-row table and paired Brier figure |
-| **3: Repeat and explain** | 45 to 75 minutes | Try increasing `repeats=3` to `repeats=8`, interpret the variability, and prepare three slides. | One figure, one limitation and a reproducible notebook |
+| **Wed 18: Reproduce** | 45 to 60 minutes | Run the notebook, inspect the record counts and unchanged baseline, and write a prediction for both scenarios. | Your notebook, baseline result and hypothesis |
+| **Thu 19: Compare** | 45 to 75 minutes | Use the notebook's **Minimum comparison** cell to inspect four required contrasts. Try `repeats=8` if practical. Thursday has other workshop activities, so keep the exercise focused. | Four-row table, paired Brier figure and one limitation |
+| **Fri 20: Explain** | 45 to 75 minutes before the final presentations | Explain the variability, finalize one figure and prepare three slides for the afternoon report. | Reproducible notebook and five-minute presentation |
 
 The supplied Day 2 computation evaluates the complete grid. **The minimum comparison cell filters the already computed results.** It does not change which models are fitted. The full grid remains available for more advanced groups.
+
+## Daily group updates and remote help
+
+Identify one group contact. Use the team channel selected with the organizer. Share one result, one question or blocker, and one next action each day. Include your notebook link or main figure. The remote mentor can review outputs asynchronously when an early Mauritius standup falls at night in the US. Agree on any live check-ins with the organizer and local facilitator.
+
+Aim to share a baseline by Wednesday's feedback time, a draft figure before Thursday's other activities, and final slides before Friday's presentation session. These are working targets, not fixed organizer deadlines.
 
 ## Reading the results
 

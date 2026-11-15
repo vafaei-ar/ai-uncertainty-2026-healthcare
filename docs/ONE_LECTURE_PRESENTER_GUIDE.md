@@ -286,6 +286,8 @@ values favor adaptation. It is an average squared probability error.
 performance on the same 75?" No. That would reuse the fit data.
 
 ### 22. Three days and three milestones
+
+**Dates:** Wednesday 18 November is reproduction, Thursday 19 November is comparison, and Friday 20 November is the student presentation. This is the minimum exercise following Tuesday's lecture. Keep Thursday manageable because the workshop programme includes other activities.
 **Aim:** Make the workshop achievable.
 
 **Visual:** Three connected boxes:

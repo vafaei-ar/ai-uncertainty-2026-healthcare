@@ -1,11 +1,17 @@
 # One-lecture delivery guide
 
 **Lecture:** When Can We Trust Clinical AI at a New Hospital?  
-**Format:** remote, approximately 60 minutes with student questions  
+**Format:** remote, one 60-minute Tuesday slot. Aim for approximately 42 to 45 minutes speaking and preserve time for questions.  
 **Slides:** [Integrated deck](../slides/lecture_when_can_we_trust_clinical_ai.pptx)  
 **Detailed notes:** [Presenter guide](ONE_LECTURE_PRESENTER_GUIDE.md)
 
-## Teaching sequence
+## Recommended 45-minute route
+
+The PowerPoint contains 23 slides and remains the validated public version. To preserve time for questions, focus on slides 1-15, then 18 (if time), then 20-23. Slides 16-17 and 19 discuss broader referral and deployment choices and can be omitted in the shorter delivery. Do not read every speaker note aloud. The notes are teaching prompts, not a fixed 56-minute script. Spend extra time explaining why updating and evaluating on the same outcomes is invalid.
+
+Tuesday's lecture should prepare groups for Wednesday's work. The minimum is unchanged versus intercept-only recalibration, negative control and baseline-risk shift, and 25 or 75 labels. Platt and additional scenarios are extensions.
+
+## Original full-deck teaching sequence
 
 | Minutes | Slides | What students should learn |
 | --- | --- | --- |

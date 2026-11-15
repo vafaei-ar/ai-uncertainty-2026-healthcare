@@ -86,14 +86,16 @@ enough to establish that the improvement is reliable.
 
 For the exact minimum comparison and an easy Colab workflow, see the [short three-day student pathway](SHORT_STUDENT_WORKFLOW.md). Platt updating, 150-label audits and additional shifts are optional extensions.
 
-## Your three-day minimum
+## Your three-day minimum: Wednesday 18 through Friday 20 November
 
-**Day 1:** Run the provided notebook. Explain one Hospital A versus
+Monday is project orientation, and Tuesday includes the lecture. The research tasks below are for Wednesday through Friday. Work with a local team and communicate with the remote mentor through the channel agreed with the organizer.
+
+**Wednesday, Day 1:** Run the provided notebook. Explain one Hospital A versus
 Hospital B difference. Produce a baseline result and one plot.
 
-**Day 2:** Compare unchanged predictions with intercept-only recalibration under negative control and baseline-risk shift with 25 and 75 audit labels. The notebook displays four paired Brier comparisons. Keep the independent test outcomes separate from fitting.
+**Thursday, Day 2:** Compare unchanged predictions with intercept-only recalibration under negative control and baseline-risk shift with 25 and 75 audit labels. The notebook displays four paired Brier comparisons. Keep the independent test outcomes separate from fitting.
 
-**Day 3:** Repeat the comparison with additional random seeds if possible. Explain one finding and one limitation. Prepare three slides for a five-minute group presentation.
+**Friday, Day 3:** Repeat the comparison with additional random seeds if possible. Explain one finding and one limitation. Prepare three slides for a five-minute group presentation.
 
 If time and skills allow, pick one [open research
 question](../project/OPEN_RESEARCH_EXTENSIONS.md). You do not need to

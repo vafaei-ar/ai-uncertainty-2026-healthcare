@@ -23,6 +23,12 @@ The required minimum can fit shorter sessions of approximately 45 to 75 minutes 
 6. Keep the two older lecture notebooks as background only.
    The current project uses the **92** notebook.
 
+## Confirmed workshop sequence and remote support
+
+Monday 16 November is the project introduction and initial team organization. Tuesday 17 November is the clinical AI lecture. Student research is scheduled for Wednesday 18 through Friday 20 November, with final presentations on Friday afternoon. Thursday has other programmed activities, so the required minimum should be achievable in a shorter session. Keep the optional 120-minute session blocks below only when time is available.
+
+The remote mentor is in the US Eastern time zone. Early morning Mauritius meetings occur around midnight Eastern and should not require the mentor to attend live. Identify a student group contact and use a mutually accessible messaging channel for one result, one blocker and the next action. A local coordinator should help with Colab and group logistics where available. Do not assume that such a coordinator has already been assigned.
+
 ## One-minute explanation to read aloud
 
 "We will use a fictional hospital-risk model to study whether a simple
@@ -32,7 +38,7 @@ and intercept-only risks in two scenarios with 25 or 75 local labels.
 On Day 3, we repeat the analysis and present one clear finding.
 We are not developing a clinical tool."
 
-## Day 1: ~120 minutes
+## Wednesday, 18 November: Day 1 (optional 120-minute session)
 
 | Time | What happens | Facilitator check |
 | --- | --- | --- |
@@ -42,7 +48,7 @@ We are not developing a clinical tool."
 | 75–105 min | Assign a specific comparison and define a hypothesis | No use of test outcomes for model fitting |
 | 105–120 min | Share one result and one question | Save notebook and record blockers |
 
-## Day 2: ~120 minutes
+## Thursday, 19 November: Day 2 (keep the minimum short)
 
 | Time | What happens | Facilitator check |
 | --- | --- | --- |
@@ -51,7 +57,7 @@ We are not developing a clinical tool."
 | 60–95 min | Compare the four paired Brier differences and discuss audit event counts | Do not interpret three repetitions as precision estimates |
 | 95–120 min | Decide on one extra comparison, if time | Keep the extension small enough to complete |
 
-## Day 3: ~120 minutes
+## Friday, 20 November: Day 3 (finish before presentations)
 
 | Time | What happens | Facilitator check |
 | --- | --- | --- |
@@ -94,7 +100,7 @@ invented numerical results.
 
 ## Daily progress report for the remote mentor
 
-Each group shares three short items:
+Each group shares three short items in a shared channel, without requiring a live midnight US call:
 - Completed: baseline/contrast, seed count, one figure.
 - Blocker: precise error or scientific question.
 - Next step: one achievable test.

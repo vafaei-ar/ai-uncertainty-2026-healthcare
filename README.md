@@ -25,8 +25,7 @@ educational. They are not validated for patient care.
 - [Local facilitator and remote mentor runbook](docs/FACILITATOR_RUNBOOK.md)
 - [Scientific references and further reading](docs/REFERENCES_AND_READING.md)
 
-The programme uses **a short Monday project introduction, one Tuesday lecture and three days of student research**. Exact timings and local support will be confirmed
-with the organisers.
+The programme uses **a Monday project introduction, one Tuesday lecture, and student research on Wednesday 18 through Friday 20 November**. Monday introduces the project before students hear the technical lecture. The student workflow requires no live Colab demonstration on Monday. Local support and meeting links are arranged with the organizers.
 
 ## What students will study
 
@@ -55,9 +54,9 @@ to investigate questions not answered by the starting analysis.
 
 | Day | Main activity | Minimum output |
 | --- | --- | --- |
-| 1 | Understand the data and model, reproduce the baseline | One baseline table or plot |
-| 2 | Compare unchanged versus intercept in two scenarios with 25 and 75 outcomes | Four paired Brier comparisons |
-| 3 | Repeat simulations, explain failure cases, present findings | One figure and three-slide group report |
+| Wed 18 | Understand the data and model, reproduce the baseline | One baseline table or plot |
+| Thu 19 | Compare unchanged versus intercept in two scenarios with 25 and 75 outcomes | Four paired Brier comparisons |
+| Fri 20 | Repeat simulations, explain failure cases and present findings | One figure and three-slide group report |
 
 The [facilitator runbook](docs/FACILITATOR_RUNBOOK.md) offers a practical
 two-hour daily schedule and a fallback for participants new to Python.
