@@ -58,7 +58,7 @@ This notebook is a three-day research starter. All patient data are synthetic.
 No model or result here is intended for medical decision making.
 
 **Day 1:** inspect the data and reproduce a baseline.
-**Day 2:** compare two calibration methods with an independent evaluation set.
+**Day 2:** compare unchanged and intercept-only predictions in two scenarios using 25 and 75 local labels. The full experiment grid is available for extensions.
 **Day 3:** test more random seeds, identify failures, and prepare three slides.
 
 Read the project protocol first: project/RESEARCH_PROTOCOL.md.
@@ -193,6 +193,51 @@ results = run_grid(
 summary = summarize_results(results)
 print("Method-level results:", results.shape)
 display(summary.round(4))
+""")
+    nb.md("""
+## Minimum comparison for your three-day project
+
+Start with only the **negative control** and **baseline-risk shift**.
+Compare the unchanged model with **intercept-only** recalibration using
+**25 or 75** new-hospital outcome labels. The previous cell runs the full
+grid, but this cell displays the four comparisons that you must interpret.
+
+The reported change in Brier score is updated minus unchanged, measured
+on the same separately simulated target test admissions. Below zero
+favors updating. Platt, 150 labels, and the other scenarios are optional.
+""")
+    nb.code("""
+# The full grid was already simulated. Select the four minimum comparisons.
+focus = summary.loc[
+    summary["scenario"].isin(["negative_control", "baseline_risk"])
+    & summary["labels"].isin([25, 75])
+    & (summary["method"] == "intercept"),
+    ["scenario", "labels", "replicates", "mean_delta_brier",
+     "fraction_replicates_improved"],
+].sort_values(["scenario", "labels"])
+assert len(focus) == 4, "Expected exactly four minimum comparisons"
+display(focus.round(4))
+
+# Plot results from the executed experiment, not generated example numbers.
+from io import BytesIO
+from IPython.display import Image
+import matplotlib.pyplot as plt
+
+fig, ax = plt.subplots(figsize=(7, 4))
+for scenario, group in focus.groupby("scenario"):
+    ax.plot(group["labels"], group["mean_delta_brier"],
+            marker="o", label=scenario)
+ax.axhline(0, linestyle="--", linewidth=1, color="gray")
+ax.set_xlabel("Hospital B audit outcomes")
+ax.set_ylabel("Mean paired Brier change (updated minus unchanged)")
+ax.set_title("Does intercept-only recalibration help?")
+ax.set_xticks([25, 75])
+ax.legend()
+fig.tight_layout()
+buf = BytesIO()
+fig.savefig(buf, format="png", dpi=125, bbox_inches="tight")
+plt.close(fig)
+display(Image(data=buf.getvalue()))
 """)
     nb.md("""
 ## Day 2. Read the paired result correctly

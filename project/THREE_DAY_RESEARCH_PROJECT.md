@@ -4,7 +4,7 @@
 **Mode:** in-person student teams with a remote research mentor. An in-room facilitator is needed.
 **Status:** proposed project, not a clinical validation study or guaranteed publication.
 
-For a genuine three-day student contribution, each group chooses one open extension in [OPEN_RESEARCH_EXTENSIONS.md](OPEN_RESEARCH_EXTENSIONS.md) after completing the core reproducible comparison. The extension code is deliberately not supplied.
+The required minimum is a reproducible educational comparison. Groups with enough time can choose one falsifiable extension from [OPEN_RESEARCH_EXTENSIONS.md](OPEN_RESEARCH_EXTENSIONS.md). Running the supplied code alone is not an original research contribution. Extension solutions are not supplied.
 
 ## The question
 
@@ -26,14 +26,11 @@ can study budgets of 25, 75 and 150 without inventing or reusing outcomes.
 A single result cannot show whether a method works reliably. The research extension makes **paired comparisons across repeated
 synthetic experiments** with independent evaluation outcomes.
 
-**Methods:** unchanged source model, intercept-only recalibration, logistic
-(Platt) recalibration. Students may propose a fourth method after completing
-the core study.
+**Minimum methods:** unchanged source model versus intercept-only recalibration. **Full protocol:** add logistic (Platt) recalibration. Advanced teams may propose a new method only after completing the minimum comparison.
 
-**Conditions:** negative control with no simulated change, baseline-risk shift,
-measurement noise, changed subgroup relationship, and informative missingness.
+**Minimum conditions:** negative control and baseline-risk shift. **Full protocol:** also examine measurement noise, subgroup interaction, and informative missingness.
 
-**Label budgets:** 25, 75, and 150 randomly audited target outcomes.
+**Minimum label budgets:** 25 and 75 randomly audited target outcomes. The full protocol also tests 150.
 
 **Primary endpoint:** paired change in Brier score on an independently generated
 target-hospital test cohort. Lower is better.
@@ -50,18 +47,17 @@ Real hospital changes may overlap and evolve over time.
 | Day | Activities | Minimum output |
 | --- | --- | --- |
 | **1. Understand and reproduce** | Short common lecture, inspect the provided synthetic EHR-like data, define the target prediction task, train the unchanged model, and reproduce one negative-control and one shifted-site result. | An independent-test baseline table and one plot with a brief interpretation |
-| **2. Compare methods** | Run intercept-only and Platt recalibration under multiple target label budgets. Record replicates, audit event counts, calibration failures, and alternative explanations. Keep the target test outcomes separate from recalibration fitting. | Reproducible comparison on at least two shift conditions and two label budgets |
+| **2. Compare methods** | Compare unchanged versus intercept-only recalibration under the negative control and baseline-risk shift with 25 and 75 audit outcomes. Keep target test outcomes separate from recalibration fitting. | Four paired Brier comparisons from the supplied notebook |
 | **3. Stress-test and present** | Expand to more seeds or one additional shift. Compare paired changes rather than isolated scores. Discuss small-audit uncertainty and subgroup limits. Prepare a 5-minute report. | One main figure, a short results table, main limitations, and concrete next experiments |
 
-A team that starts slowly can finish a defensible minimum using **one
-negative control, one real shift, two methods, and two label budgets**.
+Every team can finish the minimum with **negative control and baseline-risk shift, unchanged versus intercept (two model options), and 25 versus 75 target outcome labels**.
 Advanced teams may run all five scenarios, all three budgets, and add an
 uncertainty-based deferral analysis. Prioritize interpretable results over the
 number of methods.
 
 ## How to begin
 
-1. Open the integrated lecture and the new notebook:
+1. Start with the [short student workflow](../docs/SHORT_STUDENT_WORKFLOW.md), then open the integrated lecture and notebook:
    - slides/lecture_when_can_we_trust_clinical_ai.pptx
    - notebooks/92_three_day_research_starter.ipynb
 2. Read project/RESEARCH_PROTOCOL.md before interpreting results.

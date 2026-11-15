@@ -3,9 +3,7 @@
 **Use with:** [student start guide](STUDENT_START_HERE.md) and
 [three-day project](../project/THREE_DAY_RESEARCH_PROJECT.md).
 
-This schedule assumes **approximately 2–3 hours of protected project work
-per day**, not full-day research immersion. The final allotment, student
-numbers, and in-room contact need confirmation from the organizers.
+The required minimum can fit shorter sessions of approximately 45 to 75 minutes each day. The detailed schedule below shows an optional 120-minute session if protected time is available. The final allotment and in-room technical support need confirmation from the organizers. The [short student workflow](SHORT_STUDENT_WORKFLOW.md) defines the minimum.
 
 ## Before students arrive
 
@@ -27,9 +25,10 @@ numbers, and in-room contact need confirmation from the organizers.
 
 ## One-minute explanation to read aloud
 
-"We will use a fictional hospital-risk model to study whether simple
-probability corrections work at a new hospital. On Day 1, we learn
-the data and reproduce a baseline. On Day 2, we compare methods.
+"We will use a fictional hospital-risk model to study whether a simple
+probability correction works at a new hospital. On Day 1, we learn
+the data and reproduce a baseline. On Day 2, we compare unchanged
+and intercept-only risks in two scenarios with 25 or 75 local labels.
 On Day 3, we repeat the analysis and present one clear finding.
 We are not developing a clinical tool."
 
@@ -48,8 +47,8 @@ We are not developing a clinical tool."
 | Time | What happens | Facilitator check |
 | --- | --- | --- |
 | 0–15 min | Recall the hypothesis | The comparison has an unchanged baseline |
-| 15–60 min | Test correction methods at two label budgets | Same independent test set per comparison |
-| 60–95 min | Compare paired Brier differences and audit event counts | Report non-estimable small-audit fits |
+| 15–60 min | Filter the notebook output to unchanged versus intercept with 25 and 75 labels in two scenarios | Same independent test set per comparison |
+| 60–95 min | Compare the four paired Brier differences and discuss audit event counts | Do not interpret three repetitions as precision estimates |
 | 95–120 min | Decide on one extra comparison, if time | Keep the extension small enough to complete |
 
 ## Day 3: ~120 minutes

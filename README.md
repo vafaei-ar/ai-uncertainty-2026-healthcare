@@ -13,6 +13,7 @@ educational. They are not validated for patient care.
 
 **For students**
 - [Student guide and data dictionary](docs/STUDENT_START_HERE.md)
+- [Short three-day student pathway (required minimum)](docs/SHORT_STUDENT_WORKFLOW.md)
 - [Open the three-day research notebook in Google Colab](https://colab.research.google.com/github/vafaei-ar/ai-uncertainty-2026-healthcare/blob/main/notebooks/92_three_day_research_starter.ipynb)
 - [Three-day project question and milestones](project/THREE_DAY_RESEARCH_PROJECT.md)
 - [Research protocol and comparison definitions](project/RESEARCH_PROTOCOL.md)
@@ -24,16 +25,14 @@ educational. They are not validated for patient care.
 - [Local facilitator and remote mentor runbook](docs/FACILITATOR_RUNBOOK.md)
 - [Scientific references and further reading](docs/REFERENCES_AND_READING.md)
 
-The current programme uses **one introductory lecture and three days of
-student research**. Exact timings and local support will be confirmed
+The programme uses **a short Monday project introduction, one Tuesday lecture and three days of student research**. Exact timings and local support will be confirmed
 with the organisers.
 
 ## What students will study
 
 Hospital A develops a model that predicts deterioration within 48 hours.
 Hospital B wants to use it, but only a small number of local outcomes
-are available. Students compare an unchanged model with two simple
-calibration updates:
+are available. The **minimum exercise** compares unchanged predictions with intercept-only recalibration in two scenarios (negative control and baseline-risk shift), using 25 and 75 target labels. The **full protocol** compares an unchanged model with two calibration updates:
 
 - Intercept-only update: move predicted probabilities up or down.
 - Logistic (Platt) update: adjust both level and spread of the risks.
@@ -57,7 +56,7 @@ to investigate questions not answered by the starting analysis.
 | Day | Main activity | Minimum output |
 | --- | --- | --- |
 | 1 | Understand the data and model, reproduce the baseline | One baseline table or plot |
-| 2 | Compare at least one calibration update across two label budgets | Paired method comparison |
+| 2 | Compare unchanged versus intercept in two scenarios with 25 and 75 outcomes | Four paired Brier comparisons |
 | 3 | Repeat simulations, explain failure cases, present findings | One figure and three-slide group report |
 
 The [facilitator runbook](docs/FACILITATOR_RUNBOOK.md) offers a practical

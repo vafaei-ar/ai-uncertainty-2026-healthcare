@@ -84,18 +84,16 @@ If an update gives a *negative* change in Brier score, it performed
 better than the unchanged model on those test cases. One seed is not
 enough to establish that the improvement is reliable.
 
+For the exact minimum comparison and an easy Colab workflow, see the [short three-day student pathway](SHORT_STUDENT_WORKFLOW.md). Platt updating, 150-label audits and additional shifts are optional extensions.
+
 ## Your three-day minimum
 
 **Day 1:** Run the provided notebook. Explain one Hospital A versus
 Hospital B difference. Produce a baseline result and one plot.
 
-**Day 2:** Compare unchanged predictions with at least one adjustment
-under one simulated hospital change and two label budgets. Keep the
-test outcomes separate from adjustment fitting.
+**Day 2:** Compare unchanged predictions with intercept-only recalibration under negative control and baseline-risk shift with 25 and 75 audit labels. The notebook displays four paired Brier comparisons. Keep the independent test outcomes separate from fitting.
 
-**Day 3:** Repeat the comparison with different random seeds. Explain
-one finding and one limitation. Prepare three slides for a five-minute
-group presentation.
+**Day 3:** Repeat the comparison with additional random seeds if possible. Explain one finding and one limitation. Prepare three slides for a five-minute group presentation.
 
 If time and skills allow, pick one [open research
 question](../project/OPEN_RESEARCH_EXTENSIONS.md). You do not need to

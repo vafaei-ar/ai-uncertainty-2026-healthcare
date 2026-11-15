@@ -21,6 +21,8 @@ If lecture time is reduced, prioritize slides **1–9, 14–15 and 19–23**.
 Treat uncertainty proxies and referral policies as optional context.
 Do not rush the separation between update and independent test labels.
 
+The minimum student project compares unchanged predictions with intercept-only recalibration in two scenarios, using 25 and 75 target outcome labels. Platt updates, 150 labels and additional scenarios belong to the full protocol or optional extensions. The Monday introduction uses the same minimum.
+
 ## Delivery preparation
 
 1. Practice explaining AUROC, calibration and Brier score without

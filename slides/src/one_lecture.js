@@ -236,8 +236,8 @@ add(T.statsSlide(pptx, {
     {value:"1,600",label:"Target synthetic admissions\nHospital B"},
     {value:"75",label:"Random target-audit\noutcomes revealed"},
   ],
-  footnote:"Can we estimate when simple calibration repair helps without fooling ourselves by reusing the same outcomes for evaluation?",
-}), "3 min. Explain what labeled means: we know if the outcome occurred. Hospital B's 1600 records show features; only 75 outcomes are known. Students will test methods with new simulations and independent held-out outcomes.");
+  footnote:"These are the orientation files. The repeated study uses new target calibration and independent test cohorts.",
+}), "3 min. These 4,000 source records, 1,600 target records and 75 outcomes describe the fixed orientation example only. The quick notebook research run generates new cohorts with 2,000 source records, a 1,600-record target pool and a separate 1,200-record target test set. The full protocol uses 4,000, 1,600 and 2,400 respectively. Do not confuse the original 75 labels with independent research evaluation outcomes.");
 
 // 21
 {
@@ -264,16 +264,16 @@ add(T.statsSlide(pptx, {
 // 22
 {
   const s=T.contentSlide(pptx,"Three days, three concrete milestones","STUDENT WORKFLOW");
-  addBox(s,0.75,1.95,3.5,3.15,"Day 1","Inspect synthetic data, train baseline, identify one failure condition.");
-  addBox(s,4.9,1.95,3.5,3.15,"Day 2","Compare unchanged, intercept, and Platt across label budgets.");
-  addBox(s,9.05,1.95,3.5,3.15,"Day 3","Repeat, interpret limits, create one figure and a short report.");
+  addBox(s,0.75,1.95,3.5,3.15,"Day 1","Inspect the synthetic data and reproduce the unchanged model baseline.");
+  addBox(s,4.9,1.95,3.5,3.15,"Day 2","Compare unchanged and intercept updates in two scenarios with 25 or 75 labels.");
+  addBox(s,9.05,1.95,3.5,3.15,"Day 3","Repeat, interpret limits, show one figure, and present three slides.");
   connect(s,4.25,3.50,4.80,3.50);
   connect(s,8.40,3.50,8.95,3.50);
   s.addText("Students use Python/Colab and MIMIC-inspired synthetic tables. No clinical data or GPU required.",{
     x:0.95,y:5.7,w:11.45,h:0.7,margin:0,fontFace:"Calibri",
     fontSize:18,color:"3A4A59",align:"center"
   });
-  add(s,"3 min. Set clear milestones and ask each group to choose one scenario and one contrast before expanding. The relational adapter illustrates how flat features can be assembled from MIMIC-inspired tables. It is not a validated MIMIC-IV extract. Emphasize student groups will need a facilitator in the room.");
+  add(s,"3 min. The minimum project compares unchanged predictions with intercept-only updating in two scenarios: negative control and baseline-risk shift. Students compare 25 and 75 target labels and use independent simulated test outcomes. The notebook initially runs the full grid but includes a separate cell that filters these four comparisons. Platt, 150 labels, and additional scenarios are extensions. The three-day goal is one reproducible figure and a three-slide explanation. An additional falsifiable experiment is needed for a new research contribution. The MIMIC-inspired adapter is synthetic, not a validated MIMIC-IV extract.");
 }
 
 // 23

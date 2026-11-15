@@ -247,7 +247,7 @@ Reviewing cases can also be considered, but it requires a real workflow."
 **Ask:** "Can you tell which action is best from a single AUROC?" No.
 
 ### 20. The data students receive
-**Aim:** Explain the 4,000 / 1,600 / 75 numbers.
+**Aim:** Explain the 4,000 / 1,600 / 75 orientation numbers and distinguish them from repeated simulations.
 
 Hospital A has 4,000 labeled synthetic admissions. Hospital B has
 1,600 synthetic admissions with input variables but only 75 randomly
@@ -255,6 +255,8 @@ audited outcomes. This is the orientation dataset. Our repeated research
 experiment generates additional synthetic calibration and independent
 test cohorts, which lets us compare several label budgets. The outcomes of the other target cases are not
 distributed in student-facing files.
+
+**Clarify sample sizes:** The Day 2 quick notebook simulation uses a fresh source cohort of 2,000, a target pool of 1,600 and an independent test cohort of 1,200. The full protocol uses 4,000, 1,600 and 2,400. The fixed 75 orientation outcomes are not reused as a test set.
 
 **Ask:** "What can we learn immediately? What requires labels?"
 
@@ -288,11 +290,10 @@ performance on the same 75?" No. That would reuse the fit data.
 
 **Visual:** Three connected boxes:
 - Day 1: understand data and reproduce unchanged baseline.
-- Day 2: compare the two recalibration methods.
+- Day 2: compare unchanged versus intercept-only in negative control and baseline-risk shift using 25 and 75 labels.
 - Day 3: repeat experiments and present one main figure and limitations.
 
-**Say:** "A team does not need ten methods. A clear baseline and one
-well-evaluated alternative are better than many methods tested poorly."
+**Say:** "The required minimum is one correction, intercept-only, tested against the unchanged model in two hospital scenarios with two audit budgets. Platt, 150 labels and other shifts are extensions. The notebook runs the full grid but gives you a cell to focus on the four required comparisons."
 
 The optional adapter demonstrates MIMIC-inspired relational tables.
 Real MIMIC-IV analysis requires separate credentialed access, valid

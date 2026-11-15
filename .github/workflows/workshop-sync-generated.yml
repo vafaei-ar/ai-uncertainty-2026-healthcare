@@ -1,0 +1,48 @@
+name: One-time workshop generated output sync
+on:
+  push:
+    branches: [main]
+    paths:
+      - "slides/src/one_lecture.js"
+      - "notebooks/source/three_day_research.py"
+
+permissions:
+  contents: write
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    env:
+      MPLBACKEND: Agg
+      PYTHONPATH: .
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install dependencies
+        run: |
+          python -m pip install -r requirements.txt python-pptx
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Regenerate notebook and lecture
+        run: |
+          python project/generate_open_challenge.py
+          python notebooks/source/three_day_research.py
+          python slides/make_figures.py
+          npm install --prefix slides/src --no-save pptxgenjs
+          cd slides
+          node src/one_lecture.js
+      - name: Validate slide files and notebook
+        run: |
+          python tools/check_slides.py
+          python tools/audit_integrated_lecture.py
+          python -m json.tool notebooks/92_three_day_research_starter.ipynb >/dev/null
+      - name: Commit generated deliverables
+        run: |
+          git add notebooks/92_three_day_research_starter.ipynb slides/lecture_when_can_we_trust_clinical_ai.pptx
+          if ! git diff --cached --quiet; then
+            git -c user.name="github-actions[bot]" -c user.email="41898282+github-actions[bot]@users.noreply.github.com" commit -m "Regenerate student notebook and integrated lecture"
+            git push origin HEAD:main
+          fi

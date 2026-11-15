@@ -66,7 +66,7 @@ An average performance measure can hide a weak subgroup. Imagine a model that wo
 Sometimes the appropriate answer is to continue shadow mode. In that state, the team studies predictions without using them for patient decisions. If stronger evidence becomes available, the hospital might evaluate recalibration or a supervised review process. AUROC alone cannot decide which policy is justified.
 
 <!-- slide: 20 -->
-Here is the original project setup. Hospital A has four thousand synthetic admissions with known outcomes. Hospital B has sixteen hundred admissions, but students initially know only seventy-five outcomes. The question is what they can learn from those seventy-five labels, and what remains unknown.
+Here is the fixed orientation example. Hospital A has four thousand synthetic admissions with known outcomes. Hospital B has sixteen hundred admissions, but students initially know only seventy-five outcomes. The research notebook later generates fresh cohorts. Its quick run uses two thousand source records, sixteen hundred target calibration records and twelve hundred independent test records. The full study uses four thousand, sixteen hundred and twenty-four hundred, respectively.
 
 <!-- slide: 21 -->
 These three datasets have different jobs. Hospital A supplies the records
@@ -79,7 +79,7 @@ the change in Brier score, which summarizes the squared difference
 between predicted risks and actual outcomes.
 
 <!-- slide: 22 -->
-The first day is about understanding the data and reproducing a baseline. The second day compares adaptation methods and outcome label budgets. The third day repeats the experiments, examines failures, and produces one clear figure and a short report. The goal is to learn to make a defensible scientific comparison, not to run the most sophisticated algorithm.
+On the first day, students inspect the data and reproduce the original model. On the second day, the minimum is to compare the unchanged model with one intercept correction in the negative control and higher-risk scenario using twenty-five and seventy-five local outcomes. On the third day, they repeat simulations and present one figure and three slides. Platt, a budget of one hundred fifty, and the other hospital changes are extensions. Running the provided comparison is an educational exercise. Advanced groups can test a new, falsifiable question.
 
 <!-- slide: 23 -->
 Let us return to the thirty percent risk estimate. Can we trust it at Hospital B? The correct answer might be that we do not yet have enough evidence. That conclusion is useful if we can explain which assumption remains untested and what information would change the decision. An honest negative result can be an excellent starting point for further research.
