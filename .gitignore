@@ -225,3 +225,6 @@ sbi-logs/
 project/ANSWER_KEY.md
 project/make_team_data.py
 docs/lecture_and_project_plan_full.md
+
+# Reviewed PDFs are published. PowerPoint files are local/CI outputs only.
+/slides/*.pptx

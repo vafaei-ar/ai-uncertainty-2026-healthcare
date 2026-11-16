@@ -7,8 +7,9 @@ The required minimum can fit shorter sessions of approximately 45 to 75 minutes 
 
 ## Before students arrive
 
-1. Have one local technical facilitator with projector, Wi-Fi, and
-   video-call access. Identify a second helper if groups are large.
+1. If available, arrange a local technical facilitator with projector,
+   Wi-Fi and video-call access. The organizer should confirm who can help
+   groups on site.
 2. Open the [three-day research notebook](https://colab.research.google.com/github/vafaei-ar/ai-uncertainty-2026-healthcare/blob/main/notebooks/92_three_day_research_starter.ipynb) in **a fresh Colab session**. Confirm
    the first cells fetch the repo and print 4,000 source records,
    1,600 unlabeled target records, and 75 audit labels.

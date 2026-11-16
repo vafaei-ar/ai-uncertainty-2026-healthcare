@@ -8,13 +8,14 @@
 
 **When Can We Trust Clinical AI at a New Hospital?**
 
-One integrated, approximately 60-minute lecture using a 48-hour
+One approximately 45-minute lecture within the 60-minute session, using a 48-hour
 deterioration-risk example. Students learn why discrimination and
 calibration differ, how hospital changes affect risk predictions,
 which outcome labels are needed, and why recalibration needs
 independent evaluation.
 
-[PowerPoint](../slides/lecture_when_can_we_trust_clinical_ai.pptx) ·
+[Monday PDF](../slides/Monday_Project_Introduction.pdf) ·
+[Tuesday PDF](../slides/Tuesday_lecture_integrated.pdf) ·
 [Presenter notes](ONE_LECTURE_PRESENTER_GUIDE.md) ·
 [References](REFERENCES_AND_READING.md)
 
@@ -26,9 +27,10 @@ sessions.
 **Question:** When do one-parameter and two-parameter calibration
 updates help if a new hospital has few outcome labels?
 
-Students compare an unchanged source model with intercept-only
-and logistic (Platt) recalibration under multiple synthetic
-shift mechanisms and label budgets of 25, 75 and 150.
+The required comparison uses unchanged predictions versus intercept-only
+recalibration, in the negative control and baseline-risk shift, with 25 and
+75 local outcome labels. Platt recalibration, a 150-label audit and three
+other shift mechanisms belong to the optional or full protocol.
 
 **Day 1:** source/target data, baseline and plot.  
 **Day 2:** paired method comparisons on independent target data.  

@@ -1,7 +1,7 @@
 # Three-day research project: When Can We Trust Clinical AI at a New Hospital?
 
 **AI & Uncertainty School and Workshop | Mauritius | November 16–20, 2026**
-**Mode:** in-person student teams with a remote research mentor. An in-room facilitator is needed.
+**Mode:** in-person student teams with a remote research mentor. Local technical support would help, but the organizer has not yet confirmed a facilitator.
 **Status:** proposed project, not a clinical validation study or guaranteed publication.
 
 The required minimum is a reproducible educational comparison. Groups with enough time can choose one falsifiable extension from [OPEN_RESEARCH_EXTENSIONS.md](OPEN_RESEARCH_EXTENSIONS.md). Running the supplied code alone is not an original research contribution. Extension solutions are not supplied.
@@ -58,7 +58,7 @@ number of methods.
 ## How to begin
 
 1. Start with the [short student workflow](../docs/SHORT_STUDENT_WORKFLOW.md), then open the integrated lecture and notebook:
-   - slides/lecture_when_can_we_trust_clinical_ai.pptx
+   - slides/Tuesday_lecture_integrated.pdf
    - notebooks/92_three_day_research_starter.ipynb
 2. Read project/RESEARCH_PROTOCOL.md before interpreting results.
 3. Run the experiment in Colab or from the repository root:

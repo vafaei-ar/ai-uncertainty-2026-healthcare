@@ -11,6 +11,10 @@ educational. They are not validated for patient care.
 
 ## Start here
 
+**Presentations (PDF)**
+- [Monday project introduction, 5 slides](slides/Monday_Project_Introduction.pdf)
+- [Tuesday lecture, 23 slides](slides/Tuesday_lecture_integrated.pdf)
+
 **For students**
 - [Student guide and data dictionary](docs/STUDENT_START_HERE.md)
 - [Short three-day student pathway (required minimum)](docs/SHORT_STUDENT_WORKFLOW.md)
@@ -20,7 +24,8 @@ educational. They are not validated for patient care.
 - [Optional team research questions](project/OPEN_RESEARCH_EXTENSIONS.md)
 
 **For the lecturer and local facilitator**
-- [Single integrated lecture, 23-slide PowerPoint](slides/lecture_when_can_we_trust_clinical_ai.pptx)
+- [Tuesday lecture PDF](slides/Tuesday_lecture_integrated.pdf)
+- [Monday presentation script](docs/MONDAY_PRESENTER_GUIDE.md)
 - [Slide-by-slide teaching notes](docs/ONE_LECTURE_PRESENTER_GUIDE.md)
 - [Local facilitator and remote mentor runbook](docs/FACILITATOR_RUNBOOK.md)
 - [Scientific references and further reading](docs/REFERENCES_AND_READING.md)
@@ -59,7 +64,7 @@ to investigate questions not answered by the starting analysis.
 | Fri 20 | Repeat simulations, explain failure cases and present findings | One figure and three-slide group report |
 
 The [facilitator runbook](docs/FACILITATOR_RUNBOOK.md) offers a practical
-two-hour daily schedule and a fallback for participants new to Python.
+45–75 minute daily minimum and a fallback for participants new to Python.
 
 ## Data and code
 
@@ -70,7 +75,7 @@ two-hour daily schedule and a fallback for participants new to Python.
 | `project/research_experiments.py` | Repeatable independent-test experiments |
 | `project/mimic_like_adapter.py` | Toy relational patients/admissions/vitals/labs tables |
 | `notebooks/92_three_day_research_starter.ipynb` | Main student notebook |
-| `slides/src/one_lecture.js` | Editable integrated PowerPoint source |
+| `slides/src/one_lecture.js` | Earlier lecture generator, not yet reconciled with the reviewed PDF |
 
 Local execution, from the repository root:
 
@@ -104,6 +109,8 @@ additional independent experiments, and preferably evidence beyond
 this single simulator. The workshop is intended to produce preliminary
 analyses and research questions, not a finished paper.
 
-The original two lecture decks, optional PyMC/SBI exercises, and
-two-hour challenge are retained for supplementary learning. See the
+The original two lecture source scripts, optional PyMC/SBI exercises, and
+two-hour challenge materials remain for supplementary learning. The reviewed
+PDFs are authoritative for the workshop. The retained slide generator may
+not reproduce the current Tuesday PDF until its code is reconciled. See the
 [archived programme description](docs/archive/README.md).
