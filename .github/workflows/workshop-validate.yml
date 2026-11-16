@@ -104,9 +104,8 @@ jobs:
       - name: Verify official PDF presentations and cohort wording
         run: |
           set -euo pipefail
-          printf '%s\\n' \\
-            "5a215e05a1acc06119428c77738fd8e36e125f692af8f84ab33250a52fdfa36f  slides/Monday_Project_Introduction.pdf" \\
-            "50ffd16d3d41410b93deecbb78d6b7e3708011157e8df02dab793476b86770a5  slides/Tuesday_lecture_integrated.pdf" | sha256sum -c -
+          echo "5a215e05a1acc06119428c77738fd8e36e125f692af8f84ab33250a52fdfa36f  slides/Monday_Project_Introduction.pdf" | sha256sum -c -
+          echo "50ffd16d3d41410b93deecbb78d6b7e3708011157e8df02dab793476b86770a5  slides/Tuesday_lecture_integrated.pdf" | sha256sum -c -
           test "$(pdfinfo slides/Monday_Project_Introduction.pdf | awk '/^Pages:/{print $2}')" = "5"
           test "$(pdfinfo slides/Tuesday_lecture_integrated.pdf | awk '/^Pages:/{print $2}')" = "23"
           pdftotext -f 20 -l 20 slides/Tuesday_lecture_integrated.pdf - | grep -F "Three cohorts, four roles"
