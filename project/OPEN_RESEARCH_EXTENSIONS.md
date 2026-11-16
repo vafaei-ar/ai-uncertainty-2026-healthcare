@@ -1,14 +1,14 @@
-# Team research extensions: one open question per group
+# Optional team research extensions: one open question per interested group
 
 The baseline code and new research notebook are intentionally easy to run.
-**Running the provided comparison alone is not a three-day research project.**
-After reproducing the baseline, each team must propose and investigate one
-additional, falsifiable question. The extension should change *one study
+Completing the supplied comparison is the required educational minimum,
+not an original methods contribution. Groups with additional time may
+investigate one falsifiable research question as an optional extension. The extension should change *one study
 factor at a time*, keep an independent test cohort, and compare against the
 unchanged-model baseline using paired differences.
 
-Each team records the hypothesis and proposed evaluation before opening the
-results. A negative result is acceptable.
+Teams attempting an extension record their hypothesis and evaluation plan
+before examining new results. A negative result is acceptable.
 
 ## Extension A: Which 75 patients should we label?
 
@@ -77,7 +77,7 @@ information to recalibrate a small subgroup reliably?
 **Risk:** Do not present a calibration gap as a clinical equity conclusion.
 Sparse groups require uncertainty and a larger validation design.
 
-## Minimum three-day workflow
+## Optional extension workflow
 
 - **Day 1:** Reproduce the provided negative-control and one-shift results.
   Choose one extension and write a two-sentence hypothesis.

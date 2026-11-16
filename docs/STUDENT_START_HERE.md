@@ -25,7 +25,7 @@ validated prediction for clinical care.
 
 **First setup check:** Open the notebook, select *Runtime → Run all*, and
 check that the first cells print the record counts without errors. If setup
-fails, show the error message to the local facilitator. Do not attempt
+fails, show the error message to your group contact or the organizer. Do not attempt
 to install restricted clinical datasets.
 
 ## Data dictionary

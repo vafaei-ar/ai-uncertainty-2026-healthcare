@@ -6,6 +6,17 @@ three-day research plan, student/facilitator instructions, and provenance.
 **Status:** materials pass automated execution and visual-layout checks.
 Local facilitation and final timetable still need organizer confirmation.
 
+## PDF release update (15 November 2026)
+
+The authoritative teaching slides are now the five-page Monday PDF and
+23-page Tuesday PDF under `slides/`. Tuesday slide 20 correctly distinguishes
+three independent cohorts from the four data roles, with the audit selected
+from Hospital B's calibration pool. The PowerPoint references, render checks
+and source-to-artifact claims below describe the previous slide generator
+and should be treated as historical. The retained generator has not yet been
+fully reconciled with the reviewed Tuesday PDF. The reproducible synthetic
+simulation and student notebook are unchanged.
+
 ## Readiness verdict
 
 **Ready for an instructor-led rehearsal, subject to local logistics.**

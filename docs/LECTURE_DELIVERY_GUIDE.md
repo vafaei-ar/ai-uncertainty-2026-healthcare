@@ -1,68 +1,39 @@
-# One-lecture delivery guide
+# Tuesday lecture delivery guide
 
-**Lecture:** When Can We Trust Clinical AI at a New Hospital?  
-**Format:** remote, one 60-minute Tuesday slot. Aim for approximately 42 to 45 minutes speaking and preserve time for questions.  
-**Slides:** [Integrated deck](../slides/lecture_when_can_we_trust_clinical_ai.pptx)  
-**Detailed notes:** [Presenter guide](ONE_LECTURE_PRESENTER_GUIDE.md)
+**Lecture:** When Can We Trust Clinical AI at a New Hospital?
 
-## Recommended 45-minute route
+**Presentation:** [Tuesday lecture PDF](../slides/Tuesday_lecture_integrated.pdf) (23 pages)
 
-The PowerPoint contains 23 slides and remains the validated public version. To preserve time for questions, focus on slides 1-15, then 18 (if time), then 20-23. Slides 16-17 and 19 discuss broader referral and deployment choices and can be omitted in the shorter delivery. Do not read every speaker note aloud. The notes are teaching prompts, not a fixed 56-minute script. Spend extra time explaining why updating and evaluating on the same outcomes is invalid.
+**Full presenter notes:** [Slide-by-slide guide](ONE_LECTURE_PRESENTER_GUIDE.md)
 
-Tuesday's lecture should prepare groups for Wednesday's work. The minimum is unchanged versus intercept-only recalibration, negative control and baseline-risk shift, and 25 or 75 labels. Platt and additional scenarios are extensions.
+**Format:** Remote. Plan approximately 45 minutes of teaching and interactive checks in the 60-minute Tuesday slot. Reserve the remaining time for questions and the project handoff.
 
-## Original full-deck teaching sequence
+## Sequence
 
-| Minutes | Slides | What students should learn |
+| Slide pages | Theme | Main point |
 | --- | --- | --- |
-| 0–13 | 1–5 | Meaning of a 30% risk, AUROC versus calibration |
-| 13–21 | 6–9 | External transfer and limits of input monitoring |
-| 21–28 | 10–12 | Uncertainty and informative missingness |
-| 28–35 | 13–15 | Two calibration updates and scarce outcome labels |
-| 35–43 | 16–18 | Optional discussion of review and subgroup reliability |
-| 43–51 | 19–21 | Decisions, independent training/update/test data |
-| 51–60 | 22–23 | Three-day research question and student questions |
+| 1-7 | The meaning of a 30% prediction | AUROC ranks patients, whereas calibration asks whether stated probabilities match observed frequencies. The Brier score evaluates probabilistic predictions. |
+| 8-11 | Hospital transfer | Changes in the relationship between observed inputs and outcomes may occur without detectable changes in input distributions. |
+| 12-15 | Uncertainty and subgroup limits | Bootstrap disagreement is a proxy for model uncertainty, not an assured drift detector. Missingness and subgroup behavior may differ by site. |
+| 16-18 | Recalibration with few outcomes | Intercept and Platt updates are established methods. Small local outcome samples can make corrections unstable. |
+| 19-23 | Valid evaluation and student project | Audit labels fit an update. Independent target outcomes evaluate the update. The core project has two scenarios and two label budgets. |
 
-If lecture time is reduced, prioritize slides **1–9, 14–15 and 19–23**.
-Treat uncertainty proxies and referral policies as optional context.
-Do not rush the separation between update and independent test labels.
+## Teaching checks
 
-The minimum student project compares unchanged predictions with intercept-only recalibration in two scenarios, using 25 and 75 target outcome labels. Platt updates, 150 labels and additional scenarios belong to the full protocol or optional extensions. The Monday introduction uses the same minimum.
+- Use slide 7 for a short student or chat discussion. Answers are in the presenter guide.
+- On slide 17, the event-rate margins are not uncertainty intervals for recalibration parameters.
+- On slide 19, repeated audits on one independent test cohort show variation across audits, not confidence intervals for all possible hospitals.
+- On slide 20, the 25, 75, or 150 audited admissions are **selected from** the 1,600-record Hospital B calibration pool. There are three independent cohorts in the full protocol: source, target calibration pool, and target test cohort. The orientation exercise does not contain an independent target test cohort.
+- On slide 22, Wednesday is baseline reproduction, Thursday is comparison, and Friday is interpretation and a three-slide presentation.
 
-## Delivery preparation
+## Student handoff
 
-1. Practice explaining AUROC, calibration and Brier score without
-   formulas before showing a graph.
-2. Explain that the synthetic outcome is **deterioration within 48 hours**.
-   None of the probabilities or datasets have clinical validation.
-3. Show the relationship between training at Hospital A, updating at
-   Hospital B, and testing on separate simulated admissions.
-4. Confirm that the notebook opens in a fresh Colab runtime and
-   reproduces a baseline comparison.
-5. Agree on daily time blocks and a local facilitator with Bruce.
-6. Ask students to report label budgets, event counts, seeds, paired
-   Brier changes and limitations.
+Use the [short student workflow](SHORT_STUDENT_WORKFLOW.md) and [Colab notebook 92](https://colab.research.google.com/github/vafaei-ar/ai-uncertainty-2026-healthcare/blob/main/notebooks/92_three_day_research_starter.ipynb).
 
-## Scientific cautions
+The minimum compares unchanged predictions with intercept-only recalibration in two scenarios (negative control and baseline-risk shift), using 25 or 75 local outcome labels. Platt, 150 labels, additional scenarios, and independent research hypotheses are optional extensions. All data are synthetic.
 
-- AUROC measures ranking, not correctness of risk probabilities.
-- Input distribution similarity does not establish unchanged outcome
-  relationships.
-- Measurement drift may also alter conditional risk.
-- Ensemble disagreement is a proxy, not a guarantee of correctness.
-- Fitting on the 75 target-audit outcomes and evaluating on those same
-  labels gives an optimistically biased estimate.
-- A 25-label audit may contain very few events or none at all.
-- Three trial repetitions show the workflow, not the precision
-  required for a publication.
-- Review of an uncertain case does not automatically prevent harm.
-- The MIMIC-inspired adapter demonstrates toy table joins only.
+Students can ask questions through the project messaging channel once they have been invited to the workshop Slack workspace. The remote mentor is in US Eastern time and cannot attend Mauritius morning standups that fall around midnight Eastern. Do not assume an in-room facilitator has been assigned.
 
-## Backup
+## Reproducibility note
 
-Keep existing generated figures and the main baseline result available
-when internet access fails. Do not make up new results to replace
-unavailable computation.
-
-Older detailed rehearsal plans are in
-[the archive](archive/LECTURE_DELIVERY_GUIDE.md).
+The distributed PDF is the reviewed teaching version. If a slide generator is retained, verify that its output matches the reviewed PDF before claiming source-to-artifact synchronization. The workshop does not claim clinical validation or methodological novelty.
